@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+  <Transactions>
+    <Transaction>2018.04.10 23:27:00.103,=C:\Users\Erlan\Documents\RAD Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2018.04.10 23:29:58.512,D:\projects\Akzhan\ARM CPPN\uMain.dfm=C:\Users\Erlan\Documents\RAD Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>2018.04.10 23:29:58.512,D:\projects\Akzhan\ARM CPPN\uMain.pas=C:\Users\Erlan\Documents\RAD Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2018.04.10 23:30:06.662,D:\projects\Akzhan\ARM CPPN\ARM_CPPN.dproj=C:\Users\Erlan\Documents\RAD Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>2018.04.10 23:39:37.365,=D:\projects\Akzhan\ARM CPPN\Unit1.pas</Transaction>
+    <Transaction>2018.04.10 23:39:52.360,D:\projects\Akzhan\ARM CPPN\uDM.dfm=D:\projects\Akzhan\ARM CPPN\Unit1.dfm</Transaction>
+    <Transaction>2018.04.10 23:39:52.360,D:\projects\Akzhan\ARM CPPN\uDM.pas=D:\projects\Akzhan\ARM CPPN\Unit1.pas</Transaction>
+  </Transactions>
+</BorlandProject>
