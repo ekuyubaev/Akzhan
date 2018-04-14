@@ -28,11 +28,30 @@ type
     qSensorsID_sostoianie: TIntegerField;
     qSensorsPrimechanie: TWideMemoField;
     qSensorsSostoianie: TStringField;
+    qSensorsI: TADOQuery;
+    dsSensorsI: TDataSource;
+    qSensorsIID_datchik: TAutoIncField;
+    qSensorsIID_object: TIntegerField;
+    qSensorsINaimenovanie: TWideStringField;
+    qSensorsIOboznachenie: TWideStringField;
+    qSensorsINomer: TWideStringField;
+    qSensorsIMAX: TFloatField;
+    qSensorsIMIN: TFloatField;
+    qSensorsIID_sostoianie: TIntegerField;
+    qSensorsIPrimechanie: TWideMemoField;
+    qSensorsISostoianie: TStringField;
+    qSensorsIObject: TStringField;
+    qReadings: TADOQuery;
+    dsReadings: TDataSource;
+    qInterrogate: TADOQuery;
+    qTemp: TADOQuery;
   private
     { Private declarations }
   public
     { Public declarations }
     Procedure connect();
+    procedure refreshSensors();
+    procedure refreshStates();
   end;
 
 var
@@ -50,6 +69,31 @@ begin
   if not qObjects.Active then qObjects.Open;
   if not qSensors.Active then qSensors.Open;
   if not qStates.Active then qStates.Open;
+  if not qSensorsI.Active then qSensorsI.Open;
+  if not qReadings.Active then qReadings.Open;
+end;
+
+Procedure Tdm.refreshSensors;
+var ind: integer;
+begin
+  ind := qSensors.RecNo;
+  qSensors.Close;
+  qSensors.Open;
+  qSensors.RecNo := ind;
+
+  ind := qSensorsI.RecNo;
+  qSensorsI.Close;
+  qSensorsI.Open;
+  qSensorsI.RecNo := ind;
+end;
+
+Procedure Tdm.refreshStates;
+var ind: integer;
+begin
+  ind := qStates.RecNo;
+  qStates.Close;
+  qStates.Open;
+  qStates.RecNo := ind;
 end;
 
 end.

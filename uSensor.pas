@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Buttons,
-  DBGridEh, DBCtrlsEh, DBLookupEh, Vcl.Mask;
+  DBGridEh, DBCtrlsEh, DBLookupEh, Vcl.Mask, Data.Win.ADODB;
 
 type
   TfrmSensors = class(TForm)
@@ -33,6 +33,7 @@ type
     { Private declarations }
   public
     { Public declarations }
+    query: ^TADOQuery;
   end;
 
 var
@@ -46,13 +47,14 @@ uses uDM;
 
 procedure TfrmSensors.BitBtn1Click(Sender: TObject);
 begin
-  dm.qSensors.Post;
+  query.Post;
+  dm.refreshSensors;
   close;
 end;
 
 procedure TfrmSensors.BitBtn2Click(Sender: TObject);
 begin
-  dm.qSensors.Cancel;
+  query.Cancel;
   close;
 end;
 

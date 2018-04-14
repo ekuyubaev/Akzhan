@@ -1,18 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<Transactions>
-    <Transaction>1899.12.30 00:00:00.000.512,C:\Users\Erlan\Documents\RAD Studio\Projects\Unit1.dfm=D:\projects\Akzhan\ARM CPPN\uMain.dfm</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.662,C:\Users\Erlan\Documents\RAD Studio\Projects\Project1.dproj=D:\projects\Akzhan\ARM CPPN\ARM_CPPN.dproj</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.360,D:\projects\Akzhan\ARM CPPN\Unit1.pas=D:\projects\Akzhan\ARM CPPN\uDM.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.142,=D:\projects\Akzhan\ARM CPPN\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.946,D:\projects\Akzhan\ARM CPPN\Unit1.pas=D:\projects\Akzhan\ARM CPPN\uSensor.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.057,D:\projects\Akzhan\ARM CPPN\uState.pas=D:\projects\Akzhan\ARM CPPN\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.119,=D:\projects\Akzhan\ARM CPPN\Unit1.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.365,=D:\projects\Akzhan\ARM CPPN\Unit1.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.360,D:\projects\Akzhan\ARM CPPN\Unit1.dfm=D:\projects\Akzhan\ARM CPPN\uDM.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.654,D:\projects\Akzhan\ARM CPPN\Unit1.pas=D:\projects\Akzhan\ARM CPPN\uObject.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.057,D:\projects\Akzhan\ARM CPPN\uState.dfm=D:\projects\Akzhan\ARM CPPN\Unit1.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.471,=D:\projects\Akzhan\ARM CPPN\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.472,=D:\projects\Akzhan\ARM CPPN\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.360,D:\projects\Akzhan\ARM CPPN\uDM.dfm=D:\projects\Akzhan\ARM CPPN\Unit1.dfm</Transaction>
     <Transaction>1899.12.30 00:00:00.000.103,=C:\Users\Erlan\Documents\RAD Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.512,C:\Users\Erlan\Documents\RAD Studio\Projects\Unit1.pas=D:\projects\Akzhan\ARM CPPN\uMain.pas</Transaction>
-    <Transaction>2018.04.11 21:35:48.119,=D:\projects\Akzhan\ARM CPPN\Unit1.pas</Transaction>
-    <Transaction>2018.04.11 21:37:04.654,D:\projects\Akzhan\ARM CPPN\uObject.pas=D:\projects\Akzhan\ARM CPPN\Unit1.pas</Transaction>
-    <Transaction>2018.04.11 21:37:04.654,D:\projects\Akzhan\ARM CPPN\uObject.dfm=D:\projects\Akzhan\ARM CPPN\Unit1.dfm</Transaction>
-    <Transaction>2018.04.11 22:37:52.142,=D:\projects\Akzhan\ARM CPPN\Unit1.pas</Transaction>
-    <Transaction>2018.04.11 22:39:11.946,D:\projects\Akzhan\ARM CPPN\uSensor.pas=D:\projects\Akzhan\ARM CPPN\Unit1.pas</Transaction>
-    <Transaction>2018.04.11 22:39:11.946,D:\projects\Akzhan\ARM CPPN\uSensor.dfm=D:\projects\Akzhan\ARM CPPN\Unit1.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.422,D:\projects\Akzhan\ARM CPPN\uDatchik.pas=D:\projects\Akzhan\ARM CPPN\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.512,D:\projects\Akzhan\ARM CPPN\uMain.pas=C:\Users\Erlan\Documents\RAD Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.512,D:\projects\Akzhan\ARM CPPN\uMain.dfm=C:\Users\Erlan\Documents\RAD Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.654,D:\projects\Akzhan\ARM CPPN\Unit1.dfm=D:\projects\Akzhan\ARM CPPN\uObject.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.662,D:\projects\Akzhan\ARM CPPN\ARM_CPPN.dproj=C:\Users\Erlan\Documents\RAD Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.360,D:\projects\Akzhan\ARM CPPN\uDM.pas=D:\projects\Akzhan\ARM CPPN\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.946,D:\projects\Akzhan\ARM CPPN\Unit1.dfm=D:\projects\Akzhan\ARM CPPN\uSensor.dfm</Transaction>
   </Transactions>
 </BorlandProject>

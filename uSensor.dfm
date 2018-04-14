@@ -20,16 +20,16 @@ object frmSensors: TfrmSensors
     Left = 0
     Top = 0
     Width = 300
-    Height = 37
+    Height = 35
     Align = alTop
     BevelKind = bkFlat
+    BevelOuter = bvNone
     TabOrder = 0
-    ExplicitWidth = 463
     DesignSize = (
       296
-      33)
+      31)
     object BitBtn1: TBitBtn
-      Left = 224
+      Left = 228
       Top = 1
       Width = 30
       Height = 30
@@ -99,10 +99,9 @@ object frmSensors: TfrmSensors
         FFFFFFFFFFFF}
       TabOrder = 0
       OnClick = BitBtn1Click
-      ExplicitLeft = 388
     end
     object BitBtn2: TBitBtn
-      Left = 260
+      Left = 264
       Top = 1
       Width = 30
       Height = 30
@@ -172,19 +171,19 @@ object frmSensors: TfrmSensors
         5E5ED3D3D3FF}
       TabOrder = 1
       OnClick = BitBtn2Click
-      ExplicitLeft = 424
     end
   end
   object Panel2: TPanel
     Left = 0
-    Top = 37
+    Top = 35
     Width = 300
-    Height = 412
+    Height = 414
     Align = alClient
     BevelKind = bkFlat
+    BevelOuter = bvNone
     TabOrder = 1
-    ExplicitLeft = 8
-    ExplicitTop = 39
+    ExplicitTop = 37
+    ExplicitHeight = 412
     object Label1: TLabel
       Left = 12
       Top = 13

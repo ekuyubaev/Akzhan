@@ -123,4 +123,108 @@ object dm: Tdm
     Left = 272
     Top = 72
   end
+  object qSensorsI: TADOQuery
+    Active = True
+    Connection = DB_GATE
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'Select * From Datchik')
+    Left = 336
+    Top = 24
+    object qSensorsIID_datchik: TAutoIncField
+      FieldName = 'ID_datchik'
+      ReadOnly = True
+    end
+    object qSensorsIID_object: TIntegerField
+      FieldName = 'ID_object'
+    end
+    object qSensorsIObject: TStringField
+      FieldKind = fkLookup
+      FieldName = 'Object'
+      LookupDataSet = qObjects
+      LookupKeyFields = 'ID_object'
+      LookupResultField = 'Naimenovanie'
+      KeyFields = 'ID_object'
+      Size = 256
+      Lookup = True
+    end
+    object qSensorsINaimenovanie: TWideStringField
+      FieldName = 'Naimenovanie'
+      Size = 256
+    end
+    object qSensorsIOboznachenie: TWideStringField
+      FieldName = 'Oboznachenie'
+      Size = 64
+    end
+    object qSensorsINomer: TWideStringField
+      FieldName = 'Nomer'
+      Size = 64
+    end
+    object qSensorsIMAX: TFloatField
+      FieldName = 'MAX'
+    end
+    object qSensorsIMIN: TFloatField
+      FieldName = 'MIN'
+    end
+    object qSensorsIID_sostoianie: TIntegerField
+      FieldName = 'ID_sostoianie'
+    end
+    object qSensorsISostoianie: TStringField
+      FieldKind = fkLookup
+      FieldName = 'Sostoianie'
+      LookupDataSet = qStates
+      LookupKeyFields = 'ID_sostoianie'
+      LookupResultField = 'Naimenovanie'
+      KeyFields = 'ID_sostoianie'
+      Size = 64
+      Lookup = True
+    end
+    object qSensorsIPrimechanie: TWideMemoField
+      FieldName = 'Primechanie'
+      BlobType = ftWideMemo
+    end
+  end
+  object dsSensorsI: TDataSource
+    DataSet = qSensorsI
+    Left = 336
+    Top = 72
+  end
+  object qReadings: TADOQuery
+    Active = True
+    Connection = DB_GATE
+    CursorType = ctStatic
+    DataSource = dsSensorsI
+    Parameters = <
+      item
+        Name = 'ID_datchik'
+        Attributes = [paNullable]
+        DataType = ftInteger
+        NumericScale = 184
+        Precision = 255
+        Value = 2
+      end>
+    SQL.Strings = (
+      'Select * From Pokazanie'
+      'Where ID_datchik = :ID_datchik')
+    Left = 400
+    Top = 24
+  end
+  object dsReadings: TDataSource
+    DataSet = qReadings
+    Left = 400
+    Top = 72
+  end
+  object qInterrogate: TADOQuery
+    Connection = DB_GATE
+    Parameters = <>
+    Left = 464
+    Top = 24
+  end
+  object qTemp: TADOQuery
+    Connection = DB_GATE
+    Parameters = <>
+    Left = 528
+    Top = 24
+  end
 end
