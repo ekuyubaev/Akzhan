@@ -29,7 +29,7 @@ object frmSensors: TfrmSensors
       296
       31)
     object BitBtn1: TBitBtn
-      Left = 228
+      Left = 224
       Top = 1
       Width = 30
       Height = 30
@@ -101,7 +101,7 @@ object frmSensors: TfrmSensors
       OnClick = BitBtn1Click
     end
     object BitBtn2: TBitBtn
-      Left = 264
+      Left = 260
       Top = 1
       Width = 30
       Height = 30
@@ -182,8 +182,6 @@ object frmSensors: TfrmSensors
     BevelKind = bkFlat
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitTop = 37
-    ExplicitHeight = 412
     object Label1: TLabel
       Left = 12
       Top = 13

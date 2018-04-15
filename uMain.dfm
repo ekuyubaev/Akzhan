@@ -6,6 +6,7 @@ object frmMain: TfrmMain
   ClientHeight = 526
   ClientWidth = 783
   Color = clBtnFace
+  DoubleBuffered = True
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
@@ -14,7 +15,10 @@ object frmMain: TfrmMain
   Menu = MainMenu1
   OldCreateOrder = False
   Position = poDesktopCenter
+  WindowState = wsMaximized
   OnActivate = FormActivate
+  OnClose = FormClose
+  OnCreate = FormCreate
   OnResize = FormResize
   PixelsPerInch = 96
   TextHeight = 13
@@ -29,10 +33,6 @@ object frmMain: TfrmMain
     TabOrder = 0
     object tsObjects: TTabSheet
       Caption = #1054#1073#1098#1077#1082#1090#1099' '#1080' '#1076#1072#1090#1095#1080#1082#1080
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Panel1: TPanel
         Left = 0
         Top = 0
@@ -577,6 +577,7 @@ object frmMain: TfrmMain
           ReadOnly = True
           SortLocal = True
           TabOrder = 1
+          OnDrawColumnCell = DBGridEh2DrawColumnCell
           Columns = <
             item
               DynProps = <>
@@ -743,10 +744,6 @@ object frmMain: TfrmMain
     object tsSensors: TTabSheet
       Caption = #1044#1072#1090#1095#1080#1082#1080' '#1080' '#1087#1086#1082#1072#1079#1072#1085#1080#1103
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Panel5: TPanel
         Left = 0
         Top = 0
@@ -970,6 +967,7 @@ object frmMain: TfrmMain
           ReadOnly = True
           SortLocal = True
           TabOrder = 1
+          OnDrawColumnCell = DBGridEh3DrawColumnCell
           Columns = <
             item
               DynProps = <>
@@ -1068,6 +1066,7 @@ object frmMain: TfrmMain
             item
               Alignment = taCenter
               AutoFitColWidth = False
+              DisplayFormat = '#,##0.00'
               DynProps = <>
               EditButtons = <>
               FieldName = 'MAX'
@@ -1085,6 +1084,7 @@ object frmMain: TfrmMain
             item
               Alignment = taCenter
               AutoFitColWidth = False
+              DisplayFormat = '#,##0.00'
               DynProps = <>
               EditButtons = <>
               FieldName = 'MIN'
@@ -1157,8 +1157,6 @@ object frmMain: TfrmMain
         BevelKind = bkFlat
         BevelOuter = bvNone
         TabOrder = 1
-        ExplicitTop = 279
-        ExplicitHeight = 222
         object Panel8: TPanel
           Left = 0
           Top = 0
@@ -1371,6 +1369,7 @@ object frmMain: TfrmMain
           ReadOnly = True
           SortLocal = True
           TabOrder = 1
+          OnDrawColumnCell = DBGridEh4DrawColumnCell
           Columns = <
             item
               AutoFitColWidth = False
@@ -1403,6 +1402,7 @@ object frmMain: TfrmMain
               Width = 100
             end
             item
+              Alignment = taCenter
               AutoFitColWidth = False
               DynProps = <>
               EditButtons = <>
@@ -1419,7 +1419,9 @@ object frmMain: TfrmMain
               Width = 150
             end
             item
+              Alignment = taCenter
               AutoFitColWidth = False
+              DisplayFormat = '#,##0.00'
               DynProps = <>
               EditButtons = <>
               FieldName = 'Pokazanie'
@@ -1435,6 +1437,7 @@ object frmMain: TfrmMain
               Width = 150
             end
             item
+              Alignment = taCenter
               AutoFitColWidth = False
               DynProps = <>
               EditButtons = <>
@@ -1472,10 +1475,424 @@ object frmMain: TfrmMain
     object tsFailure: TTabSheet
       Caption = #1040#1074#1072#1088#1080#1081#1085#1099#1077' '#1089#1080#1090#1091#1072#1094#1080#1080
       ImageIndex = 2
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
+      object Panel9: TPanel
+        Left = 0
+        Top = 0
+        Width = 775
+        Height = 265
+        Align = alTop
+        BevelKind = bkFlat
+        BevelOuter = bvNone
+        TabOrder = 0
+        object Panel11: TPanel
+          Left = 0
+          Top = 0
+          Width = 771
+          Height = 35
+          Align = alTop
+          BevelKind = bkFlat
+          BevelOuter = bvNone
+          TabOrder = 0
+        end
+        object DBGridEh5: TDBGridEh
+          Left = 0
+          Top = 35
+          Width = 771
+          Height = 226
+          Align = alClient
+          AutoFitColWidths = True
+          Color = cl3DLight
+          DataSource = dm.dsFault
+          DrawMemoText = True
+          DynProps = <>
+          IndicatorOptions = [gioShowRowIndicatorEh]
+          OptionsEh = [dghFixed3D, dghHighlightFocus, dghClearSelection, dghAutoSortMarking, dghDialogFind, dghColumnResize, dghColumnMove, dghExtendVertLines]
+          ReadOnly = True
+          SortLocal = True
+          TabOrder = 1
+          Columns = <
+            item
+              AutoFitColWidth = False
+              DynProps = <>
+              EditButtons = <>
+              FieldName = 'ID_avaria'
+              Footers = <>
+              Title.Alignment = taCenter
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -11
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
+              Visible = False
+              Width = 100
+            end
+            item
+              Alignment = taCenter
+              AutoFitColWidth = False
+              DynProps = <>
+              EditButtons = <>
+              FieldName = 'DV_obnaruzhena'
+              Footers = <>
+              Title.Alignment = taCenter
+              Title.Caption = #1044#1072#1090#1072'/'#1074#1088#1077#1084#1103' '#1072#1074#1072#1088#1080#1080
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -11
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
+              Width = 130
+            end
+            item
+              AutoFitColWidth = False
+              DynProps = <>
+              EditButtons = <>
+              FieldName = 'Opisanie'
+              Footers = <>
+              Title.Alignment = taCenter
+              Title.Caption = #1054#1087#1080#1089#1072#1085#1080#1077
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -11
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
+              Width = 180
+            end
+            item
+              AutoFitColWidth = False
+              DynProps = <>
+              EditButtons = <>
+              FieldName = 'ID_datchik'
+              Footers = <>
+              Title.Alignment = taCenter
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -11
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
+              Visible = False
+              Width = 100
+            end
+            item
+              AutoFitColWidth = False
+              DynProps = <>
+              EditButtons = <>
+              FieldName = 'Object'
+              Footers = <>
+              Title.Alignment = taCenter
+              Title.Caption = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077' '#1086#1073#1098#1077#1082#1090#1072
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -11
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
+              Width = 150
+            end
+            item
+              AutoFitColWidth = False
+              DynProps = <>
+              EditButtons = <>
+              FieldName = 'DatchikNaimenovanie'
+              Footers = <>
+              Title.Alignment = taCenter
+              Title.Caption = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077' '#1076#1072#1090#1095#1080#1082#1072
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -11
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
+              Width = 150
+            end
+            item
+              Alignment = taCenter
+              AutoFitColWidth = False
+              DynProps = <>
+              EditButtons = <>
+              FieldName = 'DatchikOboznachenie'
+              Footers = <>
+              Title.Alignment = taCenter
+              Title.Caption = #1054#1073#1086#1079#1085#1072#1095#1077#1085#1080#1077' '#1076#1072#1090#1095#1080#1082#1072
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -11
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
+              Width = 140
+            end
+            item
+              Alignment = taCenter
+              AutoFitColWidth = False
+              DynProps = <>
+              EditButtons = <>
+              FieldName = 'Zamechena'
+              Footers = <>
+              Title.Alignment = taCenter
+              Title.Caption = #1047#1072#1084#1077#1095#1077#1085#1072
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -11
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
+              Width = 70
+            end
+            item
+              Alignment = taCenter
+              AutoFitColWidth = False
+              DynProps = <>
+              EditButtons = <>
+              FieldName = 'DV_zamechena'
+              Footers = <>
+              Title.Alignment = taCenter
+              Title.Caption = #1047#1072#1084#1077#1095#1077#1085#1072' '#1076#1072#1090#1072'/'#1074#1088#1077#1084#1103
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -11
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
+              Width = 140
+            end
+            item
+              Alignment = taCenter
+              AutoFitColWidth = False
+              DynProps = <>
+              EditButtons = <>
+              FieldName = 'Ustranena'
+              Footers = <>
+              Title.Alignment = taCenter
+              Title.Caption = #1059#1089#1090#1088#1072#1085#1077#1085#1072
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -11
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
+              Width = 70
+            end
+            item
+              Alignment = taCenter
+              AutoFitColWidth = False
+              DynProps = <>
+              EditButtons = <>
+              FieldName = 'DV_ustranena'
+              Footers = <>
+              Title.Alignment = taCenter
+              Title.Caption = #1059#1089#1090#1088#1072#1085#1077#1085#1072' '#1076#1072#1090#1072'/'#1074#1088#1077#1084#1103
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -11
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
+              Width = 150
+            end
+            item
+              AutoFitColWidth = False
+              DynProps = <>
+              EditButtons = <>
+              FieldName = 'ID_stepen'
+              Footers = <>
+              Title.Alignment = taCenter
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -11
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
+              Visible = False
+              Width = 100
+            end
+            item
+              DynProps = <>
+              EditButtons = <>
+              FieldName = 'Primechanie'
+              Footers = <>
+              Title.Alignment = taCenter
+              Title.Caption = #1055#1088#1080#1084#1077#1095#1072#1085#1080#1077
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -11
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
+              Width = 100
+            end>
+          object RowDetailData: TRowDetailPanelControlEh
+          end
+        end
+      end
+      object Panel10: TPanel
+        Left = 0
+        Top = 265
+        Width = 775
+        Height = 230
+        Align = alClient
+        BevelKind = bkFlat
+        BevelOuter = bvNone
+        TabOrder = 1
+        object Panel12: TPanel
+          Left = 0
+          Top = 0
+          Width = 771
+          Height = 35
+          Align = alTop
+          BevelKind = bkFlat
+          BevelOuter = bvNone
+          TabOrder = 0
+        end
+        object DBGridEh6: TDBGridEh
+          Left = 0
+          Top = 35
+          Width = 771
+          Height = 191
+          Align = alClient
+          AutoFitColWidths = True
+          Color = cl3DLight
+          DataSource = dm.dsFaultReadings
+          DrawMemoText = True
+          DynProps = <>
+          IndicatorOptions = [gioShowRowIndicatorEh]
+          OptionsEh = [dghFixed3D, dghHighlightFocus, dghClearSelection, dghAutoSortMarking, dghDialogFind, dghColumnResize, dghColumnMove, dghExtendVertLines]
+          ReadOnly = True
+          SortLocal = True
+          TabOrder = 1
+          Columns = <
+            item
+              AutoFitColWidth = False
+              DynProps = <>
+              EditButtons = <>
+              FieldName = 'ID_pokazanie'
+              Footers = <>
+              Title.Alignment = taCenter
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -11
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
+              Visible = False
+              Width = 130
+            end
+            item
+              AutoFitColWidth = False
+              DynProps = <>
+              EditButtons = <>
+              FieldName = 'ID_datchik'
+              Footers = <>
+              Title.Alignment = taCenter
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -11
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
+              Visible = False
+              Width = 130
+            end
+            item
+              Alignment = taCenter
+              AutoFitColWidth = False
+              DynProps = <>
+              EditButtons = <>
+              FieldName = 'Datavremia'
+              Footers = <>
+              Title.Alignment = taCenter
+              Title.Caption = #1044#1072#1090#1072'/'#1074#1088#1077#1084#1103
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -11
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
+              Width = 130
+            end
+            item
+              Alignment = taCenter
+              AutoFitColWidth = False
+              DynProps = <>
+              EditButtons = <>
+              FieldName = 'Pokazanie'
+              Footers = <>
+              Title.Alignment = taCenter
+              Title.Caption = #1055#1086#1082#1072#1079#1072#1085#1080#1077
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -11
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
+              Width = 130
+            end
+            item
+              AutoFitColWidth = False
+              DynProps = <>
+              EditButtons = <>
+              FieldName = 'Norma'
+              Footers = <>
+              Title.Alignment = taCenter
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -11
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
+              Visible = False
+              Width = 130
+            end
+            item
+              AutoFitColWidth = False
+              DynProps = <>
+              EditButtons = <>
+              FieldName = 'ID_avaria'
+              Footers = <>
+              Title.Alignment = taCenter
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -11
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
+              Visible = False
+              Width = 130
+            end
+            item
+              Alignment = taCenter
+              AutoFitColWidth = False
+              DynProps = <>
+              EditButtons = <>
+              FieldName = 'Bolshe_MAX_na'
+              Footers = <>
+              Title.Alignment = taCenter
+              Title.Caption = #1041#1086#1083#1100#1096#1077' '#1085#1086#1088#1084#1099' '#1085#1072
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -11
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
+              Width = 130
+            end
+            item
+              Alignment = taCenter
+              AutoFitColWidth = False
+              DynProps = <>
+              EditButtons = <>
+              FieldName = 'Menshe_MIN_na'
+              Footers = <>
+              Title.Alignment = taCenter
+              Title.Caption = #1052#1077#1085#1100#1096#1077' '#1085#1086#1088#1084#1099' '#1085#1072
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -11
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
+              Width = 130
+            end
+            item
+              DynProps = <>
+              EditButtons = <>
+              FieldName = 'Primechanie'
+              Footers = <>
+              Title.Alignment = taCenter
+              Title.Caption = #1055#1088#1080#1084#1077#1095#1072#1085#1080#1077
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -11
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
+              Width = 130
+            end>
+          object RowDetailData: TRowDetailPanelControlEh
+          end
+        end
+      end
     end
     object tsSchema: TTabSheet
       Caption = #1052#1085#1077#1084#1086#1089#1093#1077#1084#1072

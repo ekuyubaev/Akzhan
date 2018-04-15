@@ -45,6 +45,23 @@ type
     dsReadings: TDataSource;
     qInterrogate: TADOQuery;
     qTemp: TADOQuery;
+    qFault: TADOQuery;
+    qFaultReadings: TADOQuery;
+    dsFault: TDataSource;
+    dsFaultReadings: TDataSource;
+    qFaultID_avaria: TAutoIncField;
+    qFaultID_datchik: TIntegerField;
+    qFaultZamechena: TSmallintField;
+    qFaultUstranena: TSmallintField;
+    qFaultID_stepen: TIntegerField;
+    qFaultPrimechanie: TWideMemoField;
+    qFaultDV_obnaruzhena: TDateTimeField;
+    qFaultDV_zamechena: TDateTimeField;
+    qFaultDV_ustranena: TDateTimeField;
+    qFaultOpisanie: TWideMemoField;
+    qFaultDatchikNaimenovanie: TStringField;
+    qFaultDatchikOboznachenie: TStringField;
+    qFaultObject: TStringField;
   private
     { Private declarations }
   public
@@ -52,6 +69,8 @@ type
     Procedure connect();
     procedure refreshSensors();
     procedure refreshStates();
+    procedure refreshReadings();
+    procedure refreshFaults();
   end;
 
 var
@@ -94,6 +113,26 @@ begin
   qStates.Close;
   qStates.Open;
   qStates.RecNo := ind;
+end;
+
+Procedure Tdm.refreshReadings;
+begin
+  qReadings.Close;
+  qReadings.Open;
+  qReadings.Last;
+
+  qFaultReadings.Close;
+  qFaultReadings.Open;
+  qFaultReadings.Last;
+end;
+
+Procedure Tdm.refreshFaults;
+var ind: integer;
+begin
+  ind := qFault.RecNo;
+  qFault.Close;
+  qFault.Open;
+  qFault.RecNo := ind;
 end;
 
 end.

@@ -43,12 +43,13 @@ implementation
 
 {$R *.dfm}
 
-uses uDM;
+uses uDM, uMain;
 
 procedure TfrmSensors.BitBtn1Click(Sender: TObject);
 begin
   query.Post;
   dm.refreshSensors;
+  frmMain.startInterrogation;
   close;
 end;
 

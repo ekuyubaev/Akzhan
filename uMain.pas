@@ -51,6 +51,12 @@ type
     Edit2: TEdit;
     Edit3: TEdit;
     Edit4: TEdit;
+    Panel9: TPanel;
+    Panel10: TPanel;
+    Panel11: TPanel;
+    Panel12: TPanel;
+    DBGridEh5: TDBGridEh;
+    DBGridEh6: TDBGridEh;
     procedure BitBtn4Click(Sender: TObject);
     procedure BitBtn6Click(Sender: TObject);
     procedure BitBtn5Click(Sender: TObject);
@@ -62,14 +68,22 @@ type
     procedure BitBtn8Click(Sender: TObject);
     procedure N5Click(Sender: TObject);
     procedure FormResize(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure DBGridEh4DrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumnEh; State: TGridDrawState);
+    procedure DBGridEh2DrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumnEh; State: TGridDrawState);
+    procedure DBGridEh3DrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumnEh; State: TGridDrawState);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
     sensorCount :integer;
-    datchiki: array of TDatchik;
     procedure SetFrmSensorsDataSource(sensorDataSource:TDataSource);
-    procedure startInterrogation();
+    procedure stopInterrogation();
   public
     { Public declarations }
+    procedure startInterrogation();
   end;
 
 
@@ -77,6 +91,7 @@ var
   frmMain: TfrmMain;
   imgHeight: Integer = 495;
   imgWidth: Integer = 775;
+  datchiki: array of TDatchik;
 
 
 implementation
@@ -141,13 +156,58 @@ begin
   frmSensors.ShowModal;
 end;
 
+procedure TfrmMain.DBGridEh2DrawColumnCell(Sender: TObject; const Rect: TRect;
+  DataCol: Integer; Column: TColumnEh; State: TGridDrawState);
+begin
+    if (DBGridEh2.DataSource.DataSet.FieldValues['ID_sostoianie'] <> 0) then {тут любое условие}
+    begin
+        DBGridEh2.Canvas.Brush.Color := clRed;
+    end;
+
+    DBGridEh2.DefaultDrawColumnCell(Rect,DataCol,Column,State);
+end;
+
+procedure TfrmMain.DBGridEh3DrawColumnCell(Sender: TObject; const Rect: TRect;
+  DataCol: Integer; Column: TColumnEh; State: TGridDrawState);
+begin
+    if (DBGridEh3.DataSource.DataSet.FieldValues['ID_sostoianie'] <> 0) then {тут любое условие}
+    begin
+        DBGridEh3.Canvas.Brush.Color := clRed;
+    end;
+
+    DBGridEh3.DefaultDrawColumnCell(Rect,DataCol,Column,State);
+end;
+
+procedure TfrmMain.DBGridEh4DrawColumnCell(Sender: TObject; const Rect: TRect;
+  DataCol: Integer; Column: TColumnEh; State: TGridDrawState);
+begin
+    if (DBGridEh4.DataSource.DataSet.FieldValues['norma'] = false) then {тут любое условие}
+    begin
+        DBGridEh4.Canvas.Brush.Color := clRed;
+    end;
+
+    DBGridEh4.DefaultDrawColumnCell(Rect,DataCol,Column,State);
+end;
+
+procedure TfrmMain.stopInterrogation;
+var i : integer;
+begin
+  if sensorCount > 0 then
+  begin
+    for i := 1 to sensorCount do
+      datchiki[i].status := -1;
+    datchiki := nil;
+    sensorCount := -1;
+  end;
+end;
+
 procedure TfrmMain.startInterrogation;
 var i : Integer;
 begin
-  datchiki := nil;
+  stopInterrogation;
 
   dm.qTemp.close;
-  dm.qTemp.SQL.Text := 'Select D.ID_datchik, D.ID_sostoianie, M.NomerEdit '
+  dm.qTemp.SQL.Text := 'Select D.ID_datchik, D.ID_sostoianie, M.NomerEdit, D.MAX, D.MIN '
                       +'From Datchik D left join Model M on D.ID_datchik = M.ID_datchik';
   dm.qTemp.Open;
 
@@ -171,27 +231,37 @@ begin
       datchiki[i].id_datchika := dm.qTemp.FieldByName('ID_datchik').AsInteger;
       datchiki[i].status := dm.qTemp.FieldByName('ID_sostoianie').AsInteger;
       datchiki[i].nomerEdit := dm.qTemp.FieldByName('NomerEdit').AsInteger;
-
-       if datchiki[i].status = 0 then
-       begin
-          TEdit(FindComponent('Edit'+IntToStr(datchiki[i].nomerEdit))).Color := clLime;
-          datchiki[i].Resume;
-       end
-          else
-       begin
-          TEdit(FindComponent('Edit'+IntToStr(datchiki[i].nomerEdit))).Color := clRed;
-          datchiki[i].Suspend;
-       end;
+      datchiki[i].MAX := dm.qTemp.FieldByName('MAX').AsFloat;
+      datchiki[i].MIN := dm.qTemp.FieldByName('MIN').AsFloat;
+      datchiki[i].ID_avaria := -1;
+      datchiki[i].Resume;
   end;
-
-  tsSchema.Show;
 end;
 
 procedure TfrmMain.FormActivate(Sender: TObject);
 begin
   dm.connect;
-
   startInterrogation;
+end;
+
+procedure TfrmMain.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  dm.qTemp.SQL.Text := 'Select * From Avaria Where Ustranena = 0';
+  dm.qTemp.Open;
+
+  if dm.qTemp.RecordCount > 0 then
+  begin
+    dm.qTemp.SQL.Text := 'Update Avaria Set Primechanie = '
+          + QuotedStr('Работа программы была завершена до устранения аварии. '
+          + 'Время завершения работы ПО: ' + FormatDateTime('hh:nn dd.mm.yyyy', Now) );
+    dm.qTemp.ExecSQL;
+  end;
+end;
+
+procedure TfrmMain.FormCreate(Sender: TObject);
+begin
+  datchiki := nil;
+  sensorCount := -1;
 end;
 
 procedure TfrmMain.FormResize(Sender: TObject);
@@ -203,6 +273,14 @@ begin
     Edit2.Left := Round( (Image1.Height / imgHeight) * 274 );
     Edit2.Top := Round( (Image1.Height / imgHeight) * 227 );
     Edit2.Width := Round( (Image1.Height / imgHeight)* 36 );
+
+    Edit3.Left := Round( (Image1.Height / imgHeight) * 104 );
+    Edit3.Top := Round( (Image1.Height / imgHeight) * 262 );
+    Edit3.Width := Round( (Image1.Height / imgHeight)* 36 );
+
+    Edit4.Left := Round( (Image1.Height / imgHeight) * 152 );
+    Edit4.Top := Round( (Image1.Height / imgHeight) * 211 );
+    Edit4.Width := Round( (Image1.Height / imgHeight)* 47 );
 end;
 
 procedure TfrmMain.N5Click(Sender: TObject);
