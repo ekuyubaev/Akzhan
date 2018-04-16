@@ -62,6 +62,30 @@ type
     qFaultDatchikNaimenovanie: TStringField;
     qFaultDatchikOboznachenie: TStringField;
     qFaultObject: TStringField;
+    qReadingsID_pokazanie: TLargeintField;
+    qReadingsID_datchik: TIntegerField;
+    qReadingsPokazanie: TFloatField;
+    qReadingsDatavremia: TDateTimeField;
+    qReadingsNorma: TSmallintField;
+    qReadingsPrimechanie: TWideMemoField;
+    qReadingsID_avaria: TIntegerField;
+    qReadingsBolshe_MAX_na: TFloatField;
+    qReadingsMenshe_MIN_na: TFloatField;
+    qNotSeenFaults: TADOQuery;
+    dsNotSeenFaults: TDataSource;
+    qNotSeenFaultsID_avaria: TAutoIncField;
+    qNotSeenFaultsID_datchik: TIntegerField;
+    qNotSeenFaultsZamechena: TSmallintField;
+    qNotSeenFaultsUstranena: TSmallintField;
+    qNotSeenFaultsID_stepen: TIntegerField;
+    qNotSeenFaultsPrimechanie: TWideMemoField;
+    qNotSeenFaultsDV_obnaruzhena: TDateTimeField;
+    qNotSeenFaultsDV_zamechena: TDateTimeField;
+    qNotSeenFaultsDV_ustranena: TDateTimeField;
+    qNotSeenFaultsOpisanie: TWideMemoField;
+    qNotSeenFaultsObject: TStringField;
+    qNotSeenFaultsDatchikNaimenovanie: TStringField;
+    qNotSeenFaultsDatchikOboznachenie: TStringField;
   private
     { Private declarations }
   public
@@ -90,11 +114,16 @@ begin
   if not qStates.Active then qStates.Open;
   if not qSensorsI.Active then qSensorsI.Open;
   if not qReadings.Active then qReadings.Open;
+  if not qFault.Active then qFault.Open;
+  if not qFaultReadings.Active then qFaultReadings.Open;
+  if not qNotSeenFaults.Active then qNotSeenFaults.Open;
 end;
 
 Procedure Tdm.refreshSensors;
 var ind: integer;
 begin
+  if qSensors.State in [dsInsert, dsEdit] then exit;
+
   ind := qSensors.RecNo;
   qSensors.Close;
   qSensors.Open;
@@ -116,23 +145,57 @@ begin
 end;
 
 Procedure Tdm.refreshReadings;
+var ind: integer;
 begin
-  qReadings.Close;
-  qReadings.Open;
-  qReadings.Last;
+  if qReadings.State in [dsInsert, dsEdit] then exit;
 
-  qFaultReadings.Close;
-  qFaultReadings.Open;
-  qFaultReadings.Last;
+  if qReadings.RecordCount <= 0 then
+  begin
+    qReadings.Close;
+    qReadings.Open;
+  end
+    else
+  begin
+    ind := qReadings.RecNo;
+    qReadings.Close;
+    qReadings.Open;
+    qReadings.RecNo := ind;
+  end;
+
+  if qFaultReadings.State in [dsInsert, dsEdit] then exit;
+
+  if qFaultReadings.RecordCount <= 0 then
+  begin
+    qFaultReadings.Close;
+    qFaultReadings.Open;
+  end
+    else
+  begin
+    ind := qFaultReadings.RecNo;
+    qFaultReadings.Close;
+    qFaultReadings.Open;
+    qFaultReadings.Last;
+    qFaultReadings.RecNo := ind;
+  end;
 end;
 
 Procedure Tdm.refreshFaults;
 var ind: integer;
 begin
-  ind := qFault.RecNo;
-  qFault.Close;
-  qFault.Open;
-  qFault.RecNo := ind;
+  if qFault.State in [dsInsert, dsEdit] then exit;
+
+  if qFault.RecordCount <= 0 then
+  begin
+    qFault.Close;
+    qFault.Open;
+  end
+    else
+  begin
+    ind := qFault.RecNo;
+    qFault.Close;
+    qFault.Open;
+    qFault.RecNo := ind;
+  end;
 end;
 
 end.

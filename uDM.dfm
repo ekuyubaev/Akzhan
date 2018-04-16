@@ -209,6 +209,37 @@ object dm: Tdm
       'Where ID_datchik = :ID_datchik')
     Left = 400
     Top = 24
+    object qReadingsID_pokazanie: TLargeintField
+      FieldName = 'ID_pokazanie'
+    end
+    object qReadingsID_datchik: TIntegerField
+      FieldName = 'ID_datchik'
+    end
+    object qReadingsPokazanie: TFloatField
+      FieldName = 'Pokazanie'
+      DisplayFormat = '#,##0.00'
+    end
+    object qReadingsDatavremia: TDateTimeField
+      FieldName = 'Datavremia'
+    end
+    object qReadingsNorma: TSmallintField
+      FieldName = 'Norma'
+    end
+    object qReadingsPrimechanie: TWideMemoField
+      FieldName = 'Primechanie'
+      BlobType = ftWideMemo
+    end
+    object qReadingsID_avaria: TIntegerField
+      FieldName = 'ID_avaria'
+    end
+    object qReadingsBolshe_MAX_na: TFloatField
+      FieldName = 'Bolshe_MAX_na'
+      DisplayFormat = '#,##0.00'
+    end
+    object qReadingsMenshe_MIN_na: TFloatField
+      FieldName = 'Menshe_MIN_na'
+      DisplayFormat = '#,##0.00'
+    end
   end
   object dsReadings: TDataSource
     DataSet = qReadings
@@ -309,7 +340,7 @@ object dm: Tdm
       item
         Name = 'ID_avaria'
         DataType = ftInteger
-        Value = Null
+        Value = 575
       end>
     SQL.Strings = (
       'Select * From Pokazanie'
@@ -326,5 +357,84 @@ object dm: Tdm
     DataSet = qFaultReadings
     Left = 672
     Top = 72
+  end
+  object qNotSeenFaults: TADOQuery
+    Active = True
+    Connection = DB_GATE
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'Select * From Avaria'
+      'Where Zamechena = 0 or Ustranena = 0')
+    Left = 128
+    Top = 168
+    object qNotSeenFaultsID_avaria: TAutoIncField
+      FieldName = 'ID_avaria'
+      ReadOnly = True
+    end
+    object qNotSeenFaultsDV_obnaruzhena: TDateTimeField
+      FieldName = 'DV_obnaruzhena'
+    end
+    object qNotSeenFaultsOpisanie: TWideMemoField
+      FieldName = 'Opisanie'
+      BlobType = ftWideMemo
+    end
+    object qNotSeenFaultsID_datchik: TIntegerField
+      FieldName = 'ID_datchik'
+    end
+    object qNotSeenFaultsObject: TStringField
+      FieldKind = fkLookup
+      FieldName = 'Object'
+      LookupDataSet = qSensorsI
+      LookupKeyFields = 'ID_datchik'
+      LookupResultField = 'Object'
+      KeyFields = 'ID_datchik'
+      Size = 256
+      Lookup = True
+    end
+    object qNotSeenFaultsDatchikNaimenovanie: TStringField
+      FieldKind = fkLookup
+      FieldName = 'DatchikNaimenovanie'
+      LookupDataSet = qSensorsI
+      LookupKeyFields = 'ID_datchik'
+      LookupResultField = 'Naimenovanie'
+      KeyFields = 'ID_datchik'
+      Size = 256
+      Lookup = True
+    end
+    object qNotSeenFaultsDatchikOboznachenie: TStringField
+      FieldKind = fkLookup
+      FieldName = 'DatchikOboznachenie'
+      LookupDataSet = qSensorsI
+      LookupKeyFields = 'ID_datchik'
+      LookupResultField = 'Oboznachenie'
+      KeyFields = 'ID_datchik'
+      Size = 64
+      Lookup = True
+    end
+    object qNotSeenFaultsZamechena: TSmallintField
+      FieldName = 'Zamechena'
+    end
+    object qNotSeenFaultsUstranena: TSmallintField
+      FieldName = 'Ustranena'
+    end
+    object qNotSeenFaultsID_stepen: TIntegerField
+      FieldName = 'ID_stepen'
+    end
+    object qNotSeenFaultsPrimechanie: TWideMemoField
+      FieldName = 'Primechanie'
+      BlobType = ftWideMemo
+    end
+    object qNotSeenFaultsDV_zamechena: TDateTimeField
+      FieldName = 'DV_zamechena'
+    end
+    object qNotSeenFaultsDV_ustranena: TDateTimeField
+      FieldName = 'DV_ustranena'
+    end
+  end
+  object dsNotSeenFaults: TDataSource
+    DataSet = qNotSeenFaults
+    Left = 128
+    Top = 224
   end
 end

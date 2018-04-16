@@ -69,6 +69,7 @@ var status : boolean;
     dataVremia : String;
     bolshe_na, menshe_na : real;
     opisanie : String;
+    ind : integer;
 begin
   // считывание показаний
   if dm.qInterrogate.Active then dm.qInterrogate.Close;
@@ -113,7 +114,9 @@ begin
 
         dm.qTemp.SQL.Text := 'Select last_insert_id() as last_id from Avaria';
         dm.qTemp.Open;
-        fID_avaria := dm.qTemp.FieldByName('last_id').AsInteger;
+        if not dm.qTemp.FieldByName('last_id').IsNull
+            then fID_avaria := dm.qTemp.FieldByName('last_id').AsInteger
+            else fID_avaria := 1;
         dm.refreshFaults;
     end;
   end
@@ -132,6 +135,7 @@ begin
                       +'Where ID_avaria = ' + IntToStr(fID_avaria);
       dm.qTemp.ExecSQL;
       fID_avaria := -1;
+      dm.refreshFaults;
     end;
   end;
 

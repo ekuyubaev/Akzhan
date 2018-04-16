@@ -7,7 +7,7 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ComCtrls, Vcl.Menus,
   DBGridEhGrouping, ToolCtrlsEh, DBGridEhToolCtrls, DynVarsEh, EhLibVCL,
   GridsEh, DBAxisGridsEh, DBGridEh, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Buttons, EhLibADO,
-  Data.DB, Vcl.Imaging.jpeg, uDatchik;
+  Data.DB, Vcl.Imaging.jpeg, uDatchik, uNotification;
 
 type
   TfrmMain = class(TForm)
@@ -39,9 +39,7 @@ type
     BitBtn7: TBitBtn;
     BitBtn8: TBitBtn;
     BitBtn9: TBitBtn;
-    BitBtn10: TBitBtn;
     BitBtn11: TBitBtn;
-    BitBtn12: TBitBtn;
     DBGridEh3: TDBGridEh;
     DBGridEh4: TDBGridEh;
     N4: TMenuItem;
@@ -57,6 +55,7 @@ type
     Panel12: TPanel;
     DBGridEh5: TDBGridEh;
     DBGridEh6: TDBGridEh;
+    BitBtn10: TBitBtn;
     procedure BitBtn4Click(Sender: TObject);
     procedure BitBtn6Click(Sender: TObject);
     procedure BitBtn5Click(Sender: TObject);
@@ -76,6 +75,10 @@ type
     procedure DBGridEh3DrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumnEh; State: TGridDrawState);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure BitBtn11Click(Sender: TObject);
+    procedure BitBtn10Click(Sender: TObject);
+    procedure DBGridEh5DrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumnEh; State: TGridDrawState);
   private
     { Private declarations }
     sensorCount :integer;
@@ -92,13 +95,26 @@ var
   imgHeight: Integer = 495;
   imgWidth: Integer = 775;
   datchiki: array of TDatchik;
+  notifier: TNotifier;
 
 
 implementation
 
 {$R *.dfm}
 
-uses uDM, uObject, uSensor, uState;
+uses uDM, uObject, uSensor, uState, uReading, uFault;
+
+procedure TfrmMain.BitBtn10Click(Sender: TObject);
+begin
+  dm.qFault.Edit;
+  frmFault.ShowModal;
+end;
+
+procedure TfrmMain.BitBtn11Click(Sender: TObject);
+begin
+  dm.qReadings.Edit;
+  frmReading.ShowModal;
+end;
 
 procedure TfrmMain.BitBtn1Click(Sender: TObject);
 begin
@@ -189,6 +205,19 @@ begin
     DBGridEh4.DefaultDrawColumnCell(Rect,DataCol,Column,State);
 end;
 
+procedure TfrmMain.DBGridEh5DrawColumnCell(Sender: TObject; const Rect: TRect;
+  DataCol: Integer; Column: TColumnEh; State: TGridDrawState);
+begin
+    if (DBGridEh5.DataSource.DataSet.FieldValues['Ustranena'] = false) then {тут любое условие}
+    begin
+        if (DBGridEh5.DataSource.DataSet.FieldValues['Zamechena'] = false)
+            then DBGridEh5.Canvas.Brush.Color := clRed
+            else DBGridEh5.Canvas.Brush.Color := clFuchsia;
+    end;
+
+    DBGridEh5.DefaultDrawColumnCell(Rect,DataCol,Column,State);
+end;
+
 procedure TfrmMain.stopInterrogation;
 var i : integer;
 begin
@@ -242,6 +271,12 @@ procedure TfrmMain.FormActivate(Sender: TObject);
 begin
   dm.connect;
   startInterrogation;
+
+  notifier :=TNotifier.Create(true);
+  notifier.FreeOnTerminate:=true;
+  notifier.Priority:=tpLowest;
+  notifier.hideTillNextLaunch := false;
+  notifier.Resume;
 end;
 
 procedure TfrmMain.FormClose(Sender: TObject; var Action: TCloseAction);

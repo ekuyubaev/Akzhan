@@ -24,6 +24,7 @@ object frmStates: TfrmStates
     Height = 261
     Align = alClient
     AutoFitColWidths = True
+    Color = cl3DLight
     DataSource = dm.dsStates
     DrawMemoText = True
     DynProps = <>
@@ -88,12 +89,11 @@ object frmStates: TfrmStates
     BevelKind = bkFlat
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitWidth = 463
     DesignSize = (
       672
       31)
     object BitBtn1: TBitBtn
-      Left = 637
+      Left = 633
       Top = 1
       Width = 30
       Height = 30
@@ -163,10 +163,9 @@ object frmStates: TfrmStates
         5E5ED3D3D3FF}
       TabOrder = 0
       OnClick = BitBtn1Click
-      ExplicitLeft = 424
     end
     object BitBtn2: TBitBtn
-      Left = 601
+      Left = 597
       Top = 1
       Width = 30
       Height = 30
@@ -236,7 +235,6 @@ object frmStates: TfrmStates
         FFFFFFFFFFFF}
       TabOrder = 1
       OnClick = BitBtn2Click
-      ExplicitLeft = 388
     end
   end
 end

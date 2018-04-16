@@ -7,7 +7,11 @@ uses
   uObject in 'uObject.pas' {frmObject},
   uSensor in 'uSensor.pas' {frmSensors},
   uState in 'uState.pas' {frmStates},
-  uDatchik in 'uDatchik.pas';
+  uDatchik in 'uDatchik.pas',
+  uReading in 'uReading.pas' {frmReading},
+  uFault in 'uFault.pas' {frmFault},
+  uNotification in 'uNotification.pas',
+  uNotificationForm in 'uNotificationForm.pas' {frmNotification};
 
 {$R *.res}
 
@@ -19,5 +23,8 @@ begin
   Application.CreateForm(TfrmObject, frmObject);
   Application.CreateForm(TfrmSensors, frmSensors);
   Application.CreateForm(TfrmStates, frmStates);
+  Application.CreateForm(TfrmReading, frmReading);
+  Application.CreateForm(TfrmFault, frmFault);
+  Application.CreateForm(TfrmNotification, frmNotification);
   Application.Run;
 end.

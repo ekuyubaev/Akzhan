@@ -104,6 +104,19 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="uDatchik.pas"/>
+        <DCCReference Include="uReading.pas">
+            <Form>frmReading</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uFault.pas">
+            <Form>frmFault</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uNotification.pas"/>
+        <DCCReference Include="uNotificationForm.pas">
+            <Form>frmNotification</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
