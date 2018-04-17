@@ -11,7 +11,8 @@ uses
   uReading in 'uReading.pas' {frmReading},
   uFault in 'uFault.pas' {frmFault},
   uNotification in 'uNotification.pas',
-  uNotificationForm in 'uNotificationForm.pas' {frmNotification};
+  uNotificationForm in 'uNotificationForm.pas' {frmNotification},
+  uReport in 'uReport.pas' {frmReport};
 
 {$R *.res}
 
@@ -26,5 +27,6 @@ begin
   Application.CreateForm(TfrmReading, frmReading);
   Application.CreateForm(TfrmFault, frmFault);
   Application.CreateForm(TfrmNotification, frmNotification);
+  Application.CreateForm(TfrmReport, frmReport);
   Application.Run;
 end.

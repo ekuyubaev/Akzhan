@@ -340,7 +340,7 @@ object dm: Tdm
       item
         Name = 'ID_avaria'
         DataType = ftInteger
-        Value = 575
+        Value = 665
       end>
     SQL.Strings = (
       'Select * From Pokazanie'
@@ -436,5 +436,11 @@ object dm: Tdm
     DataSet = qNotSeenFaults
     Left = 128
     Top = 224
+  end
+  object qReports: TADOQuery
+    Connection = DB_GATE
+    Parameters = <>
+    Left = 224
+    Top = 168
   end
 end

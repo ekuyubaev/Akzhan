@@ -56,6 +56,7 @@ type
     DBGridEh5: TDBGridEh;
     DBGridEh6: TDBGridEh;
     BitBtn10: TBitBtn;
+    N6: TMenuItem;
     procedure BitBtn4Click(Sender: TObject);
     procedure BitBtn6Click(Sender: TObject);
     procedure BitBtn5Click(Sender: TObject);
@@ -79,6 +80,7 @@ type
     procedure BitBtn10Click(Sender: TObject);
     procedure DBGridEh5DrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumnEh; State: TGridDrawState);
+    procedure N6Click(Sender: TObject);
   private
     { Private declarations }
     sensorCount :integer;
@@ -102,7 +104,7 @@ implementation
 
 {$R *.dfm}
 
-uses uDM, uObject, uSensor, uState, uReading, uFault;
+uses uDM, uObject, uSensor, uState, uReading, uFault, uReport;
 
 procedure TfrmMain.BitBtn10Click(Sender: TObject);
 begin
@@ -321,6 +323,11 @@ end;
 procedure TfrmMain.N5Click(Sender: TObject);
 begin
   frmStates.ShowModal;
+end;
+
+procedure TfrmMain.N6Click(Sender: TObject);
+begin
+  frmReport.ShowModal;
 end;
 
 procedure TfrmMain.SetFrmSensorsDataSource(sensorDataSource: TDataSource);

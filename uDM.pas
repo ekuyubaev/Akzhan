@@ -86,6 +86,7 @@ type
     qNotSeenFaultsObject: TStringField;
     qNotSeenFaultsDatchikNaimenovanie: TStringField;
     qNotSeenFaultsDatchikOboznachenie: TStringField;
+    qReports: TADOQuery;
   private
     { Private declarations }
   public
