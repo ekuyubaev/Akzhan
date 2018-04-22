@@ -3,18 +3,17 @@ object dm: Tdm
   Height = 395
   Width = 764
   object DB_GATE: TADOConnection
-    Connected = True
     ConnectionString = 
       'Provider=MSDASQL.1;Password=gdx4852T;Persist Security Info=True;' +
       'User ID=root;Extended Properties="Driver=MySQL ODBC 5.3 Unicode ' +
       'Driver;SERVER=localhost;UID=root;PWD=gdx4852T;DATABASE=db_cppn;P' +
       'ORT=3306;COLUMN_SIZE_S32=1";Initial Catalog=db_cppn'
     LoginPrompt = False
+    Provider = 'MSDASQL.1'
     Left = 40
     Top = 24
   end
   object qObjects: TADOQuery
-    Active = True
     Connection = DB_GATE
     CursorType = ctStatic
     Parameters = <>
@@ -45,7 +44,6 @@ object dm: Tdm
     Top = 72
   end
   object qSensors: TADOQuery
-    Active = True
     Connection = DB_GATE
     CursorType = ctStatic
     DataSource = dsObjects
@@ -109,7 +107,6 @@ object dm: Tdm
     Top = 72
   end
   object qStates: TADOQuery
-    Active = True
     Connection = DB_GATE
     CursorType = ctStatic
     Parameters = <>
@@ -124,7 +121,6 @@ object dm: Tdm
     Top = 72
   end
   object qSensorsI: TADOQuery
-    Active = True
     Connection = DB_GATE
     CursorType = ctStatic
     Parameters = <>
@@ -191,7 +187,6 @@ object dm: Tdm
     Top = 72
   end
   object qReadings: TADOQuery
-    Active = True
     Connection = DB_GATE
     CursorType = ctStatic
     DataSource = dsSensorsI
@@ -259,7 +254,6 @@ object dm: Tdm
     Top = 24
   end
   object qFault: TADOQuery
-    Active = True
     Connection = DB_GATE
     CursorType = ctStatic
     Parameters = <>
@@ -332,7 +326,6 @@ object dm: Tdm
     end
   end
   object qFaultReadings: TADOQuery
-    Active = True
     Connection = DB_GATE
     CursorType = ctStatic
     DataSource = dsFault
@@ -359,13 +352,12 @@ object dm: Tdm
     Top = 72
   end
   object qNotSeenFaults: TADOQuery
-    Active = True
     Connection = DB_GATE
     CursorType = ctStatic
     Parameters = <>
     SQL.Strings = (
       'Select * From Avaria'
-      'Where Zamechena = 0 or Ustranena = 0')
+      'Where Ustranena = 0')
     Left = 128
     Top = 168
     object qNotSeenFaultsID_avaria: TAutoIncField

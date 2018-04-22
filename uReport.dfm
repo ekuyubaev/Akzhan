@@ -3,7 +3,7 @@ object frmReport: TfrmReport
   Top = 0
   BorderStyle = bsNone
   Caption = 'frmReport'
-  ClientHeight = 213
+  ClientHeight = 203
   ClientWidth = 286
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -19,104 +19,219 @@ object frmReport: TfrmReport
     Left = 0
     Top = 35
     Width = 286
-    Height = 178
-    ActivePage = tsReadingsReport
+    Height = 168
+    ActivePage = tsFaultsReport
     Align = alClient
     TabOrder = 0
-    ExplicitTop = 72
-    ExplicitWidth = 463
-    ExplicitHeight = 243
+    ExplicitHeight = 178
     object tsReadingsReport: TTabSheet
       Caption = 'tsReadingsReport'
       TabVisible = False
-      ExplicitLeft = 0
-      ExplicitTop = 30
-      ExplicitHeight = 147
-      object Label1: TLabel
-        Left = 16
-        Top = 16
-        Width = 97
-        Height = 13
-        Caption = #1053#1072#1095#1072#1083#1100#1085#1072#1103' '#1076#1072#1090#1072
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -11
-        Font.Name = 'Tahoma'
-        Font.Style = [fsBold]
-        ParentFont = False
-      end
-      object Label2: TLabel
-        Left = 168
-        Top = 16
-        Width = 89
-        Height = 13
-        Caption = #1050#1086#1085#1077#1095#1085#1072#1103' '#1076#1072#1090#1072
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -11
-        Font.Name = 'Tahoma'
-        Font.Style = [fsBold]
-        ParentFont = False
-      end
-      object DateTimePicker1: TDateTimePicker
-        Left = 16
-        Top = 35
-        Width = 97
-        Height = 21
-        Date = 43207.958593541670000000
-        Time = 43207.958593541670000000
+      ExplicitHeight = 168
+      object Panel3: TPanel
+        Left = 0
+        Top = 0
+        Width = 278
+        Height = 158
+        Align = alClient
+        BevelKind = bkFlat
+        BevelOuter = bvNone
+        Color = cl3DLight
+        ParentBackground = False
         TabOrder = 0
+        ExplicitHeight = 168
+        object Label1: TLabel
+          Left = 16
+          Top = 8
+          Width = 97
+          Height = 13
+          Caption = #1053#1072#1095#1072#1083#1100#1085#1072#1103' '#1076#1072#1090#1072
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label2: TLabel
+          Left = 160
+          Top = 8
+          Width = 89
+          Height = 13
+          Caption = #1050#1086#1085#1077#1095#1085#1072#1103' '#1076#1072#1090#1072
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object DateTimePicker1: TDateTimePicker
+          Left = 16
+          Top = 27
+          Width = 97
+          Height = 21
+          Date = 43207.958593541670000000
+          Time = 43207.958593541670000000
+          TabOrder = 0
+        end
+        object DateTimePicker3: TDateTimePicker
+          Left = 16
+          Top = 62
+          Width = 97
+          Height = 21
+          Date = 43207.983469467600000000
+          Time = 43207.983469467600000000
+          Kind = dtkTime
+          TabOrder = 1
+        end
+        object DateTimePicker4: TDateTimePicker
+          Left = 160
+          Top = 54
+          Width = 97
+          Height = 21
+          Date = 43207.983496342590000000
+          Time = 43207.983496342590000000
+          Kind = dtkTime
+          TabOrder = 2
+        end
+        object DateTimePicker2: TDateTimePicker
+          Left = 160
+          Top = 27
+          Width = 97
+          Height = 21
+          Date = 43207.958638738430000000
+          Time = 43207.958638738430000000
+          TabOrder = 3
+        end
+        object Button1: TButton
+          Left = 16
+          Top = 99
+          Width = 145
+          Height = 25
+          Caption = #1057#1092#1086#1088#1084#1080#1088#1086#1074#1072#1090#1100' '#1086#1090#1095#1077#1090
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          TabOrder = 4
+          OnClick = Button1Click
+        end
+        object ProgressBar1: TProgressBar
+          Left = 16
+          Top = 130
+          Width = 249
+          Height = 17
+          TabOrder = 5
+        end
       end
-      object DateTimePicker2: TDateTimePicker
-        Left = 168
-        Top = 35
-        Width = 97
-        Height = 21
-        Date = 43207.958638738430000000
-        Time = 43207.958638738430000000
-        TabOrder = 1
-      end
-      object Button1: TButton
-        Left = 16
-        Top = 107
-        Width = 145
-        Height = 25
-        Caption = #1057#1092#1086#1088#1084#1080#1088#1086#1074#1072#1090#1100' '#1086#1090#1095#1077#1090
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -11
-        Font.Name = 'Tahoma'
-        Font.Style = [fsBold]
-        ParentFont = False
-        TabOrder = 2
-        OnClick = Button1Click
-      end
-      object ProgressBar1: TProgressBar
-        Left = 16
-        Top = 138
-        Width = 249
-        Height = 17
-        TabOrder = 3
-      end
-      object DateTimePicker3: TDateTimePicker
-        Left = 16
-        Top = 64
-        Width = 97
-        Height = 21
-        Date = 43207.983469467600000000
-        Time = 43207.983469467600000000
-        Kind = dtkTime
-        TabOrder = 4
-      end
-      object DateTimePicker4: TDateTimePicker
-        Left = 168
-        Top = 62
-        Width = 97
-        Height = 21
-        Date = 43207.983496342590000000
-        Time = 43207.983496342590000000
-        Kind = dtkTime
-        TabOrder = 5
+    end
+    object tsFaultsReport: TTabSheet
+      Caption = 'tsFaultsReport'
+      ImageIndex = 1
+      TabVisible = False
+      ExplicitTop = 24
+      ExplicitHeight = 150
+      object Panel2: TPanel
+        Left = 0
+        Top = 0
+        Width = 278
+        Height = 158
+        Align = alClient
+        BevelKind = bkFlat
+        BevelOuter = bvNone
+        Color = cl3DLight
+        ParentBackground = False
+        TabOrder = 0
+        ExplicitHeight = 150
+        object Label3: TLabel
+          Left = 16
+          Top = 8
+          Width = 97
+          Height = 13
+          Caption = #1053#1072#1095#1072#1083#1100#1085#1072#1103' '#1076#1072#1090#1072
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label4: TLabel
+          Left = 160
+          Top = 8
+          Width = 89
+          Height = 13
+          Caption = #1050#1086#1085#1077#1095#1085#1072#1103' '#1076#1072#1090#1072
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object DateTimePicker5: TDateTimePicker
+          Left = 16
+          Top = 24
+          Width = 97
+          Height = 21
+          Date = 43212.439746238430000000
+          Time = 43212.439746238430000000
+          TabOrder = 0
+        end
+        object DateTimePicker6: TDateTimePicker
+          Left = 16
+          Top = 56
+          Width = 97
+          Height = 21
+          Date = 43212.439769976850000000
+          Time = 43212.439769976850000000
+          Kind = dtkTime
+          TabOrder = 1
+        end
+        object DateTimePicker7: TDateTimePicker
+          Left = 160
+          Top = 24
+          Width = 97
+          Height = 21
+          Date = 43212.439804120360000000
+          Time = 43212.439804120360000000
+          TabOrder = 2
+        end
+        object DateTimePicker8: TDateTimePicker
+          Left = 160
+          Top = 56
+          Width = 97
+          Height = 21
+          Date = 43212.439824421290000000
+          Time = 43212.439824421290000000
+          Kind = dtkTime
+          TabOrder = 3
+        end
+        object BitBtn2: TBitBtn
+          Left = 16
+          Top = 96
+          Width = 145
+          Height = 25
+          Caption = #1057#1092#1086#1088#1084#1080#1088#1086#1074#1072#1090#1100' '#1086#1090#1095#1077#1090
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          TabOrder = 4
+          OnClick = BitBtn2Click
+        end
+        object ProgressBar2: TProgressBar
+          Left = 16
+          Top = 127
+          Width = 241
+          Height = 17
+          TabOrder = 5
+        end
       end
     end
   end
@@ -129,7 +244,6 @@ object frmReport: TfrmReport
     BevelKind = bkFlat
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitLeft = 64
     object BitBtn1: TBitBtn
       Left = 250
       Top = 1

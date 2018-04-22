@@ -7,7 +7,7 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ComCtrls, Vcl.Menus,
   DBGridEhGrouping, ToolCtrlsEh, DBGridEhToolCtrls, DynVarsEh, EhLibVCL,
   GridsEh, DBAxisGridsEh, DBGridEh, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Buttons, EhLibADO,
-  Data.DB, Vcl.Imaging.jpeg, uDatchik, uNotification;
+  Data.DB, Vcl.Imaging.jpeg, uDatchik, uNotification, iniFiles;
 
 type
   TfrmMain = class(TForm)
@@ -57,10 +57,18 @@ type
     DBGridEh6: TDBGridEh;
     BitBtn10: TBitBtn;
     N6: TMenuItem;
+    N7: TMenuItem;
+    tsLogin: TTabSheet;
+    GroupBox1: TGroupBox;
+    Edit5: TEdit;
+    Edit6: TEdit;
+    Label1: TLabel;
+    Label2: TLabel;
+    BitBtn12: TBitBtn;
+    N8: TMenuItem;
     procedure BitBtn4Click(Sender: TObject);
     procedure BitBtn6Click(Sender: TObject);
     procedure BitBtn5Click(Sender: TObject);
-    procedure FormActivate(Sender: TObject);
     procedure BitBtn3Click(Sender: TObject);
     procedure BitBtn1Click(Sender: TObject);
     procedure BitBtn2Click(Sender: TObject);
@@ -81,6 +89,10 @@ type
     procedure DBGridEh5DrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumnEh; State: TGridDrawState);
     procedure N6Click(Sender: TObject);
+    procedure N7Click(Sender: TObject);
+    procedure BitBtn12Click(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
+    procedure N8Click(Sender: TObject);
   private
     { Private declarations }
     sensorCount :integer;
@@ -98,13 +110,14 @@ var
   imgWidth: Integer = 775;
   datchiki: array of TDatchik;
   notifier: TNotifier;
+  settingsIni: TIniFile;
 
 
 implementation
 
 {$R *.dfm}
 
-uses uDM, uObject, uSensor, uState, uReading, uFault, uReport;
+uses uDM, uObject, uSensor, uState, uReading, uFault, uReport, uAbout;
 
 procedure TfrmMain.BitBtn10Click(Sender: TObject);
 begin
@@ -116,6 +129,56 @@ procedure TfrmMain.BitBtn11Click(Sender: TObject);
 begin
   dm.qReadings.Edit;
   frmReading.ShowModal;
+end;
+
+procedure TfrmMain.BitBtn12Click(Sender: TObject);
+var i: integer;
+    DBUser, DBPass, DBHost :string;
+begin
+  for i := 0 to MainMenu1.Items.Count-1 do
+      MainMenu1.Items.Items[i].Enabled := true;
+
+  for i := 1 to PageControl1.PageCount do
+  begin
+      if not (PageControl1.Pages[i-1] = tsLogin)
+        then  PageControl1.Pages[i-1].TabVisible := true;
+  end;
+
+  PageControl1.ActivePage := tsSchema;
+  self.Resize;
+
+  settingsIni := TIniFile.Create(ExtractFilePath(Application.ExeName)+ 'settings.ini');
+  DBUser := settingsIni.ReadString('DBSettings','DBUser','root');
+  DBPass := settingsIni.ReadString('DBSettings','DBPass','gdx4852T');
+  DBHost := settingsIni.ReadString('DBSettings','DBHost','localhost');
+
+  dm.DB_GATE.ConnectionString := 'Provider=MSDASQL.1;'
+                                +'Password='+DBPass+';'
+                                +'Persist Security Info=True;'
+                                +'User ID='+ DBUser +';'
+                                +'Extended Properties="DRIVER={MySQL ODBC 5.3 Unicode Driver};'
+                                +'UID='+ DBUser +';'
+                                +'PWD='+ DBPass +';'
+                                +'SERVER='+ DBHost +';'
+                                +'DATABASE=db_cppn;'
+                                +'PORT=3306;'
+                                +'COLUMN_SIZE_S32=1;";'
+                                +'Initial Catalog=db_cppn';
+
+  try
+      dm.connect;
+  except
+    ShowMessage('Не удалось установиь связь с БД.');
+    exit;
+  end;
+
+  startInterrogation;
+
+  notifier :=TNotifier.Create(true);
+  notifier.FreeOnTerminate:=true;
+  notifier.Priority:=tpLowest;
+  notifier.hideTillNextLaunch := false;
+  notifier.Resume;
 end;
 
 procedure TfrmMain.BitBtn1Click(Sender: TObject);
@@ -270,15 +333,13 @@ begin
 end;
 
 procedure TfrmMain.FormActivate(Sender: TObject);
+var  lrPadding, tbPadding : integer;
 begin
-  dm.connect;
-  startInterrogation;
+  lrPadding := Round( (ClientWidth - GroupBox1.Width) / 2 );
+  tbPadding := Round( (ClientHeight - GroupBox1.Height) / 2 );
 
-  notifier :=TNotifier.Create(true);
-  notifier.FreeOnTerminate:=true;
-  notifier.Priority:=tpLowest;
-  notifier.hideTillNextLaunch := false;
-  notifier.Resume;
+  GroupBox1.Left := lrPadding;
+  GroupBox1.Top := tbPadding;
 end;
 
 procedure TfrmMain.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -296,9 +357,18 @@ begin
 end;
 
 procedure TfrmMain.FormCreate(Sender: TObject);
+var i : integer;
 begin
   datchiki := nil;
   sensorCount := -1;
+
+  for i := 0 to MainMenu1.Items.Count-1 do
+      MainMenu1.Items.Items[i].Enabled := false;
+
+  for i := 1 to PageControl1.PageCount do
+      PageControl1.Pages[i-1].TabVisible := false;
+
+  PageControl1.ActivePage := tsLogin;
 end;
 
 procedure TfrmMain.FormResize(Sender: TObject);
@@ -327,7 +397,19 @@ end;
 
 procedure TfrmMain.N6Click(Sender: TObject);
 begin
+  frmReport.PageControl1.ActivePage := frmReport.tsReadingsReport;
   frmReport.ShowModal;
+end;
+
+procedure TfrmMain.N7Click(Sender: TObject);
+begin
+  frmReport.PageControl1.ActivePage := frmReport.tsFaultsReport;
+  frmReport.ShowModal;
+end;
+
+procedure TfrmMain.N8Click(Sender: TObject);
+begin
+  frmAbout.ShowModal;
 end;
 
 procedure TfrmMain.SetFrmSensorsDataSource(sensorDataSource: TDataSource);

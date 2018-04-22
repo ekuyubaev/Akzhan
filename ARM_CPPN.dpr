@@ -12,7 +12,8 @@ uses
   uFault in 'uFault.pas' {frmFault},
   uNotification in 'uNotification.pas',
   uNotificationForm in 'uNotificationForm.pas' {frmNotification},
-  uReport in 'uReport.pas' {frmReport};
+  uReport in 'uReport.pas' {frmReport},
+  uAbout in 'uAbout.pas' {frmAbout};
 
 {$R *.res}
 
@@ -28,5 +29,6 @@ begin
   Application.CreateForm(TfrmFault, frmFault);
   Application.CreateForm(TfrmNotification, frmNotification);
   Application.CreateForm(TfrmReport, frmReport);
+  Application.CreateForm(TfrmAbout, frmAbout);
   Application.Run;
 end.
