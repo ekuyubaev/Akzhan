@@ -13,6 +13,7 @@ object frmReport: TfrmReport
   Font.Style = []
   OldCreateOrder = False
   Position = poMainFormCenter
+  OnActivate = FormActivate
   PixelsPerInch = 96
   TextHeight = 13
   object PageControl1: TPageControl
@@ -20,14 +21,12 @@ object frmReport: TfrmReport
     Top = 35
     Width = 286
     Height = 168
-    ActivePage = tsFaultsReport
+    ActivePage = tsReadingsReport
     Align = alClient
     TabOrder = 0
-    ExplicitHeight = 178
     object tsReadingsReport: TTabSheet
       Caption = 'tsReadingsReport'
       TabVisible = False
-      ExplicitHeight = 168
       object Panel3: TPanel
         Left = 0
         Top = 0
@@ -39,7 +38,6 @@ object frmReport: TfrmReport
         Color = cl3DLight
         ParentBackground = False
         TabOrder = 0
-        ExplicitHeight = 168
         object Label1: TLabel
           Left = 16
           Top = 8
@@ -132,8 +130,6 @@ object frmReport: TfrmReport
       Caption = 'tsFaultsReport'
       ImageIndex = 1
       TabVisible = False
-      ExplicitTop = 24
-      ExplicitHeight = 150
       object Panel2: TPanel
         Left = 0
         Top = 0
@@ -145,7 +141,6 @@ object frmReport: TfrmReport
         Color = cl3DLight
         ParentBackground = False
         TabOrder = 0
-        ExplicitHeight = 150
         object Label3: TLabel
           Left = 16
           Top = 8

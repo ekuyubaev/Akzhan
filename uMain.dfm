@@ -1,7 +1,7 @@
 object frmMain: TfrmMain
   Left = 0
   Top = 0
-  ActiveControl = Edit5
+  ActiveControl = BitBtn10
   Caption = #1040#1056#1052' '#1062#1055#1055#1053
   ClientHeight = 526
   ClientWidth = 783
@@ -27,7 +27,7 @@ object frmMain: TfrmMain
     Top = 0
     Width = 783
     Height = 526
-    ActivePage = tsLogin
+    ActivePage = tsFailure
     Align = alClient
     Style = tsFlatButtons
     TabOrder = 0

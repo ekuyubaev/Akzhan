@@ -3,13 +3,13 @@ object dm: Tdm
   Height = 395
   Width = 764
   object DB_GATE: TADOConnection
+    Connected = True
     ConnectionString = 
       'Provider=MSDASQL.1;Password=gdx4852T;Persist Security Info=True;' +
       'User ID=root;Extended Properties="Driver=MySQL ODBC 5.3 Unicode ' +
       'Driver;SERVER=localhost;UID=root;PWD=gdx4852T;DATABASE=db_cppn;P' +
       'ORT=3306;COLUMN_SIZE_S32=1";Initial Catalog=db_cppn'
     LoginPrompt = False
-    Provider = 'MSDASQL.1'
     Left = 40
     Top = 24
   end
@@ -201,7 +201,8 @@ object dm: Tdm
       end>
     SQL.Strings = (
       'Select * From Pokazanie'
-      'Where ID_datchik = :ID_datchik')
+      'Where ID_datchik = :ID_datchik'
+      'Order by Datavremia DESC')
     Left = 400
     Top = 24
     object qReadingsID_pokazanie: TLargeintField
@@ -337,7 +338,8 @@ object dm: Tdm
       end>
     SQL.Strings = (
       'Select * From Pokazanie'
-      'Where ID_avaria = :ID_avaria')
+      'Where ID_avaria = :ID_avaria'
+      'Order by Datavremia DESC')
     Left = 672
     Top = 24
   end

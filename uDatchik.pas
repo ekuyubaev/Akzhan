@@ -173,7 +173,7 @@ begin
       if fStatus = 0 then Synchronize(interrogate);
       Synchronize(show_pokazanie);
 
-      sleep(1000);
+      sleep(5000);
   end;
 end;
 

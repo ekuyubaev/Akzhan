@@ -35,6 +35,7 @@ type
     procedure Button1Click(Sender: TObject);
     procedure BitBtn1Click(Sender: TObject);
     procedure BitBtn2Click(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -159,13 +160,14 @@ end;
 
 procedure TfrmReport.Button1Click(Sender: TObject);
 var
-  MSWord: Variant;
+  Excel: Variant;
   pathToTemplate : String;
   startDate, endDate : TDateTime;
   i : integer;
   sDate, eDate : String;
   step : real;
   totalStep : real;
+  temp : real;
 begin
   {try
         MsWord := GetActiveOleObject('Word.Application');
@@ -203,44 +205,59 @@ begin
 
   if dm.qReports.RecordCount > 0 then
   begin
-      MsWord := CreateOleObject('Word.Application');
-      pathToTemplate := ExtractFilePath(Application.ExeName) + 'reports\Журнал показаний.dot';
-      MsWord.Documents.Add(pathToTemplate);
+      Excel := CreateOleObject('Excel.Application');
+      pathToTemplate := ExtractFilePath(Application.ExeName) + 'reports\Журнал показаний.xlt';
+      excel.Workbooks.Open[pathToTemplate];
 
 
       step := self.ProgressBar1.Max / dm.qReports.RecordCount;
       totalStep := 0;
 
       for i := 1 to dm.qReports.RecordCount do
-        begin
-            dm.qReports.RecNo := i;
+      begin
+          dm.qReports.RecNo := i;
 
-            MsWord.ActiveDocument.Tables.Item(1).Rows.Add(EmptyParam);
+          excel.Workbooks[1].Worksheets[1].Range['A'+IntToStr(i+7)]
+            := dm.qReports.FieldByName('Object').AsString;
+          excel.Workbooks[1].Worksheets[1].Range['B'+IntToStr(i+7)]
+            := dm.qReports.FieldByName('Datchik').AsString;
+          excel.Workbooks[1].Worksheets[1].Range['C'+IntToStr(i+7)]
+            := dm.qReports.FieldByName('Oboznachenie').AsString;
+          excel.Workbooks[1].Worksheets[1].Range['D'+IntToStr(i+7)]
+            := dm.qReports.FieldByName('Datavremia').AsString;
+          excel.Workbooks[1].Worksheets[1].Range['E'+IntToStr(i+7)]
+            := StringReplace(FloatToStrF(dm.qReports.FieldByName('Pokazanie').AsFloat, fffixed, 8, 4), ',', '.',[]);
+          excel.Workbooks[1].Worksheets[1].Range['F'+IntToStr(i+7)]
+            := dm.qReports.FieldByName('Norma').AsString;
+          excel.Workbooks[1].Worksheets[1].Range['G'+IntToStr(i+7)]
+            := StringReplace(FloatToStrF(dm.qReports.FieldByName('Bolshe_MAX_na').AsFloat, fffixed, 8, 4), ',', '.',[]);
+          excel.Workbooks[1].Worksheets[1].Range['H'+IntToStr(i+7)]
+            := StringReplace(FloatToStrF(dm.qReports.FieldByName('Menshe_MIN_na').AsFloat, fffixed, 8, 4), ',', '.',[]);
 
-            MsWord.ActiveDocument.Tables.Item(1).Cell(i+1,1).Range.Text := IntToStr(i);
-            MsWord.ActiveDocument.Tables.Item(1).Cell(i+1,2).Range.Text := dm.qReports.FieldByName('Object').AsString;
-            MsWord.ActiveDocument.Tables.Item(1).Cell(i+1,3).Range.Text := dm.qReports.FieldByName('Datchik').AsString;
-            MsWord.ActiveDocument.Tables.Item(1).Cell(i+1,4).Range.Text := dm.qReports.FieldByName('Oboznachenie').AsString;
-            MsWord.ActiveDocument.Tables.Item(1).Cell(i+1,5).Range.Text := dm.qReports.FieldByName('Datavremia').AsString;
-            MsWord.ActiveDocument.Tables.Item(1).Cell(i+1,6).Range.Text := FloatToStrF(dm.qReports.FieldByName('Pokazanie').AsFloat, fffixed, 10, 4);
-            MsWord.ActiveDocument.Tables.Item(1).Cell(i+1,7).Range.Text := dm.qReports.FieldByName('Norma').AsString;
-            MsWord.ActiveDocument.Tables.Item(1).Cell(i+1,8).Range.Text := FloatToStrF(dm.qReports.FieldByName('Bolshe_MAX_na').AsFloat, fffixed, 10, 4);
-            MsWord.ActiveDocument.Tables.Item(1).Cell(i+1,9).Range.Text := FloatToStrF(dm.qReports.FieldByName('Menshe_MIN_na').AsFloat, fffixed, 10, 4);
-            totalStep := totalStep + step;
-            self.ProgressBar1.Position := Round(totalStep);
-        end;
+          totalStep := totalStep + step;
+          self.ProgressBar1.Position := Round(totalStep);
+      end;
 
-        MsWord.ActiveDocument.Tables.Item(1).Rows.Item(1).Select;
-        MsWord.Selection.Font.Bold := 1;
+      Excel.Workbooks[1].Worksheets[1].activate;
+      Excel.Visible := True;
 
-        MsWord.ActiveDocument.Range(0, 0).Select;
-
-        self.Close;
-
-        MsWord.Visible := True;
+      self.Close;
   end
       else
   ShowMessage('За выбранный период показания не зафиксированы!');
+end;
+
+procedure TfrmReport.FormActivate(Sender: TObject);
+begin
+  self.DateTimePicker1.DateTime := Now;
+  self.DateTimePicker2.DateTime := Now;
+  self.DateTimePicker3.DateTime := Now;
+  self.DateTimePicker4.DateTime := Now;
+
+  self.DateTimePicker5.DateTime := Now;
+  self.DateTimePicker6.DateTime := Now;
+  self.DateTimePicker7.DateTime := Now;
+  self.DateTimePicker8.DateTime := Now;
 end;
 
 end.
