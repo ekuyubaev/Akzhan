@@ -44,7 +44,6 @@ type
     DBGridEh4: TDBGridEh;
     N4: TMenuItem;
     N5: TMenuItem;
-    Image1: TImage;
     Edit1: TEdit;
     Edit2: TEdit;
     Edit3: TEdit;
@@ -66,6 +65,11 @@ type
     Label2: TLabel;
     BitBtn12: TBitBtn;
     N8: TMenuItem;
+    N9: TMenuItem;
+    Edit7: TEdit;
+    Edit8: TEdit;
+    Image1: TImage;
+    BitBtn13: TBitBtn;
     procedure BitBtn4Click(Sender: TObject);
     procedure BitBtn6Click(Sender: TObject);
     procedure BitBtn5Click(Sender: TObject);
@@ -75,7 +79,6 @@ type
     procedure BitBtn7Click(Sender: TObject);
     procedure BitBtn8Click(Sender: TObject);
     procedure N5Click(Sender: TObject);
-    procedure FormResize(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure DBGridEh4DrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumnEh; State: TGridDrawState);
@@ -93,11 +96,17 @@ type
     procedure BitBtn12Click(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure N8Click(Sender: TObject);
+    procedure N9Click(Sender: TObject);
+    procedure tsSchemaShow(Sender: TObject);
+    procedure BitBtn13Click(Sender: TObject);
+    procedure Image1MouseMove(Sender: TObject; Shift: TShiftState; X,
+      Y: Integer);
   private
     { Private declarations }
     sensorCount :integer;
     procedure SetFrmSensorsDataSource(sensorDataSource:TDataSource);
     procedure stopInterrogation();
+    procedure DrawScheme();
   public
     { Public declarations }
     procedure startInterrogation();
@@ -135,18 +144,6 @@ procedure TfrmMain.BitBtn12Click(Sender: TObject);
 var i: integer;
     DBUser, DBPass, DBHost :string;
 begin
-  for i := 0 to MainMenu1.Items.Count-1 do
-      MainMenu1.Items.Items[i].Enabled := true;
-
-  for i := 1 to PageControl1.PageCount do
-  begin
-      if not (PageControl1.Pages[i-1] = tsLogin)
-        then  PageControl1.Pages[i-1].TabVisible := true;
-  end;
-
-  PageControl1.ActivePage := tsSchema;
-  self.Resize;
-
   settingsIni := TIniFile.Create(ExtractFilePath(Application.ExeName)+ 'settings.ini');
   DBUser := settingsIni.ReadString('DBSettings','DBUser','root');
   DBPass := settingsIni.ReadString('DBSettings','DBPass','gdx4852T');
@@ -172,6 +169,18 @@ begin
     exit;
   end;
 
+  for i := 0 to MainMenu1.Items.Count-1 do
+      MainMenu1.Items.Items[i].Enabled := true;
+
+  for i := 1 to PageControl1.PageCount do
+  begin
+      if not (PageControl1.Pages[i-1] = tsLogin)
+        then  PageControl1.Pages[i-1].TabVisible := true;
+  end;
+
+  PageControl1.ActivePage := tsSchema;
+
+
   startInterrogation;
 
   notifier :=TNotifier.Create(true);
@@ -179,6 +188,11 @@ begin
   notifier.Priority:=tpLowest;
   notifier.hideTillNextLaunch := false;
   notifier.Resume;
+end;
+
+procedure TfrmMain.BitBtn13Click(Sender: TObject);
+begin
+  self.DrawScheme;
 end;
 
 procedure TfrmMain.BitBtn1Click(Sender: TObject);
@@ -295,6 +309,45 @@ begin
   end;
 end;
 
+procedure TfrmMain.tsSchemaShow(Sender: TObject);
+begin
+  self.DrawScheme;
+end;
+
+procedure TfrmMain.DrawScheme;
+var
+  I: Integer;
+  fromx, fromy, tox, toy : integer;
+  Rect :TRect;
+begin
+  if dm.tblSchema.Active then dm.tblSchema.Close;
+  dm.tblSchema.Open;
+
+  Image1.Canvas.Brush.Color := clBlack; //Öâåò çàëèâêè îêğóæíîñòè
+  Image1.Canvas.Pen.Color := clWhite;  //Öâåò ñàìîé îêğóæíîñòè (òî÷íåå ãğàíèö)
+
+  Rect.Left:=0;
+  Rect.Top:=0;
+  Rect.Right:=Image1.Width;
+  Rect.Bottom:=Image1.Height;
+  Image1.Canvas.Brush.Color:=clBlack;
+
+  Image1.Canvas.FillRect(Rect);
+
+  for I := 1 to dm.tblSchema.RecordCount do
+  begin
+    dm.tblSchema.RecNo := i;
+
+    fromx := dm.tblSchema.FieldByName('fromx').AsInteger;
+    fromy := dm.tblSchema.FieldByName('fromy').AsInteger;
+    tox := dm.tblSchema.FieldByName('tox').AsInteger;
+    toy := dm.tblSchema.FieldByName('toy').AsInteger;
+
+    Image1.Canvas.MoveTo(fromx, fromy);
+    Image1.Canvas.LineTo(tox, toy);
+  end;
+end;
+
 procedure TfrmMain.startInterrogation;
 var i : Integer;
 begin
@@ -340,6 +393,8 @@ begin
 
   GroupBox1.Left := lrPadding;
   GroupBox1.Top := tbPadding;
+
+  self.BorderStyle := bsNone;
 end;
 
 procedure TfrmMain.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -371,23 +426,14 @@ begin
   PageControl1.ActivePage := tsLogin;
 end;
 
-procedure TfrmMain.FormResize(Sender: TObject);
+procedure TfrmMain.Image1MouseMove(Sender: TObject; Shift: TShiftState; X,
+  Y: Integer);
 begin
-    Edit1.Left := Round( (Image1.Height / imgHeight) * 223 );
-    Edit1.Top := Round( (Image1.Height / imgHeight) * 262 );
-    Edit1.Width := Round( (Image1.Height / imgHeight)* 36 );
+  if (x >= 5) and (x <= 80) and (y >= 525) and (y <= 600)
+    then Image1.Canvas.Brush.Color := clBlue
+    else Image1.Canvas.Brush.Color := clBlack;
 
-    Edit2.Left := Round( (Image1.Height / imgHeight) * 274 );
-    Edit2.Top := Round( (Image1.Height / imgHeight) * 227 );
-    Edit2.Width := Round( (Image1.Height / imgHeight)* 36 );
-
-    Edit3.Left := Round( (Image1.Height / imgHeight) * 104 );
-    Edit3.Top := Round( (Image1.Height / imgHeight) * 262 );
-    Edit3.Width := Round( (Image1.Height / imgHeight)* 36 );
-
-    Edit4.Left := Round( (Image1.Height / imgHeight) * 152 );
-    Edit4.Top := Round( (Image1.Height / imgHeight) * 211 );
-    Edit4.Width := Round( (Image1.Height / imgHeight)* 47 );
+  Image1.Canvas.FloodFill(6, 526, clWhite, fsBorder);
 end;
 
 procedure TfrmMain.N5Click(Sender: TObject);
@@ -410,6 +456,11 @@ end;
 procedure TfrmMain.N8Click(Sender: TObject);
 begin
   frmAbout.ShowModal;
+end;
+
+procedure TfrmMain.N9Click(Sender: TObject);
+begin
+  Application.Terminate;
 end;
 
 procedure TfrmMain.SetFrmSensorsDataSource(sensorDataSource: TDataSource);

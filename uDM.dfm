@@ -437,4 +437,10 @@ object dm: Tdm
     Left = 224
     Top = 168
   end
+  object tblSchema: TADOTable
+    Connection = DB_GATE
+    TableName = 'shema'
+    Left = 336
+    Top = 168
+  end
 end

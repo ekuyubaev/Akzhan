@@ -87,6 +87,7 @@ type
     qNotSeenFaultsDatchikNaimenovanie: TStringField;
     qNotSeenFaultsDatchikOboznachenie: TStringField;
     qReports: TADOQuery;
+    tblSchema: TADOTable;
   private
     { Private declarations }
   public
@@ -118,6 +119,7 @@ begin
   if not qFault.Active then qFault.Open;
   if not qFaultReadings.Active then qFaultReadings.Open;
   if not qNotSeenFaults.Active then qNotSeenFaults.Open;
+  if not tblSchema.Active then tblSchema.Open;
 end;
 
 Procedure Tdm.refreshSensors;
