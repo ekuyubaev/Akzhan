@@ -1,9 +1,9 @@
 object frmMain: TfrmMain
   Left = 0
   Top = 0
-  BorderStyle = bsSingle
+  BorderStyle = bsToolWindow
   Caption = #1040#1056#1052' '#1062#1055#1055#1053
-  ClientHeight = 631
+  ClientHeight = 635
   ClientWidth = 808
   Color = clBtnFace
   DoubleBuffered = True
@@ -25,37 +25,38 @@ object frmMain: TfrmMain
     Left = 0
     Top = 0
     Width = 808
-    Height = 631
+    Height = 635
     ActivePage = tsSchema
     Align = alClient
     Style = tsFlatButtons
     TabOrder = 0
-    ExplicitWidth = 783
-    ExplicitHeight = 526
+    ExplicitWidth = 798
+    ExplicitHeight = 625
     object tsObjects: TTabSheet
       Caption = #1054#1073#1098#1077#1082#1090#1099' '#1080' '#1076#1072#1090#1095#1080#1082#1080
-      ExplicitWidth = 791
-      ExplicitHeight = 533
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitHeight = 600
       object Panel1: TPanel
         Left = 0
         Top = 0
-        Width = 800
+        Width = 790
         Height = 289
         Align = alTop
         BevelKind = bkFlat
         BevelOuter = bvNone
         TabOrder = 0
-        ExplicitWidth = 791
+        ExplicitWidth = 800
         object Panel3: TPanel
           Left = 0
           Top = 0
-          Width = 796
+          Width = 786
           Height = 35
           Align = alTop
           BevelKind = bkFlat
           BevelOuter = bvNone
           TabOrder = 0
-          ExplicitWidth = 787
+          ExplicitWidth = 796
           object BitBtn4: TBitBtn
             Left = 8
             Top = 0
@@ -267,7 +268,7 @@ object frmMain: TfrmMain
         object DBGridEh1: TDBGridEh
           Left = 0
           Top = 35
-          Width = 796
+          Width = 786
           Height = 250
           Align = alClient
           AutoFitColWidths = True
@@ -342,25 +343,25 @@ object frmMain: TfrmMain
       object Panel2: TPanel
         Left = 0
         Top = 289
-        Width = 800
-        Height = 311
+        Width = 790
+        Height = 305
         Align = alClient
         BevelKind = bkFlat
         BevelOuter = bvNone
         TabOrder = 1
-        ExplicitWidth = 791
-        ExplicitHeight = 244
+        ExplicitWidth = 800
+        ExplicitHeight = 311
         object Panel4: TPanel
           Left = 0
           Top = 0
-          Width = 796
+          Width = 786
           Height = 35
           Align = alTop
           BevelKind = bkFlat
           BevelOuter = bvNone
           ParentBackground = False
           TabOrder = 0
-          ExplicitWidth = 787
+          ExplicitWidth = 796
           object BitBtn1: TBitBtn
             Left = 8
             Top = 0
@@ -572,8 +573,8 @@ object frmMain: TfrmMain
         object DBGridEh2: TDBGridEh
           Left = 0
           Top = 35
-          Width = 796
-          Height = 272
+          Width = 786
+          Height = 266
           Align = alClient
           AutoFitColWidths = True
           Color = cl3DLight
@@ -752,28 +753,29 @@ object frmMain: TfrmMain
     object tsSensors: TTabSheet
       Caption = #1044#1072#1090#1095#1080#1082#1080' '#1080' '#1087#1086#1082#1072#1079#1072#1085#1080#1103
       ImageIndex = 1
-      ExplicitWidth = 791
-      ExplicitHeight = 533
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitHeight = 600
       object Panel5: TPanel
         Left = 0
         Top = 0
-        Width = 800
+        Width = 790
         Height = 289
         Align = alTop
         BevelKind = bkFlat
         BevelOuter = bvNone
         TabOrder = 0
-        ExplicitWidth = 791
+        ExplicitWidth = 800
         object Panel6: TPanel
           Left = 0
           Top = 0
-          Width = 796
+          Width = 786
           Height = 35
           Align = alTop
           BevelKind = bkFlat
           BevelOuter = bvNone
           TabOrder = 0
-          ExplicitWidth = 787
+          ExplicitWidth = 796
           object BitBtn7: TBitBtn
             Left = 7
             Top = 1
@@ -966,7 +968,7 @@ object frmMain: TfrmMain
         object DBGridEh3: TDBGridEh
           Left = 0
           Top = 35
-          Width = 796
+          Width = 786
           Height = 250
           Align = alClient
           AutoFitColWidths = True
@@ -1163,24 +1165,24 @@ object frmMain: TfrmMain
       object Panel7: TPanel
         Left = 0
         Top = 289
-        Width = 800
-        Height = 311
+        Width = 790
+        Height = 305
         Align = alClient
         BevelKind = bkFlat
         BevelOuter = bvNone
         TabOrder = 1
-        ExplicitWidth = 791
-        ExplicitHeight = 244
+        ExplicitWidth = 800
+        ExplicitHeight = 311
         object Panel8: TPanel
           Left = 0
           Top = 0
-          Width = 796
+          Width = 786
           Height = 35
           Align = alTop
           BevelKind = bkFlat
           BevelOuter = bvNone
           TabOrder = 0
-          ExplicitWidth = 787
+          ExplicitWidth = 796
           object BitBtn11: TBitBtn
             Left = 7
             Top = 1
@@ -1248,8 +1250,8 @@ object frmMain: TfrmMain
         object DBGridEh4: TDBGridEh
           Left = 0
           Top = 35
-          Width = 796
-          Height = 272
+          Width = 786
+          Height = 266
           Align = alClient
           AutoFitColWidths = True
           Color = cl3DLight
@@ -1367,28 +1369,29 @@ object frmMain: TfrmMain
     object tsFailure: TTabSheet
       Caption = #1040#1074#1072#1088#1080#1081#1085#1099#1077' '#1089#1080#1090#1091#1072#1094#1080#1080
       ImageIndex = 2
-      ExplicitWidth = 775
-      ExplicitHeight = 495
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitHeight = 600
       object Panel9: TPanel
         Left = 0
         Top = 0
-        Width = 800
+        Width = 790
         Height = 265
         Align = alTop
         BevelKind = bkFlat
         BevelOuter = bvNone
         TabOrder = 0
-        ExplicitWidth = 775
+        ExplicitWidth = 800
         object Panel11: TPanel
           Left = 0
           Top = 0
-          Width = 796
+          Width = 786
           Height = 35
           Align = alTop
           BevelKind = bkFlat
           BevelOuter = bvNone
           TabOrder = 0
-          ExplicitWidth = 771
+          ExplicitWidth = 796
           object BitBtn10: TBitBtn
             Left = 8
             Top = 1
@@ -1456,7 +1459,7 @@ object frmMain: TfrmMain
         object DBGridEh5: TDBGridEh
           Left = 0
           Top = 35
-          Width = 796
+          Width = 786
           Height = 226
           Align = alClient
           AutoFitColWidths = True
@@ -1678,30 +1681,30 @@ object frmMain: TfrmMain
       object Panel10: TPanel
         Left = 0
         Top = 265
-        Width = 800
-        Height = 335
+        Width = 790
+        Height = 329
         Align = alClient
         BevelKind = bkFlat
         BevelOuter = bvNone
         TabOrder = 1
-        ExplicitWidth = 775
-        ExplicitHeight = 230
+        ExplicitWidth = 800
+        ExplicitHeight = 335
         object Panel12: TPanel
           Left = 0
           Top = 0
-          Width = 796
+          Width = 786
           Height = 35
           Align = alTop
           BevelKind = bkFlat
           BevelOuter = bvNone
           TabOrder = 0
-          ExplicitWidth = 771
+          ExplicitWidth = 796
         end
         object DBGridEh6: TDBGridEh
           Left = 0
           Top = 35
-          Width = 796
-          Height = 296
+          Width = 786
+          Height = 290
           Align = alClient
           AutoFitColWidths = True
           Color = cl3DLight
@@ -1864,18 +1867,18 @@ object frmMain: TfrmMain
       Caption = #1052#1085#1077#1084#1086#1089#1093#1077#1084#1072
       ImageIndex = 3
       OnShow = tsSchemaShow
-      ExplicitWidth = 791
-      ExplicitHeight = 533
+      ExplicitWidth = 790
+      ExplicitHeight = 594
       DesignSize = (
         800
-        600)
+        604)
       object Image1: TImage
         Left = 0
         Top = 0
         Width = 800
-        Height = 600
+        Height = 604
         Align = alClient
-        OnMouseMove = Image1MouseMove
+        OnMouseDown = Image1MouseDown
         ExplicitLeft = 360
         ExplicitTop = 336
         ExplicitWidth = 105
@@ -1883,7 +1886,7 @@ object frmMain: TfrmMain
       end
       object Edit1: TEdit
         Left = 231
-        Top = 320
+        Top = 322
         Width = 36
         Height = 19
         Anchors = []
@@ -1896,7 +1899,7 @@ object frmMain: TfrmMain
         TabOrder = 0
         Text = 'Edit1'
         ExplicitLeft = 228
-        ExplicitTop = 283
+        ExplicitTop = 317
       end
       object Edit2: TEdit
         Left = 274
@@ -1941,36 +1944,36 @@ object frmMain: TfrmMain
         Text = 'Edit4'
       end
       object Edit7: TEdit
-        Left = 560
-        Top = 152
+        Left = 676
+        Top = 291
         Width = 121
         Height = 21
         TabOrder = 4
         Text = 'Edit7'
       end
       object Edit8: TEdit
-        Left = 560
-        Top = 200
+        Left = 676
+        Top = 318
         Width = 121
         Height = 21
         TabOrder = 5
         Text = 'Edit8'
       end
       object BitBtn13: TBitBtn
-        Left = 576
-        Top = 232
+        Left = 704
+        Top = 345
         Width = 75
         Height = 25
         Caption = 'BitBtn13'
         TabOrder = 6
-        OnClick = BitBtn13Click
       end
     end
     object tsLogin: TTabSheet
       Caption = 'tsLogin'
       ImageIndex = 4
-      ExplicitWidth = 791
-      ExplicitHeight = 533
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitHeight = 600
       object GroupBox1: TGroupBox
         Left = 320
         Top = 128

@@ -9,6 +9,9 @@ uses
   GridsEh, DBAxisGridsEh, DBGridEh, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Buttons, EhLibADO,
   Data.DB, Vcl.Imaging.jpeg, uDatchik, uNotification, iniFiles;
 
+const IMG_WIDTH = 1364;
+      IMG_HEIGHT = 683;
+
 type
   TfrmMain = class(TForm)
     PageControl1: TPageControl;
@@ -98,9 +101,8 @@ type
     procedure N8Click(Sender: TObject);
     procedure N9Click(Sender: TObject);
     procedure tsSchemaShow(Sender: TObject);
-    procedure BitBtn13Click(Sender: TObject);
-    procedure Image1MouseMove(Sender: TObject; Shift: TShiftState; X,
-      Y: Integer);
+    procedure Image1MouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
   private
     { Private declarations }
     sensorCount :integer;
@@ -188,11 +190,6 @@ begin
   notifier.Priority:=tpLowest;
   notifier.hideTillNextLaunch := false;
   notifier.Resume;
-end;
-
-procedure TfrmMain.BitBtn13Click(Sender: TObject);
-begin
-  self.DrawScheme;
 end;
 
 procedure TfrmMain.BitBtn1Click(Sender: TObject);
@@ -319,33 +316,47 @@ var
   I: Integer;
   fromx, fromy, tox, toy : integer;
   Rect :TRect;
+  xratio, yratio : real;
 begin
   if dm.tblSchema.Active then dm.tblSchema.Close;
   dm.tblSchema.Open;
-
-  Image1.Canvas.Brush.Color := clBlack; //Öâåò çàëèâêè îêğóæíîñòè
-  Image1.Canvas.Pen.Color := clWhite;  //Öâåò ñàìîé îêğóæíîñòè (òî÷íåå ãğàíèö)
 
   Rect.Left:=0;
   Rect.Top:=0;
   Rect.Right:=Image1.Width;
   Rect.Bottom:=Image1.Height;
-  Image1.Canvas.Brush.Color:=clBlack;
-
+  Image1.Canvas.Brush.Color:=clGray;
   Image1.Canvas.FillRect(Rect);
+
+
+  Image1.Canvas.Pen.Color := clBlack;
+
+  xratio := Image1.Width / IMG_WIDTH;
+  yratio := Image1.Height / IMG_HEIGHT;
 
   for I := 1 to dm.tblSchema.RecordCount do
   begin
     dm.tblSchema.RecNo := i;
 
-    fromx := dm.tblSchema.FieldByName('fromx').AsInteger;
-    fromy := dm.tblSchema.FieldByName('fromy').AsInteger;
-    tox := dm.tblSchema.FieldByName('tox').AsInteger;
-    toy := dm.tblSchema.FieldByName('toy').AsInteger;
+    fromx := Round(xratio*dm.tblSchema.FieldByName('fromx').AsInteger);
+    fromy := Round(yratio*dm.tblSchema.FieldByName('fromy').AsInteger);
+    tox := Round(xratio*dm.tblSchema.FieldByName('tox').AsInteger);
+    toy := Round(yratio*dm.tblSchema.FieldByName('toy').AsInteger);
 
     Image1.Canvas.MoveTo(fromx, fromy);
     Image1.Canvas.LineTo(tox, toy);
   end;
+
+  Image1.Canvas.Brush.Color := clTeal;
+  Image1.Canvas.FloodFill(Round(xratio*145), Round(yratio*5), clBlack, fsBorder);
+  Image1.Canvas.FloodFill(Round(xratio*160), Round(yratio*110), clBlack, fsBorder);
+  Image1.Canvas.FloodFill(Round(xratio*560), Round(yratio*630), clBlack, fsBorder);
+  Image1.Canvas.FloodFill(Round(xratio*105), Round(yratio*580), clBlack, fsBorder);
+
+  Image1.Canvas.Brush.Color := clOlive;
+  Image1.Canvas.FloodFill(Round(xratio*10), Round(yratio*600), clBlack, fsBorder);
+  Image1.Canvas.FloodFill(Round(xratio*110), Round(yratio*510), clBlack, fsBorder);
+  Image1.Canvas.FloodFill(Round(xratio*490), Round(yratio*620), clBlack, fsBorder);
 end;
 
 procedure TfrmMain.startInterrogation;
@@ -388,6 +399,8 @@ end;
 procedure TfrmMain.FormActivate(Sender: TObject);
 var  lrPadding, tbPadding : integer;
 begin
+  self.WindowState := wsMaximized;
+
   lrPadding := Round( (ClientWidth - GroupBox1.Width) / 2 );
   tbPadding := Round( (ClientHeight - GroupBox1.Height) / 2 );
 
@@ -426,14 +439,11 @@ begin
   PageControl1.ActivePage := tsLogin;
 end;
 
-procedure TfrmMain.Image1MouseMove(Sender: TObject; Shift: TShiftState; X,
-  Y: Integer);
+procedure TfrmMain.Image1MouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
 begin
-  if (x >= 5) and (x <= 80) and (y >= 525) and (y <= 600)
-    then Image1.Canvas.Brush.Color := clBlue
-    else Image1.Canvas.Brush.Color := clBlack;
-
-  Image1.Canvas.FloodFill(6, 526, clWhite, fsBorder);
+  Edit7.Text := IntToStr(x);
+  Edit8.Text := IntToStr(y);
 end;
 
 procedure TfrmMain.N5Click(Sender: TObject);
