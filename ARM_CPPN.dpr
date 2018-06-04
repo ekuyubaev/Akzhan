@@ -13,7 +13,8 @@ uses
   uNotification in 'uNotification.pas',
   uNotificationForm in 'uNotificationForm.pas' {frmNotification},
   uReport in 'uReport.pas' {frmReport},
-  uAbout in 'uAbout.pas' {frmAbout};
+  uAbout in 'uAbout.pas' {frmAbout},
+  uObjectClass in 'uObjectClass.pas';
 
 {$R *.res}
 

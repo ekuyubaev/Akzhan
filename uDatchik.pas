@@ -9,13 +9,14 @@ type
   TDatchik = class(TThread)
     private
       { Private declarations }
+      fID_object :integer;
       fID_datchik :integer;
       fPokazanie:real;
-      fNomerEdit:integer;
       fStatus: integer;
       fMAX: real;
       fMIN: real;
       fID_avaria : integer;
+      fname : String;
 
     protected
       procedure Execute; override;
@@ -24,10 +25,11 @@ type
       Procedure interrogate;
 
     public
+      property id_object: integer Read fID_object Write fID_object;
       property id_datchika: integer Read fid_datchik Write fid_datchik;
+      property name: String Read fname Write fname;
       property pokazanie: real Read fPokazanie Write fPokazanie;
       property status: integer Read fStatus Write fStatus;
-      property nomerEdit: integer Read fNomerEdit Write fNomerEdit;
       property MAX: real Read fMAX Write fMAX;
       property MIN: real Read fMIN Write fMIN;
       property ID_avaria: integer Read fID_avaria Write fID_avaria;
@@ -45,19 +47,7 @@ Procedure TDatchik.show_pokazanie;
 begin
   with frmMain do
   begin
-      if fStatus <> 0 then
-      begin
-        TEdit(FindComponent('Edit'+IntToStr(fNomerEdit))).Color := clBlack;
-        TEdit(FindComponent('Edit'+IntToStr(fNomerEdit))).Clear;
-        self.Terminate;
-      end
-          else
-      begin
-          if fID_avaria > 0
-              then TEdit(FindComponent('Edit'+IntToStr(fNomerEdit))).Color := clRed
-              else TEdit(FindComponent('Edit'+IntToStr(fNomerEdit))).Color := clLime;
-          TEdit(FindComponent('Edit'+IntToStr(fNomerEdit))).Text := FloatToStrF(fPokazanie, fffixed, 6, 2);
-      end;
+      if fStatus <> 0 then self.Terminate;
       dm.refreshReadings;
   end;
 end;
@@ -99,8 +89,6 @@ begin
     // если авария не была зафиксирована ранее
     if (fID_avaria <= 0) then
     begin
-
-
         if dm.qTemp.Active then dm.qTemp.Close;
         dm.qTemp.SQL.Text := 'Insert into Avaria (ID_datchik, ID_stepen, '
                           +'DV_obnaruzhena, Opisanie) '

@@ -88,6 +88,13 @@ type
     qNotSeenFaultsDatchikOboznachenie: TStringField;
     qReports: TADOQuery;
     tblSchema: TADOTable;
+    qObjectsFigura: TWideStringField;
+    qObjectsXcentr: TIntegerField;
+    qObjectsYcentr: TIntegerField;
+    qObjectsShirina: TIntegerField;
+    qObjectsDlina: TIntegerField;
+    qReadingsOnScheme: TADOQuery;
+    dsReadingsOnScheme: TDataSource;
   private
     { Private declarations }
   public
@@ -106,6 +113,8 @@ implementation
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
+uses uObjectClass, uMain;
+
 {$R *.dfm}
 Procedure Tdm.connect;
 begin
@@ -120,6 +129,7 @@ begin
   if not qFaultReadings.Active then qFaultReadings.Open;
   if not qNotSeenFaults.Active then qNotSeenFaults.Open;
   if not tblSchema.Active then tblSchema.Open;
+  if not qReadingsOnScheme.Active then qReadingsOnScheme.Open;
 end;
 
 Procedure Tdm.refreshSensors;
@@ -180,6 +190,9 @@ begin
     qFaultReadings.Last;
     qFaultReadings.RecNo := ind;
   end;
+
+  qReadingsOnScheme.Close;
+  qReadingsOnScheme.Open;
 end;
 
 Procedure Tdm.refreshFaults;

@@ -7,9 +7,9 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ComCtrls, Vcl.Menus,
   DBGridEhGrouping, ToolCtrlsEh, DBGridEhToolCtrls, DynVarsEh, EhLibVCL,
   GridsEh, DBAxisGridsEh, DBGridEh, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Buttons, EhLibADO,
-  Data.DB, Vcl.Imaging.jpeg, uDatchik, uNotification, iniFiles;
+  Data.DB, Vcl.Imaging.jpeg, uDatchik, uNotification, iniFiles,uObjectClass;
 
-const IMG_WIDTH = 1364;
+const IMG_WIDTH = 950;
       IMG_HEIGHT = 683;
 
 type
@@ -47,10 +47,6 @@ type
     DBGridEh4: TDBGridEh;
     N4: TMenuItem;
     N5: TMenuItem;
-    Edit1: TEdit;
-    Edit2: TEdit;
-    Edit3: TEdit;
-    Edit4: TEdit;
     Panel9: TPanel;
     Panel10: TPanel;
     Panel11: TPanel;
@@ -69,10 +65,12 @@ type
     BitBtn12: TBitBtn;
     N8: TMenuItem;
     N9: TMenuItem;
-    Edit7: TEdit;
-    Edit8: TEdit;
     Image1: TImage;
-    BitBtn13: TBitBtn;
+    Panel13: TPanel;
+    DBGridEh7: TDBGridEh;
+    GroupBox2: TGroupBox;
+    DBGridEh8: TDBGridEh;
+    Timer1: TTimer;
     procedure BitBtn4Click(Sender: TObject);
     procedure BitBtn6Click(Sender: TObject);
     procedure BitBtn5Click(Sender: TObject);
@@ -103,12 +101,16 @@ type
     procedure tsSchemaShow(Sender: TObject);
     procedure Image1MouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
+    procedure Image1MouseMove(Sender: TObject; Shift: TShiftState; X,
+      Y: Integer);
+    procedure Timer1Timer(Sender: TObject);
   private
     { Private declarations }
     sensorCount :integer;
     procedure SetFrmSensorsDataSource(sensorDataSource:TDataSource);
     procedure stopInterrogation();
     procedure DrawScheme();
+    procedure fillTubes();
   public
     { Public declarations }
     procedure startInterrogation();
@@ -120,8 +122,10 @@ var
   imgHeight: Integer = 495;
   imgWidth: Integer = 775;
   datchiki: array of TDatchik;
+  obecty: array of TObect;
   notifier: TNotifier;
   settingsIni: TIniFile;
+  tubeColor : TColor = clInactiveCaptionText;
 
 
 implementation
@@ -182,6 +186,21 @@ begin
 
   PageControl1.ActivePage := tsSchema;
 
+  SetLength(obecty, dm.qObjects.RecordCount);
+
+  for I := 1 to dm.qObjects.recordCount do
+  begin
+    dm.qObjects.RecNo := i;
+    obecty[i-1] := TObect.Create;
+    obecty[i-1].id := dm.qObjects.FieldByName('ID_object').AsInteger;
+    obecty[i-1].xcentr := dm.qObjects.FieldByName('xcentr').AsInteger;
+    obecty[i-1].ycentr := dm.qObjects.FieldByName('ycentr').AsInteger;
+    obecty[i-1].dlina := dm.qObjects.FieldByName('dlina').AsInteger;
+    obecty[i-1].shirina := dm.qObjects.FieldByName('shirina').AsInteger;
+    obecty[i-1].naimenovanie := dm.qObjects.FieldByName('naimenovanie').AsString;
+    obecty[i-1].figura := dm.qObjects.FieldByName('figura').AsString;
+    obecty[i-1].initFields;
+  end;
 
   startInterrogation;
 
@@ -300,10 +319,15 @@ begin
   if sensorCount > 0 then
   begin
     for i := 1 to sensorCount do
-      datchiki[i].status := -1;
+      datchiki[i-1].status := -1;
     datchiki := nil;
     sensorCount := -1;
   end;
+end;
+
+procedure TfrmMain.Timer1Timer(Sender: TObject);
+begin
+  DrawScheme;
 end;
 
 procedure TfrmMain.tsSchemaShow(Sender: TObject);
@@ -317,6 +341,7 @@ var
   fromx, fromy, tox, toy : integer;
   Rect :TRect;
   xratio, yratio : real;
+
 begin
   if dm.tblSchema.Active then dm.tblSchema.Close;
   dm.tblSchema.Open;
@@ -347,16 +372,25 @@ begin
     Image1.Canvas.LineTo(tox, toy);
   end;
 
-  Image1.Canvas.Brush.Color := clTeal;
+  if tubeColor = clInactiveCaptionText then tubeColor := clBlack
+  else tubeColor := clInactiveCaptionText;
+  Image1.Canvas.Brush.Color := tubeColor;
   Image1.Canvas.FloodFill(Round(xratio*145), Round(yratio*5), clBlack, fsBorder);
   Image1.Canvas.FloodFill(Round(xratio*160), Round(yratio*110), clBlack, fsBorder);
   Image1.Canvas.FloodFill(Round(xratio*560), Round(yratio*630), clBlack, fsBorder);
   Image1.Canvas.FloodFill(Round(xratio*105), Round(yratio*580), clBlack, fsBorder);
 
-  Image1.Canvas.Brush.Color := clOlive;
+  Image1.Canvas.Brush.Color := clBlue;
   Image1.Canvas.FloodFill(Round(xratio*10), Round(yratio*600), clBlack, fsBorder);
   Image1.Canvas.FloodFill(Round(xratio*110), Round(yratio*510), clBlack, fsBorder);
   Image1.Canvas.FloodFill(Round(xratio*490), Round(yratio*620), clBlack, fsBorder);
+
+  for I := 1 to Length(Obecty) do
+    obecty[i-1].DrawSelf(1);
+end;
+
+procedure TfrmMain.fillTubes;
+begin
 end;
 
 procedure TfrmMain.startInterrogation;
@@ -365,7 +399,7 @@ begin
   stopInterrogation;
 
   dm.qTemp.close;
-  dm.qTemp.SQL.Text := 'Select D.ID_datchik, D.ID_sostoianie, M.NomerEdit, D.MAX, D.MIN '
+  dm.qTemp.SQL.Text := 'Select D.ID_datchik, ID_object, D.ID_sostoianie, Oboznachenie, D.MAX, D.MIN '
                       +'From Datchik D left join Model M on D.ID_datchik = M.ID_datchik';
   dm.qTemp.Open;
 
@@ -383,21 +417,23 @@ begin
   begin
       dm.qTemp.RecNo := i;
 
-      datchiki[i] :=TDatchik.Create(true);
-      datchiki[i].FreeOnTerminate:=true;
-      datchiki[i].Priority:=tpLowest;
-      datchiki[i].id_datchika := dm.qTemp.FieldByName('ID_datchik').AsInteger;
-      datchiki[i].status := dm.qTemp.FieldByName('ID_sostoianie').AsInteger;
-      datchiki[i].nomerEdit := dm.qTemp.FieldByName('NomerEdit').AsInteger;
-      datchiki[i].MAX := dm.qTemp.FieldByName('MAX').AsFloat;
-      datchiki[i].MIN := dm.qTemp.FieldByName('MIN').AsFloat;
-      datchiki[i].ID_avaria := -1;
-      datchiki[i].Resume;
+      datchiki[i-1] :=TDatchik.Create(true);
+      datchiki[i-1].FreeOnTerminate:=true;
+      datchiki[i-1].Priority:=tpLowest;
+      datchiki[i-1].id_datchika := dm.qTemp.FieldByName('ID_datchik').AsInteger;
+      datchiki[i-1].id_object := dm.qTemp.FieldByName('ID_object').AsInteger;
+      datchiki[i-1].name :=  dm.qTemp.FieldByName('Oboznachenie').AsString;
+      datchiki[i-1].status := dm.qTemp.FieldByName('ID_sostoianie').AsInteger;
+      //datchiki[i].nomerEdit := dm.qTemp.FieldByName('NomerEdit').AsInteger;
+      datchiki[i-1].MAX := dm.qTemp.FieldByName('MAX').AsFloat;
+      datchiki[i-1].MIN := dm.qTemp.FieldByName('MIN').AsFloat;
+      datchiki[i-1].ID_avaria := -1;
+      datchiki[i-1].Resume;
   end;
 end;
 
 procedure TfrmMain.FormActivate(Sender: TObject);
-var  lrPadding, tbPadding : integer;
+var  lrPadding, tbPadding, i : integer;
 begin
   self.WindowState := wsMaximized;
 
@@ -441,9 +477,18 @@ end;
 
 procedure TfrmMain.Image1MouseDown(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
+var i : integer;
 begin
-  Edit7.Text := IntToStr(x);
-  Edit8.Text := IntToStr(y);
+  for I := 1 to Length(obecty) do
+    obecty[i-1].CheckObect(x, y);
+end;
+
+procedure TfrmMain.Image1MouseMove(Sender: TObject; Shift: TShiftState; X,
+  Y: Integer);
+  var i : integer;
+begin
+  for I := 1 to Length(obecty) do
+    obecty[i-1].CheckMouseOver(x, y);
 end;
 
 procedure TfrmMain.N5Click(Sender: TObject);

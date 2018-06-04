@@ -37,6 +37,22 @@ object dm: Tdm
       FieldName = 'Primechanie'
       BlobType = ftWideMemo
     end
+    object qObjectsFigura: TWideStringField
+      FieldName = 'Figura'
+      Size = 45
+    end
+    object qObjectsXcentr: TIntegerField
+      FieldName = 'Xcentr'
+    end
+    object qObjectsYcentr: TIntegerField
+      FieldName = 'Ycentr'
+    end
+    object qObjectsShirina: TIntegerField
+      FieldName = 'Shirina'
+    end
+    object qObjectsDlina: TIntegerField
+      FieldName = 'Dlina'
+    end
   end
   object dsObjects: TDataSource
     DataSet = qObjects
@@ -442,5 +458,29 @@ object dm: Tdm
     TableName = 'shema'
     Left = 336
     Top = 168
+  end
+  object qReadingsOnScheme: TADOQuery
+    Connection = DB_GATE
+    CursorType = ctStatic
+    DataSource = dsSensors
+    Parameters = <
+      item
+        Name = 'ID_datchik'
+        DataType = ftInteger
+        Size = -1
+        Value = 0
+      end>
+    SQL.Strings = (
+      'Select * From Pokazanie'
+      'Where ID_datchik = :ID_datchik'
+      'Order by datavremia desc'
+      '')
+    Left = 240
+    Top = 272
+  end
+  object dsReadingsOnScheme: TDataSource
+    DataSet = qReadingsOnScheme
+    Left = 240
+    Top = 320
   end
 end
