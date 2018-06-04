@@ -95,6 +95,22 @@ type
     qObjectsDlina: TIntegerField;
     qReadingsOnScheme: TADOQuery;
     dsReadingsOnScheme: TDataSource;
+    qSmena: TADOQuery;
+    qSostav: TADOQuery;
+    dsSmena: TDataSource;
+    dsSostav: TDataSource;
+    qSotrudnik: TADOQuery;
+    qDolzhnost: TADOQuery;
+    dsSotrudnik: TDataSource;
+    dsDolzhnost: TDataSource;
+    qSotrudnikID_sotrudnik: TAutoIncField;
+    qSotrudnikFIO: TWideStringField;
+    qSotrudnikID_dolzhnost: TIntegerField;
+    qSotrudnikTelefon: TWideStringField;
+    qSotrudnikPrimechanie: TWideMemoField;
+    qSmenaID_smena: TAutoIncField;
+    qSmenaDatavremia: TDateTimeField;
+    qSmenaPrimechanie: TWideMemoField;
   private
     { Private declarations }
   public

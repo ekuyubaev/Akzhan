@@ -483,4 +483,109 @@ object dm: Tdm
     Left = 240
     Top = 320
   end
+  object qSmena: TADOQuery
+    Active = True
+    Connection = DB_GATE
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'Select * '
+      'From Smena'
+      '')
+    Left = 424
+    Top = 168
+    object qSmenaID_smena: TAutoIncField
+      FieldName = 'ID_smena'
+      ReadOnly = True
+    end
+    object qSmenaDatavremia: TDateTimeField
+      FieldName = 'Datavremia'
+    end
+    object qSmenaPrimechanie: TWideMemoField
+      FieldName = 'Primechanie'
+      BlobType = ftWideMemo
+    end
+  end
+  object qSostav: TADOQuery
+    Active = True
+    Connection = DB_GATE
+    CursorType = ctStatic
+    DataSource = dsSmena
+    Parameters = <
+      item
+        Name = 'ID_smena'
+        DataType = ftInteger
+        Value = 1
+      end>
+    SQL.Strings = (
+      'Select *'
+      'From sostav'
+      'Where ID_smena = :ID_smena'
+      '')
+    Left = 496
+    Top = 168
+  end
+  object dsSmena: TDataSource
+    DataSet = qSmena
+    Left = 424
+    Top = 216
+  end
+  object dsSostav: TDataSource
+    DataSet = qSostav
+    Left = 496
+    Top = 216
+  end
+  object qSotrudnik: TADOQuery
+    Active = True
+    Connection = DB_GATE
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'Select *'
+      'From Sotrudnik'
+      '')
+    Left = 560
+    Top = 168
+    object qSotrudnikID_sotrudnik: TAutoIncField
+      FieldName = 'ID_sotrudnik'
+      ReadOnly = True
+    end
+    object qSotrudnikFIO: TWideStringField
+      FieldName = 'FIO'
+      Size = 45
+    end
+    object qSotrudnikID_dolzhnost: TIntegerField
+      FieldName = 'ID_dolzhnost'
+    end
+    object qSotrudnikTelefon: TWideStringField
+      FieldName = 'Telefon'
+      Size = 45
+    end
+    object qSotrudnikPrimechanie: TWideMemoField
+      FieldName = 'Primechanie'
+      BlobType = ftWideMemo
+    end
+  end
+  object qDolzhnost: TADOQuery
+    Active = True
+    Connection = DB_GATE
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'Select *'
+      'From Dolzhnost'
+      '')
+    Left = 632
+    Top = 168
+  end
+  object dsSotrudnik: TDataSource
+    DataSet = qSotrudnik
+    Left = 560
+    Top = 216
+  end
+  object dsDolzhnost: TDataSource
+    DataSet = qDolzhnost
+    Left = 632
+    Top = 216
+  end
 end

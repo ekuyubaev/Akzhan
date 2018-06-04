@@ -14,7 +14,8 @@ uses
   uNotificationForm in 'uNotificationForm.pas' {frmNotification},
   uReport in 'uReport.pas' {frmReport},
   uAbout in 'uAbout.pas' {frmAbout},
-  uObjectClass in 'uObjectClass.pas';
+  uObjectClass in 'uObjectClass.pas',
+  uDolzhnost in 'uDolzhnost.pas' {frmDolzhnost};
 
 {$R *.res}
 
@@ -31,5 +32,6 @@ begin
   Application.CreateForm(TfrmNotification, frmNotification);
   Application.CreateForm(TfrmReport, frmReport);
   Application.CreateForm(TfrmAbout, frmAbout);
+  Application.CreateForm(TfrmDolzhnost, frmDolzhnost);
   Application.Run;
 end.

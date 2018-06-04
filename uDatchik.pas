@@ -17,6 +17,7 @@ type
       fMIN: real;
       fID_avaria : integer;
       fname : String;
+      fPeriod : integer;
 
     protected
       procedure Execute; override;
@@ -33,6 +34,7 @@ type
       property MAX: real Read fMAX Write fMAX;
       property MIN: real Read fMIN Write fMIN;
       property ID_avaria: integer Read fID_avaria Write fID_avaria;
+      property period: integer Read fPeriod Write fPeriod;
   end;
 
 function bToStr(const value : integer) : string;
@@ -161,7 +163,7 @@ begin
       if fStatus = 0 then Synchronize(interrogate);
       Synchronize(show_pokazanie);
 
-      sleep(5000);
+      sleep(fPeriod);
   end;
 end;
 
