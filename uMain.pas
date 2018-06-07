@@ -87,7 +87,8 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ComCtrls, Vcl.Menus,
   DBGridEhGrouping, ToolCtrlsEh, DBGridEhToolCtrls, DynVarsEh, EhLibVCL,
   GridsEh, DBAxisGridsEh, DBGridEh, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Buttons, EhLibADO,
-  Data.DB, Vcl.Imaging.jpeg, uDatchik, uNotification, iniFiles,uObjectClass;
+  Data.DB, Vcl.Imaging.jpeg, uDatchik, uNotification, iniFiles,uObjectClass,
+  Vcl.Imaging.pngimage;
 
 const IMG_WIDTH = 950;
       IMG_HEIGHT = 683;
@@ -176,6 +177,8 @@ type
     BitBtn22: TBitBtn;
     DBGridEh11: TDBGridEh;
     N10: TMenuItem;
+    BitBtn23: TBitBtn;
+    PaintBox1: TPaintBox;
     procedure BitBtn4Click(Sender: TObject);
     procedure BitBtn6Click(Sender: TObject);
     procedure BitBtn5Click(Sender: TObject);
@@ -203,21 +206,21 @@ type
     procedure FormActivate(Sender: TObject);
     procedure N8Click(Sender: TObject);
     procedure N9Click(Sender: TObject);
-    procedure tsSchemaShow(Sender: TObject);
     procedure Image1MouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure Image1MouseMove(Sender: TObject; Shift: TShiftState; X,
       Y: Integer);
-    procedure Timer1Timer(Sender: TObject);
     procedure BitBtn13Click(Sender: TObject);
     procedure N10Click(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
+    procedure BitBtn23Click(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
   private
     { Private declarations }
     sensorCount :integer;
+    imgStep : integer;
     procedure SetFrmSensorsDataSource(sensorDataSource:TDataSource);
     procedure stopInterrogation();
-    procedure DrawScheme();
-    procedure fillTubes();
   public
     { Public declarations }
     procedure startInterrogation();
@@ -229,7 +232,7 @@ var
   imgHeight: Integer = 495;
   imgWidth: Integer = 775;
   datchiki: array of TDatchik;
-  obecty: array of TObect;
+  //obecty: array of TObect;
   notifier: TNotifier;
   settingsIni: TIniFile;
   tubeColor : TColor = clInactiveCaptionText;
@@ -298,7 +301,7 @@ begin
 
   PageControl1.ActivePage := tsSchema;
 
-  SetLength(obecty, dm.qObjects.RecordCount);
+  {SetLength(obecty, dm.qObjects.RecordCount);
 
   for I := 1 to dm.qObjects.recordCount do
   begin
@@ -312,7 +315,7 @@ begin
     obecty[i-1].naimenovanie := dm.qObjects.FieldByName('naimenovanie').AsString;
     obecty[i-1].figura := dm.qObjects.FieldByName('figura').AsString;
     obecty[i-1].initFields;
-  end;
+  end;    }
 
   startInterrogation;
 
@@ -337,6 +340,12 @@ begin
   SetFrmSensorsDataSource(dm.dsSensors);
   frmSensors.query := @dm.qSensors;
   frmSensors.ShowModal;
+end;
+
+procedure TfrmMain.BitBtn23Click(Sender: TObject);
+begin
+  imgStep := 1;
+  Timer1.Enabled := true;
 end;
 
 procedure TfrmMain.BitBtn2Click(Sender: TObject);
@@ -385,6 +394,13 @@ begin
   SetFrmSensorsDataSource(dm.dsSensorsI);
   frmSensors.query := @dm.qSensorsI;
   frmSensors.ShowModal;
+end;
+
+procedure TfrmMain.Button1Click(Sender: TObject);
+begin
+  PaintBox1.Canvas.Pen.Color := clRed;
+  PaintBox1.Canvas.MoveTo(0, 0);
+  PaintBox1.Canvas.LineTo(200, 200);
 end;
 
 procedure TfrmMain.DBGridEh2DrawColumnCell(Sender: TObject; const Rect: TRect;
@@ -446,71 +462,21 @@ begin
 end;
 
 procedure TfrmMain.Timer1Timer(Sender: TObject);
-begin
-  DrawScheme;
-end;
-
-procedure TfrmMain.tsSchemaShow(Sender: TObject);
-begin
-  self.DrawScheme;
-end;
-
-procedure TfrmMain.DrawScheme;
 var
-  I: Integer;
-  fromx, fromy, tox, toy : integer;
-  Rect :TRect;
-  xratio, yratio : real;
-
+  fileName  :string;
+  bitMap : TBitMap;
+  w : TWicImage;
 begin
-  if dm.tblSchema.Active then dm.tblSchema.Close;
-  dm.tblSchema.Open;
-
-  Rect.Left:=0;
-  Rect.Top:=0;
-  Rect.Right:=Image1.Width;
-  Rect.Bottom:=Image1.Height;
-  Image1.Canvas.Brush.Color:=clGray;
-  Image1.Canvas.FillRect(Rect);
-
-
-  Image1.Canvas.Pen.Color := clBlack;
-
-  xratio := Image1.Width / IMG_WIDTH;
-  yratio := Image1.Height / IMG_HEIGHT;
-
-  for I := 1 to dm.tblSchema.RecordCount do
-  begin
-    dm.tblSchema.RecNo := i;
-
-    fromx := Round(xratio*dm.tblSchema.FieldByName('fromx').AsInteger);
-    fromy := Round(yratio*dm.tblSchema.FieldByName('fromy').AsInteger);
-    tox := Round(xratio*dm.tblSchema.FieldByName('tox').AsInteger);
-    toy := Round(yratio*dm.tblSchema.FieldByName('toy').AsInteger);
-
-    Image1.Canvas.MoveTo(fromx, fromy);
-    Image1.Canvas.LineTo(tox, toy);
-  end;
-
-  if tubeColor = clInactiveCaptionText then tubeColor := clBlack
-  else tubeColor := clInactiveCaptionText;
-  Image1.Canvas.Brush.Color := tubeColor;
-  Image1.Canvas.FloodFill(Round(xratio*145), Round(yratio*5), clBlack, fsBorder);
-  Image1.Canvas.FloodFill(Round(xratio*160), Round(yratio*110), clBlack, fsBorder);
-  Image1.Canvas.FloodFill(Round(xratio*560), Round(yratio*630), clBlack, fsBorder);
-  Image1.Canvas.FloodFill(Round(xratio*105), Round(yratio*580), clBlack, fsBorder);
-
-  Image1.Canvas.Brush.Color := clBlue;
-  Image1.Canvas.FloodFill(Round(xratio*10), Round(yratio*600), clBlack, fsBorder);
-  Image1.Canvas.FloodFill(Round(xratio*110), Round(yratio*510), clBlack, fsBorder);
-  Image1.Canvas.FloodFill(Round(xratio*490), Round(yratio*620), clBlack, fsBorder);
-
-  for I := 1 to Length(Obecty) do
-    obecty[i-1].DrawSelf(1);
-end;
-
-procedure TfrmMain.fillTubes;
-begin
+    fileName := 'resources\scheme\55-' + IntToStr(imgStep) + '.png';
+    w := TWicImage.Create;
+    w.LoadFromFile(fileName);
+    bitMap := TBitMap.Create;
+    bitMap.Assign(w);
+    Image1.Picture.Bitmap.Assign(bitMap);
+    w.Free;
+    bitMap.Free;
+    Inc(imgStep);
+    if imgStep > 9 then Timer1.Enabled := false;
 end;
 
 procedure TfrmMain.startInterrogation;
@@ -600,16 +566,16 @@ procedure TfrmMain.Image1MouseDown(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 var i : integer;
 begin
-  for I := 1 to Length(obecty) do
-    obecty[i-1].CheckObect(x, y);
+  {for I := 1 to Length(obecty) do
+    obecty[i-1].CheckObect(x, y); }
 end;
 
 procedure TfrmMain.Image1MouseMove(Sender: TObject; Shift: TShiftState; X,
   Y: Integer);
   var i : integer;
 begin
-  for I := 1 to Length(obecty) do
-    obecty[i-1].CheckMouseOver(x, y);
+  {for I := 1 to Length(obecty) do
+    obecty[i-1].CheckMouseOver(x, y);}
 end;
 
 procedure TfrmMain.N10Click(Sender: TObject);
