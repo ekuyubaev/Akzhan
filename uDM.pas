@@ -111,6 +111,7 @@ type
     qSmenaID_smena: TAutoIncField;
     qSmenaDatavremia: TDateTimeField;
     qSmenaPrimechanie: TWideMemoField;
+    tblEvent: TADOTable;
   private
     { Private declarations }
   public
@@ -146,6 +147,11 @@ begin
   if not qNotSeenFaults.Active then qNotSeenFaults.Open;
   if not tblSchema.Active then tblSchema.Open;
   if not qReadingsOnScheme.Active then qReadingsOnScheme.Open;
+  if not qDolzhnost.Active then qDolzhnost.Open;
+  if not qSotrudnik.Active then qSotrudnik.Open;
+  if not qSmena.Active then qSmena.Open;
+  if not qSostav.Active then qSostav.Open;
+  if not tblEvent.Active then tblEvent.Open;
 end;
 
 Procedure Tdm.refreshSensors;

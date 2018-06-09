@@ -588,4 +588,10 @@ object dm: Tdm
     Left = 632
     Top = 216
   end
+  object tblEvent: TADOTable
+    Connection = DB_GATE
+    TableName = 'event'
+    Left = 416
+    Top = 280
+  end
 end

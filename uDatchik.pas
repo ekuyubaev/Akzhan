@@ -160,7 +160,7 @@ begin
   { Place thread code here }
   while not terminated do
   begin
-      if fStatus = 0 then Synchronize(interrogate);
+      if (fStatus = 0) then Synchronize(interrogate);
       Synchronize(show_pokazanie);
 
       sleep(fPeriod);
