@@ -130,6 +130,10 @@ object frmReport: TfrmReport
       Caption = 'tsFaultsReport'
       ImageIndex = 1
       TabVisible = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Panel2: TPanel
         Left = 0
         Top = 0

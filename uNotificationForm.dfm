@@ -22,11 +22,12 @@ object frmNotification: TfrmNotification
     Top = 0
     Width = 775
     Height = 458
-    ActivePage = TabSheet7
+    ActivePage = TabSheet4
     Align = alClient
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = 'TabSheet1'
+      OnShow = TabSheet1Show
       object Panel1: TPanel
         Left = 0
         Top = 0
@@ -56,7 +57,6 @@ object frmNotification: TfrmNotification
           ParentColor = False
           ParentFont = False
           Layout = tlCenter
-          ExplicitTop = 4
           ExplicitWidth = 294
         end
         object Label2: TLabel
@@ -77,7 +77,6 @@ object frmNotification: TfrmNotification
           Font.Style = []
           ParentFont = False
           Layout = tlCenter
-          ExplicitTop = 70
           ExplicitWidth = 292
         end
         object Label7: TLabel
@@ -100,8 +99,7 @@ object frmNotification: TfrmNotification
           Font.Style = []
           ParentFont = False
           WordWrap = True
-          ExplicitLeft = 0
-          ExplicitTop = 45
+          ExplicitWidth = 734
         end
         object BitBtn1: TBitBtn
           Left = 120
@@ -228,6 +226,7 @@ object frmNotification: TfrmNotification
     object TabSheet3: TTabSheet
       Caption = 'TabSheet3'
       ImageIndex = 2
+      OnShow = TabSheet3Show
       object Panel3: TPanel
         Left = 0
         Top = 0
@@ -237,16 +236,12 @@ object frmNotification: TfrmNotification
         Color = cl3DLight
         ParentBackground = False
         TabOrder = 0
-        ExplicitLeft = 224
-        ExplicitTop = 120
-        ExplicitWidth = 185
-        ExplicitHeight = 41
         object Label6: TLabel
           AlignWithMargins = True
           Left = 4
-          Top = 77
+          Top = 69
           Width = 759
-          Height = 23
+          Height = 19
           Margins.Top = 10
           Margins.Bottom = 30
           Align = alTop
@@ -257,20 +252,21 @@ object frmNotification: TfrmNotification
           Color = clRed
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
-          Font.Height = -19
+          Font.Height = -16
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentColor = False
           ParentFont = False
           WordWrap = True
-          ExplicitWidth = 684
+          ExplicitTop = 77
+          ExplicitWidth = 569
         end
         object Label8: TLabel
           AlignWithMargins = True
           Left = 4
           Top = 11
           Width = 759
-          Height = 46
+          Height = 38
           Margins.Top = 10
           Margins.Bottom = 10
           Align = alTop
@@ -280,19 +276,18 @@ object frmNotification: TfrmNotification
             #1080#1082#1072'] ['#1086#1087#1080#1089#1072#1085#1080#1077' '#1072#1074#1072#1088#1080#1081#1085#1086#1081' '#1089#1080#1090#1091#1072#1094#1080#1080']'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
-          Font.Height = -19
+          Font.Height = -16
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
           WordWrap = True
-          ExplicitTop = 21
-          ExplicitWidth = 754
+          ExplicitWidth = 714
         end
         object RadioGroup1: TRadioGroup
           Left = 1
-          Top = 130
+          Top = 118
           Width = 765
-          Height = 237
+          Height = 179
           Align = alTop
           Caption = #1042#1086#1079#1084#1086#1078#1085#1099#1077' '#1085#1077#1080#1089#1087#1088#1072#1074#1085#1086#1089#1090#1080
           Font.Charset = DEFAULT_CHARSET
@@ -307,7 +302,6 @@ object frmNotification: TfrmNotification
             '['#1085#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077' '#1074#1086#1079#1084#1086#1078#1085#1086#1081' '#1085#1077#1089#1080#1087#1088#1072#1074#1085#1086#1089#1090#1080' '#8470' 4]')
           ParentFont = False
           TabOrder = 0
-          ExplicitTop = 36
         end
         object BitBtn4: TBitBtn
           Left = 296
@@ -329,6 +323,7 @@ object frmNotification: TfrmNotification
     object TabSheet4: TTabSheet
       Caption = 'TabSheet4'
       ImageIndex = 3
+      OnShow = TabSheet4Show
       object Panel4: TPanel
         Left = 0
         Top = 0
@@ -338,10 +333,6 @@ object frmNotification: TfrmNotification
         Color = cl3DLight
         ParentBackground = False
         TabOrder = 0
-        ExplicitLeft = 240
-        ExplicitTop = 144
-        ExplicitWidth = 185
-        ExplicitHeight = 41
         object Label9: TLabel
           AlignWithMargins = True
           Left = 4
@@ -408,8 +399,7 @@ object frmNotification: TfrmNotification
           ParentColor = False
           ParentFont = False
           WordWrap = True
-          ExplicitLeft = 20
-          ExplicitTop = 140
+          ExplicitWidth = 663
         end
         object Label12: TLabel
           AlignWithMargins = True
@@ -479,10 +469,6 @@ object frmNotification: TfrmNotification
         Color = cl3DLight
         ParentBackground = False
         TabOrder = 0
-        ExplicitLeft = 208
-        ExplicitTop = 136
-        ExplicitWidth = 185
-        ExplicitHeight = 41
         object Label13: TLabel
           AlignWithMargins = True
           Left = 4
@@ -532,10 +518,6 @@ object frmNotification: TfrmNotification
         Color = cl3DLight
         ParentBackground = False
         TabOrder = 0
-        ExplicitLeft = 208
-        ExplicitTop = 136
-        ExplicitWidth = 185
-        ExplicitHeight = 41
         object Label14: TLabel
           AlignWithMargins = True
           Left = 4
@@ -585,10 +567,6 @@ object frmNotification: TfrmNotification
         Color = cl3DLight
         ParentBackground = False
         TabOrder = 0
-        ExplicitLeft = 208
-        ExplicitTop = 136
-        ExplicitWidth = 185
-        ExplicitHeight = 41
         object Label15: TLabel
           AlignWithMargins = True
           Left = 4
@@ -609,7 +587,6 @@ object frmNotification: TfrmNotification
           Font.Style = []
           ParentFont = False
           WordWrap = True
-          ExplicitTop = 11
           ExplicitWidth = 690
         end
         object Memo1: TMemo
@@ -655,10 +632,6 @@ object frmNotification: TfrmNotification
         Color = cl3DLight
         ParentBackground = False
         TabOrder = 0
-        ExplicitLeft = 360
-        ExplicitTop = 248
-        ExplicitWidth = 185
-        ExplicitHeight = 41
         object Label16: TLabel
           AlignWithMargins = True
           Left = 4

@@ -18,14 +18,21 @@ type
 
 implementation
 
-uses uDM, uNotificationForm;
+uses uDM, uNotificationForm, uMain;
 
 procedure TNotifier.showNotificationForm;
+var tempStr : string;
 begin
   if dm.qNotSeenFaults.Active then dm.qNotSeenFaults.Close;
   dm.qNotSeenFaults.Open;
   if dm.qNotSeenFaults.RecordCount > 0 then
   begin
+      tempStr := 'Обнаружена аварийная ситуация. ' + #13#10
+              + 'Объект: ' + dm.qNotSeenFaults.FieldByName('Naimenovanie_1').AsString + #13#10
+              + 'Датчик: ' + dm.qNotSeenFaults.FieldByName('Naimenovanie').AsString + #13#10
+              + 'Описание: ' + dm.qNotSeenFaults.FieldByName('Opisanie').AsString;
+
+      frmMain.ShowEvent(tempStr);
       frmNotification.PageControl1.ActivePageIndex := 0;
       frmNotification.Memo1.Lines.Clear;
       frmNotification.RadioGroup1.ItemIndex := -1;
@@ -39,14 +46,8 @@ begin
 
   while not terminated do
   begin
-      if hideTillNextLaunch then
-      begin
-        self.Terminate;
-        continue;
-      end;
-
       Synchronize(showNotificationForm);
-      sleep(5000);
+      sleep(1000);
   end;
 end;
 

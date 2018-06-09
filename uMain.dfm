@@ -6,6 +6,7 @@ object frmMain: TfrmMain
   ClientHeight = 635
   ClientWidth = 1110
   Color = clBtnFace
+  DoubleBuffered = True
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
@@ -1164,6 +1165,9 @@ object frmMain: TfrmMain
           BevelKind = bkFlat
           BevelOuter = bvNone
           TabOrder = 0
+          DesignSize = (
+            1094
+            31)
           object BitBtn11: TBitBtn
             Left = 7
             Top = 1
@@ -1226,6 +1230,22 @@ object frmMain: TfrmMain
               FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
             TabOrder = 0
             OnClick = BitBtn11Click
+          end
+          object BitBtn30: TBitBtn
+            Left = 1000
+            Top = 2
+            Width = 75
+            Height = 25
+            Anchors = [akTop, akRight]
+            Caption = #1054#1073#1085#1086#1074#1080#1090#1100
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+            TabOrder = 1
+            OnClick = BitBtn30Click
           end
         end
         object DBGridEh4: TDBGridEh
@@ -1368,6 +1388,9 @@ object frmMain: TfrmMain
           BevelKind = bkFlat
           BevelOuter = bvNone
           TabOrder = 0
+          DesignSize = (
+            1094
+            31)
           object BitBtn10: TBitBtn
             Left = 8
             Top = 1
@@ -1430,6 +1453,37 @@ object frmMain: TfrmMain
               FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
             TabOrder = 0
             OnClick = BitBtn10Click
+          end
+          object BitBtn27: TBitBtn
+            Left = 1008
+            Top = 2
+            Width = 75
+            Height = 25
+            Anchors = [akTop, akRight]
+            Caption = #1054#1073#1085#1086#1074#1080#1090#1100
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+            TabOrder = 1
+            OnClick = BitBtn27Click
+          end
+          object BitBtn31: TBitBtn
+            Left = 56
+            Top = 1
+            Width = 75
+            Height = 30
+            Caption = #1056#1072#1087#1086#1088#1090
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+            TabOrder = 2
+            OnClick = BitBtn31Click
           end
         end
         object DBGridEh5: TDBGridEh
@@ -1672,6 +1726,25 @@ object frmMain: TfrmMain
           BevelKind = bkFlat
           BevelOuter = bvNone
           TabOrder = 0
+          DesignSize = (
+            1094
+            31)
+          object BitBtn28: TBitBtn
+            Left = 1008
+            Top = 2
+            Width = 75
+            Height = 25
+            Anchors = [akTop, akRight]
+            Caption = #1054#1073#1085#1086#1074#1080#1090#1100
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+            TabOrder = 0
+            OnClick = BitBtn28Click
+          end
         end
         object DBGridEh6: TDBGridEh
           Left = 0
@@ -23527,7 +23600,9 @@ object frmMain: TfrmMain
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
+          PasswordChar = '*'
           TabOrder = 1
+          OnKeyPress = Edit6KeyPress
         end
         object BitBtn12: TBitBtn
           Left = 16
@@ -24417,15 +24492,327 @@ object frmMain: TfrmMain
         end
       end
     end
+    object TabSheet1: TTabSheet
+      Caption = #1055#1086#1083#1100#1079#1086#1074#1072#1090#1077#1083#1080
+      ImageIndex = 8
+      object Panel20: TPanel
+        Left = 0
+        Top = 0
+        Width = 1102
+        Height = 41
+        Align = alTop
+        BevelKind = bkTile
+        BevelOuter = bvNone
+        TabOrder = 0
+        object BitBtn25: TBitBtn
+          Left = 8
+          Top = 3
+          Width = 30
+          Height = 30
+          Glyph.Data = {
+            AE060000424DAE06000000000000360000002800000017000000170000000100
+            18000000000078060000C40E0000C40E00000000000000000000FFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFDFDFDECECECDBDBDBD4D4D4D7D7
+            D7E3E3E3F7F7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF7F7F79F9F9F1C1C1C202020
+            4343435353534D4D4D3434340A0A0A5A5A5AD1D1D1FFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFBFBFBF12121269
+            6969DFDFDFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFBFBFBA9A9A9222222616161
+            FBFBFBFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF8D8D
+            8D161616DDDDDDFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFEFEFE878787232323F2F2F2FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFF9C9C9C232323F3F3F3FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFACACAC252525FCFCFCFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFE0E0E00B0B0BF1F1F1FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFF4F4F4FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF8989896060
+            60FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF454545B1B1B1FFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFF141414FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFEFEFE242424D2D2D2FFFFFFFFFFFFFFFFFFDFDFDF222222FFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF141414FFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFA7A7A7595959FFFFFFFFFFFFFFFFFF9C9C9C
+            797979FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF141414FFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFAFAFA0C0C0CF8F8F8FF
+            FFFFFFFFFF424242C6C6C6FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFF141414FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FF333333E5E5E5FFFFFFFFFFFF0F0F0FF2F2F2FFFFFFFFFFFFFFFFFFFDFDFDFD
+            FDFDFDFDFDFDFDFDFDFDFD141414FDFDFDFDFDFDFDFDFDFDFDFDFDFDFDFFFFFF
+            FFFFFFFFFFFFFFFFFF4A4A4AD9D9D9FFFFFFFFFFFF060606FAFAFAFFFFFFFFFF
+            FFFFFFFF16161616161616161616161616161602020216161616161616161616
+            1616161616F6F6F6FFFFFFFFFFFFFFFFFF4F4F4FD7D7D7FFFFFFFFFFFF222222
+            E1E1E1FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF141414FFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF414141DDDDDDFF
+            FFFFFFFFFF696969A5A5A5FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFF141414FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FF212121EDEDEDFFFFFFFFFFFFC5C5C54F4F4FFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFF141414FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFDDDDDD1D1D1DFEFEFEFFFFFFFFFFFFF6F6F60E0E0EEAEAEAFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF141414FFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFF6969699D9D9DFFFFFFFFFFFFFFFFFFFFFFFF
+            9898985D5D5DFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF141414FFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFDCDCDC131313F8F8F8FFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFF3A3A3AA4A4A4FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF5F5F5171717C1C1
+            C1FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF3F3F31F1F1FAAAAAAFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF1F1F1
+            2525258D8D8DFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF5F5
+            F53636365D5D5DEBEBEBFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFB0B0B00A0A0A9D9D9DFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFF9696961212124E4E4EA2A2A2E2E2E2F5F5F5F2F2
+            F2C5C5C5767676242424474747DFDFDFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF8F8F8C6C6C6646464
+            1E1E1E0D0D0D0E0E0E3E3E3E9B9B9BE2E2E2FFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
+          TabOrder = 0
+        end
+        object BitBtn26: TBitBtn
+          Left = 44
+          Top = 3
+          Width = 30
+          Height = 30
+          Glyph.Data = {
+            AE060000424DAE06000000000000360000002800000017000000170000000100
+            18000000000078060000C40E0000C40E00000000000000000000FFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFCFCFCAAAAAAF9F9F9FFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF4D4D4D1414
+            14595959D5D5D5FEFEFEFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFBBBBBBAFAFAFF0F0F0A3A3A34A4A4AFEFEFEFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFF4F4F4FDDDDDD272727DFDFDF4D4D4DFCFCFC
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF737373181818FDFDFDFF
+            FFFFDDDDDD595959F9F9F9FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FF4A4A4AC0C0C0F0F0F0FFFFFFDADADA5B5B5BFBFBFBFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFF525252B9B9B9DADADAFFFFFFDCDCDC4D4D4DFEFE
+            FEFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFBFBFB5C5C5CC4C4C4C1C1C1
+            FFFFFFE3E3E3494949FEFEFEFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFA
+            FAFA565656D6D6D6B0B0B0FFFFFFE0E0E04A4A4AFEFEFEFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFF4C4C4CDEDEDEBBBBBBFFFFFFE3E3E34D4D4DFB
+            FBFBFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF4B4B4BDCDCDCE5E5
+            E5FFFFFFDDDDDD5A5A5AF9F9F9FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFF4C4C4CC3C3C3F3F3F3FFFFFFDADADA5A5A5AFDFDFDFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFF575757B6B6B6E4E4E4FFFFFFDEDEDE4D4D4D
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFBFBFB5D5D5DC1C1C1C8
+            C8C8E0E0E04747474A4A4AFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFBFBFB545454B8B8B84F4F4FFEFEFEBABABA4A4A4AFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF4B4B4BDDDDDDD0D0D06C6C6CBDBDBDB9B9
+            B9FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF4B4B4B505050
+            FFFFFF979797CCCCCCFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFF5D5D5D5C5C5C8F8F8FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
+          TabOrder = 1
+        end
+      end
+      object DBGridEh7: TDBGridEh
+        Left = 0
+        Top = 41
+        Width = 1102
+        Height = 563
+        Align = alClient
+        AutoFitColWidths = True
+        Color = cl3DLight
+        DataSource = dm.dsUser
+        DynProps = <>
+        IndicatorOptions = [gioShowRowIndicatorEh]
+        OptionsEh = [dghFixed3D, dghHighlightFocus, dghClearSelection, dghAutoSortMarking, dghDialogFind, dghColumnResize, dghColumnMove, dghExtendVertLines]
+        SortLocal = True
+        TabOrder = 1
+        Columns = <
+          item
+            DynProps = <>
+            EditButtons = <>
+            FieldName = 'ID_polzovatel'
+            Footers = <>
+            Title.Alignment = taCenter
+            Title.Font.Charset = DEFAULT_CHARSET
+            Title.Font.Color = clWindowText
+            Title.Font.Height = -11
+            Title.Font.Name = 'Tahoma'
+            Title.Font.Style = [fsBold]
+            Title.TitleButton = True
+            Visible = False
+            Width = 300
+          end
+          item
+            DynProps = <>
+            EditButtons = <>
+            FieldName = 'ID_sotrudnik'
+            Footers = <>
+            Title.Alignment = taCenter
+            Title.Caption = #1057#1086#1090#1088#1091#1076#1085#1080#1082
+            Title.Font.Charset = DEFAULT_CHARSET
+            Title.Font.Color = clWindowText
+            Title.Font.Height = -11
+            Title.Font.Name = 'Tahoma'
+            Title.Font.Style = [fsBold]
+            Title.TitleButton = True
+            Width = 300
+          end
+          item
+            DynProps = <>
+            EditButtons = <>
+            FieldName = 'Login'
+            Footers = <>
+            Title.Alignment = taCenter
+            Title.Caption = #1051#1086#1075#1080#1085
+            Title.Font.Charset = DEFAULT_CHARSET
+            Title.Font.Color = clWindowText
+            Title.Font.Height = -11
+            Title.Font.Name = 'Tahoma'
+            Title.Font.Style = [fsBold]
+            Title.TitleButton = True
+            Width = 300
+          end
+          item
+            DynProps = <>
+            EditButtons = <>
+            FieldName = 'Parol'
+            Footers = <>
+            Title.Alignment = taCenter
+            Title.Caption = #1055#1072#1088#1086#1083#1100
+            Title.Font.Charset = DEFAULT_CHARSET
+            Title.Font.Color = clWindowText
+            Title.Font.Height = -11
+            Title.Font.Name = 'Tahoma'
+            Title.Font.Style = [fsBold]
+            Title.TitleButton = True
+            Width = 300
+          end>
+        object RowDetailData: TRowDetailPanelControlEh
+        end
+      end
+    end
+    object TabSheet2: TTabSheet
+      Caption = #1057#1086#1073#1099#1090#1080#1103
+      ImageIndex = 9
+      object Panel21: TPanel
+        Left = 0
+        Top = 0
+        Width = 1102
+        Height = 41
+        Align = alTop
+        BevelKind = bkTile
+        BevelOuter = bvNone
+        TabOrder = 0
+        ExplicitTop = 8
+        DesignSize = (
+          1098
+          37)
+        object BitBtn29: TBitBtn
+          Left = 1008
+          Top = 8
+          Width = 75
+          Height = 25
+          Anchors = [akTop, akRight]
+          Caption = #1054#1073#1085#1086#1074#1080#1090#1100
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          TabOrder = 0
+          OnClick = BitBtn29Click
+        end
+      end
+      object DBGridEh8: TDBGridEh
+        Left = 0
+        Top = 41
+        Width = 1102
+        Height = 563
+        Align = alClient
+        AutoFitColWidths = True
+        Color = cl3DLight
+        DataSource = dm.dsSobytia
+        DynProps = <>
+        IndicatorOptions = [gioShowRowIndicatorEh]
+        OptionsEh = [dghFixed3D, dghHighlightFocus, dghClearSelection, dghAutoSortMarking, dghDialogFind, dghColumnResize, dghColumnMove, dghExtendVertLines]
+        ReadOnly = True
+        SortLocal = True
+        TabOrder = 1
+        Columns = <
+          item
+            DynProps = <>
+            EditButtons = <>
+            FieldName = 'ID_sobytia'
+            Footers = <>
+            Title.Alignment = taCenter
+            Title.Font.Charset = DEFAULT_CHARSET
+            Title.Font.Color = clWindowText
+            Title.Font.Height = -11
+            Title.Font.Name = 'Tahoma'
+            Title.Font.Style = [fsBold]
+            Title.TitleButton = True
+            Visible = False
+          end
+          item
+            Alignment = taCenter
+            AutoFitColWidth = False
+            DynProps = <>
+            EditButtons = <>
+            FieldName = 'Datavremia'
+            Footers = <>
+            Title.Alignment = taCenter
+            Title.Font.Charset = DEFAULT_CHARSET
+            Title.Font.Color = clWindowText
+            Title.Font.Height = -11
+            Title.Font.Name = 'Tahoma'
+            Title.Font.Style = [fsBold]
+            Title.TitleButton = True
+            Width = 200
+          end
+          item
+            DynProps = <>
+            EditButtons = <>
+            FieldName = 'Opisanie'
+            Footers = <>
+            Title.Alignment = taCenter
+            Title.Font.Charset = DEFAULT_CHARSET
+            Title.Font.Color = clWindowText
+            Title.Font.Height = -11
+            Title.Font.Name = 'Tahoma'
+            Title.Font.Style = [fsBold]
+            Title.TitleButton = True
+          end>
+        object RowDetailData: TRowDetailPanelControlEh
+        end
+      end
+    end
   end
   object MainMenu1: TMainMenu
     Left = 736
     Top = 24
     object N1: TMenuItem
       Caption = #1060#1072#1081#1083
-      object N9: TMenuItem
-        Caption = #1042#1099#1093#1086#1076
-        OnClick = N9Click
+      object N11: TMenuItem
+        Caption = #1057#1084#1077#1085#1080#1090#1100' '#1087#1086#1083#1100#1079#1086#1074#1072#1090#1077#1083#1103
+        OnClick = N11Click
       end
     end
     object N2: TMenuItem
@@ -24457,9 +24844,14 @@ object frmMain: TfrmMain
         OnClick = N8Click
       end
     end
+    object N12: TMenuItem
+      Caption = #1042#1099#1093#1086#1076
+      OnClick = N12Click
+    end
   end
   object Timer1: TTimer
     Enabled = False
+    Interval = 5000
     OnTimer = Timer1Timer
     Left = 456
     Top = 448
@@ -24473,7 +24865,7 @@ object frmMain: TfrmMain
   end
   object Timer3: TTimer
     Enabled = False
-    Interval = 2500
+    Interval = 100
     OnTimer = Timer3Timer
     Left = 504
     Top = 448

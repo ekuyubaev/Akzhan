@@ -68,6 +68,9 @@ type
     procedure BitBtn11Click(Sender: TObject);
     procedure BitBtn9Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure TabSheet1Show(Sender: TObject);
+    procedure TabSheet3Show(Sender: TObject);
+    procedure TabSheet4Show(Sender: TObject);
   private
     { Private declarations }
   public
@@ -168,6 +171,8 @@ begin
           + QuotedStr(FormatDateTime('yyyy-mm-dd hh:nn:ss', Now))
           + ' Where ID_avaria = ' + dm.qEmergency.FieldByName('ID_avaria').AsString;
     dm.qElimination.ExecSQL;
+
+    frmMain.ShowEvent('Аварийная ситуация была устранена.');
   end;
 
   frmMain.startInterrogation;
@@ -180,6 +185,32 @@ procedure TfrmNotification.FormCreate(Sender: TObject);
 begin
   for I := 1 to PageControl1.PageCount do
       PageControl1.Pages[i-1].TabVisible := false;
+end;
+
+procedure TfrmNotification.TabSheet1Show(Sender: TObject);
+begin
+  Label7.Caption := 'Участок: электродегидраторы ' + #13#10
+                + 'Объект: ' + dm.qNotSeenFaults.FieldByName('Naimenovanie_1').AsString + #13#10
+                + 'Датчик: ' + dm.qNotSeenFaults.FieldByName('Naimenovanie').AsString + #13#10
+                + 'Описание: ' + dm.qNotSeenFaults.FieldByName('Opisanie').AsString;
+end;
+
+procedure TfrmNotification.TabSheet3Show(Sender: TObject);
+begin
+  Label8.Caption :=  'Участок: электродегидраторы ' + #13#10
+                + 'Объект: ' + dm.qNotSeenFaults.FieldByName('Naimenovanie_1').AsString + #13#10
+                + 'Датчик: ' + dm.qNotSeenFaults.FieldByName('Naimenovanie').AsString + #13#10
+                + 'Описание: ' + dm.qNotSeenFaults.FieldByName('Opisanie').AsString;
+end;
+
+procedure TfrmNotification.TabSheet4Show(Sender: TObject);
+begin
+  Label9.Caption :=  'Участок: электродегидраторы ' + #13#10
+                + 'Объект: ' + dm.qNotSeenFaults.FieldByName('Naimenovanie_1').AsString + #13#10
+                + 'Датчик: ' + dm.qNotSeenFaults.FieldByName('Naimenovanie').AsString + #13#10
+                + 'Описание: ' + dm.qNotSeenFaults.FieldByName('Opisanie').AsString;
+  Label10.Caption := 'Вызовите сотрудников ответственных за ' + dm.qNotSeenFaults.FieldByName('Naimenovanie_1').AsString;
+  Label11.Caption := 'Вами выбран вариант возможной причины: ' + RadioGroup1.Items[Radiogroup1.ItemIndex]
 end;
 
 end.

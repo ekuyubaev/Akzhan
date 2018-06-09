@@ -115,6 +115,29 @@ type
     qGenerateReadings: TADOQuery;
     qEmergency: TADOQuery;
     qElimination: TADOQuery;
+    qUser: TADOQuery;
+    dsUser: TDataSource;
+    qEvent: TADOQuery;
+    qNotSeenFaultsID_datchik_1: TAutoIncField;
+    qNotSeenFaultsID_object: TIntegerField;
+    qNotSeenFaultsNaimenovanie: TWideStringField;
+    qNotSeenFaultsOboznachenie: TWideStringField;
+    qNotSeenFaultsNomer: TWideStringField;
+    qNotSeenFaultsMAX: TFloatField;
+    qNotSeenFaultsMIN: TFloatField;
+    qNotSeenFaultsID_sostoianie: TIntegerField;
+    qNotSeenFaultsPrimechanie_1: TWideMemoField;
+    qNotSeenFaultsID_object_1: TAutoIncField;
+    qNotSeenFaultsNaimenovanie_1: TWideStringField;
+    qNotSeenFaultsOboznachenie_1: TWideStringField;
+    qNotSeenFaultsPrimechanie_2: TWideMemoField;
+    qNotSeenFaultsFigura: TWideStringField;
+    qNotSeenFaultsXcentr: TIntegerField;
+    qNotSeenFaultsYcentr: TIntegerField;
+    qNotSeenFaultsShirina: TIntegerField;
+    qNotSeenFaultsDlina: TIntegerField;
+    qSobytia: TADOQuery;
+    dsSobytia: TDataSource;
   private
     { Private declarations }
   public
@@ -124,6 +147,8 @@ type
     procedure refreshStates();
     procedure refreshReadings();
     procedure refreshFaults();
+    Procedure refreshSobytia;
+    procedure insertEvent(event : String);
   end;
 
 var
@@ -155,6 +180,7 @@ begin
   if not qSmena.Active then qSmena.Open;
   if not qSostav.Active then qSostav.Open;
   if not tblEvent.Active then tblEvent.Open;
+  if not qUser.Active then qUser.Open;
 end;
 
 Procedure Tdm.refreshSensors;
@@ -180,6 +206,15 @@ begin
   qStates.Close;
   qStates.Open;
   qStates.RecNo := ind;
+end;
+
+Procedure Tdm.refreshSobytia;
+var ind: integer;
+begin
+  ind := qSobytia.RecNo;
+  qSobytia.Close;
+  qSobytia.Open;
+  qSobytia.RecNo := ind;
 end;
 
 Procedure Tdm.refreshReadings;
@@ -237,6 +272,15 @@ begin
     qFault.Open;
     qFault.RecNo := ind;
   end;
+end;
+
+Procedure Tdm.insertEvent(event: string);
+begin
+  if qEvent.Active then qEvent.Close;
+  qEvent.SQL.Text := 'Insert into Sobytia (Opisanie, Datavremia) '
+                  + 'Values ( ' + QuotedStr(event) + ', '
+                  + QuotedStr(FormatDateTime('yyyy-mm-dd hh:mm:ss',now)) + ')';
+  qEvent.ExecSQL;
 end;
 
 end.

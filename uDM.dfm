@@ -1,6 +1,6 @@
 object dm: Tdm
   OldCreateOrder = False
-  Height = 395
+  Height = 548
   Width = 764
   object DB_GATE: TADOConnection
     Connected = True
@@ -14,6 +14,7 @@ object dm: Tdm
     Top = 24
   end
   object qObjects: TADOQuery
+    Active = True
     Connection = DB_GATE
     CursorType = ctStatic
     Parameters = <>
@@ -123,6 +124,7 @@ object dm: Tdm
     Top = 72
   end
   object qStates: TADOQuery
+    Active = True
     Connection = DB_GATE
     CursorType = ctStatic
     Parameters = <>
@@ -137,6 +139,7 @@ object dm: Tdm
     Top = 72
   end
   object qSensorsI: TADOQuery
+    Active = True
     Connection = DB_GATE
     CursorType = ctStatic
     Parameters = <>
@@ -370,11 +373,14 @@ object dm: Tdm
     Top = 72
   end
   object qNotSeenFaults: TADOQuery
+    Active = True
     Connection = DB_GATE
     CursorType = ctStatic
     Parameters = <>
     SQL.Strings = (
-      'Select * From Avaria'
+      'Select * From Avaria A left join Datchik D'
+      'ON A.ID_datchik = D.ID_datchik  left join Object O'
+      'ON D.ID_object = O.ID_object'
       'Where Ustranena = 0')
     Left = 128
     Top = 168
@@ -440,6 +446,70 @@ object dm: Tdm
     end
     object qNotSeenFaultsDV_ustranena: TDateTimeField
       FieldName = 'DV_ustranena'
+    end
+    object qNotSeenFaultsID_datchik_1: TAutoIncField
+      FieldName = 'ID_datchik_1'
+      ReadOnly = True
+    end
+    object qNotSeenFaultsID_object: TIntegerField
+      FieldName = 'ID_object'
+    end
+    object qNotSeenFaultsNaimenovanie: TWideStringField
+      FieldName = 'Naimenovanie'
+      Size = 256
+    end
+    object qNotSeenFaultsOboznachenie: TWideStringField
+      FieldName = 'Oboznachenie'
+      Size = 64
+    end
+    object qNotSeenFaultsNomer: TWideStringField
+      FieldName = 'Nomer'
+      Size = 64
+    end
+    object qNotSeenFaultsMAX: TFloatField
+      FieldName = 'MAX'
+    end
+    object qNotSeenFaultsMIN: TFloatField
+      FieldName = 'MIN'
+    end
+    object qNotSeenFaultsID_sostoianie: TIntegerField
+      FieldName = 'ID_sostoianie'
+    end
+    object qNotSeenFaultsPrimechanie_1: TWideMemoField
+      FieldName = 'Primechanie_1'
+      BlobType = ftWideMemo
+    end
+    object qNotSeenFaultsID_object_1: TAutoIncField
+      FieldName = 'ID_object_1'
+      ReadOnly = True
+    end
+    object qNotSeenFaultsNaimenovanie_1: TWideStringField
+      FieldName = 'Naimenovanie_1'
+      Size = 256
+    end
+    object qNotSeenFaultsOboznachenie_1: TWideStringField
+      FieldName = 'Oboznachenie_1'
+      Size = 64
+    end
+    object qNotSeenFaultsPrimechanie_2: TWideMemoField
+      FieldName = 'Primechanie_2'
+      BlobType = ftWideMemo
+    end
+    object qNotSeenFaultsFigura: TWideStringField
+      FieldName = 'Figura'
+      Size = 45
+    end
+    object qNotSeenFaultsXcentr: TIntegerField
+      FieldName = 'Xcentr'
+    end
+    object qNotSeenFaultsYcentr: TIntegerField
+      FieldName = 'Ycentr'
+    end
+    object qNotSeenFaultsShirina: TIntegerField
+      FieldName = 'Shirina'
+    end
+    object qNotSeenFaultsDlina: TIntegerField
+      FieldName = 'Dlina'
     end
   end
   object dsNotSeenFaults: TDataSource
@@ -611,5 +681,44 @@ object dm: Tdm
     Parameters = <>
     Left = 640
     Top = 280
+  end
+  object qUser: TADOQuery
+    Active = True
+    Connection = DB_GATE
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'Select * '
+      'From Polzovatel')
+    Left = 424
+    Top = 352
+  end
+  object dsUser: TDataSource
+    DataSet = qUser
+    Left = 424
+    Top = 400
+  end
+  object qEvent: TADOQuery
+    Connection = DB_GATE
+    Parameters = <>
+    Left = 496
+    Top = 352
+  end
+  object qSobytia: TADOQuery
+    Active = True
+    Connection = DB_GATE
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'Select *'
+      'From Sobytia'
+      'Order by Datavremia desc')
+    Left = 560
+    Top = 352
+  end
+  object dsSobytia: TDataSource
+    DataSet = qSobytia
+    Left = 560
+    Top = 400
   end
 end

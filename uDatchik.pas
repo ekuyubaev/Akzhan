@@ -54,7 +54,6 @@ begin
   with frmMain do
   begin
       if fStatus <> 0 then self.Terminate;
-      dm.refreshReadings;
   end;
 end;
 
@@ -121,7 +120,6 @@ begin
         if not dm.qTemp.FieldByName('last_id').IsNull
             then fID_avaria := dm.qTemp.FieldByName('last_id').AsInteger
             else fID_avaria := 1;
-        dm.refreshFaults;
     end;
   end
     else

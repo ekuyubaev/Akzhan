@@ -40,6 +40,7 @@ type
     { Private declarations }
   public
     { Public declarations }
+    procedure printRaport;
   end;
 
 var
@@ -73,6 +74,26 @@ begin
   //Заменяем текст в диапазоне.
   Rng.Text := aText;
 end;
+
+
+procedure TfrmReport.printRaport;
+var
+  MSWord, bookmarks: Variant;
+  pathToTemplate : String;
+  startDate, endDate : TDateTime;
+  i : integer;
+  sDate, eDate : String;
+  step : real;
+  totalStep : real;
+begin
+  MsWord := CreateOleObject('Word.Application');
+
+  pathToTemplate := ExtractFilePath(Application.ExeName) + 'reports\Рапорт АС.dot';
+  MsWord.Documents.Add(pathToTemplate);
+
+  MsWord.Visible := True;
+end;
+
 
 procedure TfrmReport.BitBtn2Click(Sender: TObject);
 var

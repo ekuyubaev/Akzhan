@@ -145,7 +145,6 @@ type
     Label2: TLabel;
     BitBtn12: TBitBtn;
     N8: TMenuItem;
-    N9: TMenuItem;
     Image1: TImage;
     Timer1: TTimer;
     tsModel: TTabSheet;
@@ -180,6 +179,21 @@ type
     PaintBox1: TPaintBox;
     Timer3: TTimer;
     BitBtn24: TBitBtn;
+    TabSheet1: TTabSheet;
+    Panel20: TPanel;
+    BitBtn25: TBitBtn;
+    BitBtn26: TBitBtn;
+    DBGridEh7: TDBGridEh;
+    N11: TMenuItem;
+    N12: TMenuItem;
+    TabSheet2: TTabSheet;
+    Panel21: TPanel;
+    DBGridEh8: TDBGridEh;
+    BitBtn29: TBitBtn;
+    BitBtn27: TBitBtn;
+    BitBtn28: TBitBtn;
+    BitBtn30: TBitBtn;
+    BitBtn31: TBitBtn;
     procedure BitBtn4Click(Sender: TObject);
     procedure BitBtn6Click(Sender: TObject);
     procedure BitBtn5Click(Sender: TObject);
@@ -206,7 +220,6 @@ type
     procedure BitBtn12Click(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure N8Click(Sender: TObject);
-    procedure N9Click(Sender: TObject);
     procedure BitBtn13Click(Sender: TObject);
     procedure N10Click(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
@@ -215,6 +228,14 @@ type
     procedure Timer3Timer(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure BitBtn24Click(Sender: TObject);
+    procedure N12Click(Sender: TObject);
+    procedure N11Click(Sender: TObject);
+    procedure BitBtn29Click(Sender: TObject);
+    procedure Edit6KeyPress(Sender: TObject; var Key: Char);
+    procedure BitBtn27Click(Sender: TObject);
+    procedure BitBtn28Click(Sender: TObject);
+    procedure BitBtn30Click(Sender: TObject);
+    procedure BitBtn31Click(Sender: TObject);
   private
     { Private declarations }
     sensorCount :integer;
@@ -229,6 +250,7 @@ type
     drawed : boolean;
     procedure stopInterrogation();
     procedure startInterrogation();
+    procedure ShowEvent(event : String);
   end;
 
 
@@ -250,6 +272,14 @@ implementation
 
 uses uDM, uObject, uSensor, uState, uReading, uFault, uReport, uAbout,
   uDolzhnost;
+
+Procedure TfrmMain.ShowEvent(event: string);
+begin
+  Memo1.Lines.Add(FormatDateTime('dd.mm.yyyy hh:nn:ss', now) + ' - ' + event);
+  Memo1.Lines.Add('');
+  dm.insertEvent(event);
+end;
+
 
 procedure TfrmMain.BitBtn10Click(Sender: TObject);
 begin
@@ -295,6 +325,23 @@ begin
     exit;
   end;
 
+  if dm.qUser.Locate('Login', Edit5.Text, [loCaseInsensitive]) then
+  begin
+    if not (dm.qUser.FieldByName('Parol').AsString = Edit6.Text) then
+    begin
+      ShowMessage('Пользователя с таким логином\паролем нет в системе!');
+      Exit;
+    end;
+  end
+    else
+  begin
+    ShowMessage('Пользователя с таким логином\паролем нет в системе!');
+    Exit;
+  end;
+
+  ShowEvent('Пользователь: ' + Edit5.Text + ' авторизовался в системе.');
+  Edit6.Clear;
+
   for i := 0 to MainMenu1.Items.Count-1 do
       MainMenu1.Items.Items[i].Enabled := true;
 
@@ -335,7 +382,6 @@ begin
                       + 'Where ID_model = 3 ';
   dm.qTemp.ExecSQL;
 
-  Memo1.Clear;
   imgStep := 2;
   stopInterrogation;
   Timer2.Enabled := false;
@@ -349,10 +395,25 @@ var
 begin
   stopInterrogation;
   dm.qTemp.close;
-  dm.qTemp.SQL.Text := 'Update Model Set Mx = 3, Dx = 1 '
+  dm.qTemp.SQL.Text := 'Update Model Set Mx = 5, Dx = 2 '
                       + 'Where ID_model = 3 ';
   dm.qTemp.ExecSQL;
   startInterrogation;
+end;
+
+procedure TfrmMain.BitBtn27Click(Sender: TObject);
+begin
+  dm.refreshFaults;
+end;
+
+procedure TfrmMain.BitBtn28Click(Sender: TObject);
+begin
+  dm.refreshReadings;
+end;
+
+procedure TfrmMain.BitBtn29Click(Sender: TObject);
+begin
+  dm.refreshSobytia;
 end;
 
 procedure TfrmMain.BitBtn2Click(Sender: TObject);
@@ -361,6 +422,16 @@ begin
   SetFrmSensorsDataSource(dm.dsSensors);
   frmSensors.query := @dm.qSensors;
   frmSensors.ShowModal;
+end;
+
+procedure TfrmMain.BitBtn30Click(Sender: TObject);
+begin
+  dm.refreshReadings;
+end;
+
+procedure TfrmMain.BitBtn31Click(Sender: TObject);
+begin
+  frmReport.printRaport;
 end;
 
 procedure TfrmMain.BitBtn3Click(Sender: TObject);
@@ -478,11 +549,7 @@ begin
     bitMap.Free;
 
     if dm.tblEvent.Locate('id',imgStep,[]) then
-    begin
-      Memo1.Lines.Add(FormatDateTime('dd.mm.yyyy hh:nn', now())
-                      + ' - ' + dm.tblEvent.FieldByName('event').AsString);
-      Memo1.Lines.Add('');
-    end;
+        ShowEvent(dm.tblEvent.FieldByName('event').AsString);
 
 
     Inc(imgStep);
@@ -613,6 +680,8 @@ begin
           + 'Время завершения работы ПО: ' + FormatDateTime('hh:nn dd.mm.yyyy', Now) );
     dm.qTemp.ExecSQL;
   end;
+
+  ShowEvent('Работа приложения была завершена. ');
 end;
 
 procedure TfrmMain.FormCreate(Sender: TObject);
@@ -622,7 +691,7 @@ begin
   obecty := nil;
   sensorCount := -1;
 
-  for i := 1 to MainMenu1.Items.Count-1 do
+  for i := 0 to MainMenu1.Items.Count-2 do
       MainMenu1.Items.Items[i].Enabled := false;
 
   for i := 1 to PageControl1.PageCount do
@@ -651,6 +720,24 @@ begin
   frmDolzhnost.ShowModal;
 end;
 
+procedure TfrmMain.N11Click(Sender: TObject);
+var tempStr : string;
+    i : integer;
+begin
+  tempStr := 'Пользователь: ' + Edit5.Text + ' завершил сеанс работы.';
+  ShowEvent(tempStr);
+
+  for i := 0 to MainMenu1.Items.Count-2 do
+      MainMenu1.Items.Items[i].Enabled := false;
+
+  PageControl1.ActivePage := tsLogin;
+end;
+
+procedure TfrmMain.N12Click(Sender: TObject);
+begin
+  Application.Terminate;
+end;
+
 procedure TfrmMain.N5Click(Sender: TObject);
 begin
   frmStates.ShowModal;
@@ -671,11 +758,6 @@ end;
 procedure TfrmMain.N8Click(Sender: TObject);
 begin
   frmAbout.ShowModal;
-end;
-
-procedure TfrmMain.N9Click(Sender: TObject);
-begin
-  Application.Terminate;
 end;
 
 procedure TfrmMain.SetFrmSensorsDataSource(sensorDataSource: TDataSource);
@@ -703,6 +785,12 @@ begin
 
   for I := 1 to Length(Obecty) do
     obecty[i-1].DrawSelf(1);
+end;
+
+procedure TfrmMain.Edit6KeyPress(Sender: TObject; var Key: Char);
+begin
+  if key = #13 then
+    BitBtn12.Click;
 end;
 
 end.
