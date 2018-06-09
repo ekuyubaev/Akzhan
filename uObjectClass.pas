@@ -47,23 +47,21 @@ var Rect : TRect;
 
 
 begin
-  if (fillColor = 1) then frmMain.PaintBox1.Canvas.Brush.Color := clAqua
-  else if(fillColor = 2) then  frmMain.PaintBox1.Canvas.Brush.Color := clYellow
-  else if(fillColor = 3) then  frmMain.PaintBox1.Canvas.Brush.Color := clRed;
-
   frmMain.PaintBox1.Canvas.Font.Name := 'Tahoma';
   frmMain.PaintBox1.Canvas.Font.Size := 8;
-  frmMain.PaintBox1.Canvas.Brush.Style := bsClear;
   frmMain.PaintBox1.Canvas.Font.Color := clMaroon;
   frmMain.PaintBox1.Canvas.TextOut(xcentr, ycentr, naimenovanie);
 
-  frmMain.PaintBox1.Canvas.Font.Color := clGreen;
   frmMain.PaintBox1.Canvas.Font.Size := 7;
   row := 1;
   for I := 1 to Length(datchiki) do
   begin
     if datchiki[i-1].id_object = fid then
     begin
+      if datchiki[i-1].ID_avaria <= 0
+          then frmMain.PaintBox1.Canvas.Font.Color := clGreen
+          else frmMain.PaintBox1.Canvas.Font.Color := clRed;
+
       pokazanie := datchiki[i-1].name + ' : ' + FloatToStrF(datchiki[i-1].pokazanie, fffixed, 4, 2);
       frmMain.PaintBox1.Canvas.TextOut(xcentr, ycentr+row*15, pokazanie);
       inc(row);

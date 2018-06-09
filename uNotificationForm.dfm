@@ -14,6 +14,7 @@ object frmNotification: TfrmNotification
   Font.Style = []
   OldCreateOrder = False
   Position = poMainFormCenter
+  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   object PageControl1: TPageControl
@@ -21,7 +22,7 @@ object frmNotification: TfrmNotification
     Top = 0
     Width = 775
     Height = 458
-    ActivePage = TabSheet8
+    ActivePage = TabSheet7
     Align = alClient
     TabOrder = 0
     object TabSheet1: TTabSheet
@@ -638,6 +639,7 @@ object frmNotification: TfrmNotification
           Font.Style = [fsBold]
           ParentFont = False
           TabOrder = 1
+          OnClick = BitBtn9Click
         end
       end
     end

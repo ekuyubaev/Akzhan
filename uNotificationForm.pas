@@ -66,6 +66,8 @@ type
     procedure BitBtn8Click(Sender: TObject);
     procedure BitBtn10Click(Sender: TObject);
     procedure BitBtn11Click(Sender: TObject);
+    procedure BitBtn9Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -82,6 +84,7 @@ implementation
 uses uDM, uMain, uNotification;
 
 procedure TfrmNotification.BitBtn10Click(Sender: TObject);
+var i : integer;
 begin
   close;
 end;
@@ -132,12 +135,51 @@ end;
 
 procedure TfrmNotification.BitBtn7Click(Sender: TObject);
 begin
+  dm.qTemp.close;
+  dm.qTemp.SQL.Text := 'Update Model Set Mx = 0, Pokazanie = 49 '
+                      + 'Where ID_model = 3 ';
+  dm.qTemp.ExecSQL;
   PageControl1.ActivePageIndex := 5;
 end;
 
 procedure TfrmNotification.BitBtn8Click(Sender: TObject);
 begin
   PageControl1.ActivePageIndex := 6;
+end;
+
+procedure TfrmNotification.BitBtn9Click(Sender: TObject);
+var i : integer;
+begin
+  frmMain.stopInterrogation;
+
+  dm.qEmergency.SQL.Text := 'Select * From Avaria Where Ustranena = 0';
+  dm.qEmergency.Open;
+
+  for i := 1 to dm.qEmergency.RecordCount do
+  begin
+    dm.qEmergency.RecNo := i;
+
+    dm.qElimination.SQL.Text := 'Update Model Set Mx = 0, Dx = 0.01, Pokazanie = 55 '
+                      + 'Where ID_model = 3 ';
+    dm.qElimination.ExecSQL;
+
+    dm.qElimination.SQL.Text := 'Update Avaria Set Primechanie = '
+          + QuotedStr(Memo1.Text) + ', Ustranena = 1, DV_ustranena = '
+          + QuotedStr(FormatDateTime('yyyy-mm-dd hh:nn:ss', Now))
+          + ' Where ID_avaria = ' + dm.qEmergency.FieldByName('ID_avaria').AsString;
+    dm.qElimination.ExecSQL;
+  end;
+
+  frmMain.startInterrogation;
+  PageControl1.ActivePageIndex := 7;
+end;
+
+procedure TfrmNotification.FormCreate(Sender: TObject);
+  var
+  I: Integer;
+begin
+  for I := 1 to PageControl1.PageCount do
+      PageControl1.Pages[i-1].TabVisible := false;
 end;
 
 end.

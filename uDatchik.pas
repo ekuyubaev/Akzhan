@@ -18,6 +18,8 @@ type
       fID_avaria : integer;
       fname : String;
       fPeriod : integer;
+      fMx :real;
+      fDx:real;
 
     protected
       procedure Execute; override;
@@ -35,6 +37,8 @@ type
       property MIN: real Read fMIN Write fMIN;
       property ID_avaria: integer Read fID_avaria Write fID_avaria;
       property period: integer Read fPeriod Write fPeriod;
+      property mx: real Read fMx Write fMx;
+      property dx: real Read fDx Write fDx;
   end;
 
 function bToStr(const value : integer) : string;
@@ -63,6 +67,16 @@ var status : boolean;
     opisanie : String;
     ind : integer;
 begin
+  //генерация новых показаний
+  Randomize;
+  fpokazanie := fpokazanie +  RandG(fmx, fdx);
+
+  dm.qGenerateReadings.SQL.Text := 'Update Model set Pokazanie = '
+                      + StringReplace(FloatToStrF(fPokazanie, fffixed, 10, 4), ',', '.', [ rfReplaceAll, rfIgnoreCase ])
+                      + ' Where ID_datchik =' + IntToStr(fID_datchik);
+  dm.qGenerateReadings.ExecSQL;
+
+
   // считывание показаний
   if dm.qInterrogate.Active then dm.qInterrogate.Close;
   dm.qInterrogate.SQL.Text := 'Select Pokazanie From Model Where ID_datchik ='
@@ -116,14 +130,6 @@ begin
     // и ранее была зафиксирована авария, то перевести ее в состояние устранена
     if fID_avaria > 0 then
     begin
-      dataVremia := FormatDateTime('yyyy-mm-dd hh:nn:ss', Now);
-      if dm.qTemp.Active then dm.qTemp.Close;
-      dm.qTemp.SQL.Text := 'Update Avaria Set Ustranena = 1 '
-                        + ', DV_ustranena = '
-                        + 'STR_TO_DATE(' + QuotedStr(dataVremia) + ','
-                                        + QuotedStr('%Y-%m-%d %H:%i:%s') + ') '
-                      +'Where ID_avaria = ' + IntToStr(fID_avaria);
-      dm.qTemp.ExecSQL;
       fID_avaria := -1;
       dm.refreshFaults;
     end;

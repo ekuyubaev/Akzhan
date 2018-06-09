@@ -594,4 +594,22 @@ object dm: Tdm
     Left = 416
     Top = 280
   end
+  object qGenerateReadings: TADOQuery
+    Connection = DB_GATE
+    Parameters = <>
+    Left = 488
+    Top = 280
+  end
+  object qEmergency: TADOQuery
+    Connection = DB_GATE
+    Parameters = <>
+    Left = 576
+    Top = 280
+  end
+  object qElimination: TADOQuery
+    Connection = DB_GATE
+    Parameters = <>
+    Left = 640
+    Top = 280
+  end
 end

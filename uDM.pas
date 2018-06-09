@@ -112,6 +112,9 @@ type
     qSmenaDatavremia: TDateTimeField;
     qSmenaPrimechanie: TWideMemoField;
     tblEvent: TADOTable;
+    qGenerateReadings: TADOQuery;
+    qEmergency: TADOQuery;
+    qElimination: TADOQuery;
   private
     { Private declarations }
   public

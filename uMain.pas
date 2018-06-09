@@ -214,6 +214,7 @@ type
     procedure Timer2Timer(Sender: TObject);
     procedure Timer3Timer(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
+    procedure BitBtn24Click(Sender: TObject);
   private
     { Private declarations }
     sensorCount :integer;
@@ -222,11 +223,11 @@ type
     mainbitMap : TBitMap;
     mainw : TWicImage;
     procedure SetFrmSensorsDataSource(sensorDataSource:TDataSource);
-    procedure stopInterrogation();
     procedure DrawScheme();
   public
     { Public declarations }
     drawed : boolean;
+    procedure stopInterrogation();
     procedure startInterrogation();
   end;
 
@@ -304,30 +305,6 @@ begin
   end;
 
   PageControl1.ActivePage := tsSchema;
-
-  obecty := nil;
-  SetLength(obecty, dm.qObjects.RecordCount);
-
-  for I := 1 to dm.qObjects.recordCount do
-  begin
-    dm.qObjects.RecNo := i;
-    obecty[i-1] := TObect.Create;
-    obecty[i-1].id := dm.qObjects.FieldByName('ID_object').AsInteger;
-    obecty[i-1].xcentr := dm.qObjects.FieldByName('xcentr').AsInteger;
-    obecty[i-1].ycentr := dm.qObjects.FieldByName('ycentr').AsInteger;
-    obecty[i-1].dlina := dm.qObjects.FieldByName('dlina').AsInteger;
-    obecty[i-1].shirina := dm.qObjects.FieldByName('shirina').AsInteger;
-    obecty[i-1].naimenovanie := dm.qObjects.FieldByName('naimenovanie').AsString;
-    obecty[i-1].initFields;
-  end;
-
-  startInterrogation;
-
-  notifier :=TNotifier.Create(true);
-  notifier.FreeOnTerminate:=true;
-  notifier.Priority:=tpLowest;
-  notifier.hideTillNextLaunch := false;
-  notifier.Resume;
 end;
 
 procedure TfrmMain.BitBtn13Click(Sender: TObject);
@@ -348,11 +325,34 @@ end;
 
 procedure TfrmMain.BitBtn23Click(Sender: TObject);
 begin
+  dm.qTemp.close;
+  dm.qTemp.SQL.Text := 'Update Avaria Set Ustranena = 1 '
+                      + 'Where Ustranena = 0 ';
+  dm.qTemp.ExecSQL;
+
+  dm.qTemp.close;
+  dm.qTemp.SQL.Text := 'Update Model Set Mx = 0, Dx = 0.01, Pokazanie = 49 '
+                      + 'Where ID_model = 3 ';
+  dm.qTemp.ExecSQL;
+
   Memo1.Clear;
   imgStep := 2;
+  stopInterrogation;
   Timer2.Enabled := false;
   Timer3.Enabled := false;
   Timer1.Enabled := true;
+end;
+
+procedure TfrmMain.BitBtn24Click(Sender: TObject);
+var
+  I: Integer;
+begin
+  stopInterrogation;
+  dm.qTemp.close;
+  dm.qTemp.SQL.Text := 'Update Model Set Mx = 3, Dx = 1 '
+                      + 'Where ID_model = 3 ';
+  dm.qTemp.ExecSQL;
+  startInterrogation;
 end;
 
 procedure TfrmMain.BitBtn2Click(Sender: TObject);
@@ -466,6 +466,7 @@ var
   fileName  :string;
   bitMap : TBitMap;
   w : TWicImage;
+  i : integer;
 begin
     fileName := 'resources\scheme\55-' + IntToStr(imgStep) + '.png';
     w := TWicImage.Create;
@@ -489,6 +490,31 @@ begin
     if imgStep > 9 then
     begin
       Timer1.Enabled := false;
+
+      startInterrogation;
+
+      SetLength(obecty, 0);
+      SetLength(obecty, dm.qObjects.RecordCount);
+
+      for I := 1 to dm.qObjects.recordCount do
+      begin
+        dm.qObjects.RecNo := i;
+        obecty[i-1] := TObect.Create;
+        obecty[i-1].id := dm.qObjects.FieldByName('ID_object').AsInteger;
+        obecty[i-1].xcentr := dm.qObjects.FieldByName('xcentr').AsInteger;
+        obecty[i-1].ycentr := dm.qObjects.FieldByName('ycentr').AsInteger;
+        obecty[i-1].dlina := dm.qObjects.FieldByName('dlina').AsInteger;
+        obecty[i-1].shirina := dm.qObjects.FieldByName('shirina').AsInteger;
+        obecty[i-1].naimenovanie := dm.qObjects.FieldByName('naimenovanie').AsString;
+        obecty[i-1].initFields;
+      end;
+
+      notifier :=TNotifier.Create(true);
+      notifier.FreeOnTerminate:=true;
+      notifier.Priority:=tpLowest;
+      notifier.hideTillNextLaunch := false;
+      notifier.Resume;
+
       Timer2.Enabled := true;
       Timer3.Enabled := true;
     end;
@@ -519,10 +545,11 @@ end;
 procedure TfrmMain.startInterrogation;
 var i : Integer;
 begin
-  stopInterrogation;
+  if sensorCount > 0 then stopInterrogation;
 
   dm.qTemp.close;
-  dm.qTemp.SQL.Text := 'Select D.ID_datchik, ID_object, D.ID_sostoianie, Oboznachenie, D.MAX, D.MIN '
+  dm.qTemp.SQL.Text := 'Select D.ID_datchik, ID_object, D.ID_sostoianie, '
+                      + 'Oboznachenie, D.MAX, D.MIN, M.Pokazanie, M.Mx, M.Dx '
                       +'From Datchik D left join Model M on D.ID_datchik = M.ID_datchik';
   dm.qTemp.Open;
 
@@ -549,6 +576,11 @@ begin
       datchiki[i-1].status := dm.qTemp.FieldByName('ID_sostoianie').AsInteger;
       datchiki[i-1].MAX := dm.qTemp.FieldByName('MAX').AsFloat;
       datchiki[i-1].MIN := dm.qTemp.FieldByName('MIN').AsFloat;
+
+      datchiki[i-1].pokazanie := dm.qTemp.FieldByName('Pokazanie').AsFloat;
+      datchiki[i-1].mx := dm.qTemp.FieldByName('Mx').AsFloat;
+      datchiki[i-1].dx := dm.qTemp.FieldByName('Dx').AsFloat;
+
       datchiki[i-1].ID_avaria := -1;
       datchiki[i-1].period := period;
       datchiki[i-1].Resume;
@@ -587,9 +619,10 @@ procedure TfrmMain.FormCreate(Sender: TObject);
 var i : integer;
 begin
   datchiki := nil;
+  obecty := nil;
   sensorCount := -1;
 
-  for i := 0 to MainMenu1.Items.Count-1 do
+  for i := 1 to MainMenu1.Items.Count-1 do
       MainMenu1.Items.Items[i].Enabled := false;
 
   for i := 1 to PageControl1.PageCount do
@@ -609,6 +642,8 @@ procedure TfrmMain.FormDestroy(Sender: TObject);
 begin
   mainw.Free;
   mainbitMap.Free;
+  SetLength(obecty, 0);
+  SetLength(datchiki, 0);
 end;
 
 procedure TfrmMain.N10Click(Sender: TObject);

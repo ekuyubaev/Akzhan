@@ -23470,6 +23470,7 @@ object frmMain: TfrmMain
         Anchors = [akTop, akRight]
         Caption = #1040#1074#1072#1088#1080#1081#1085#1072#1103'  '#1089#1080#1090#1091#1072#1094#1080#1103
         TabOrder = 2
+        OnClick = BitBtn24Click
       end
     end
     object tsLogin: TTabSheet

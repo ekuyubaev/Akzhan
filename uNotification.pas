@@ -46,7 +46,7 @@ begin
       end;
 
       Synchronize(showNotificationForm);
-      sleep(1000);
+      sleep(5000);
   end;
 end;
 
