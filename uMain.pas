@@ -179,6 +179,7 @@ type
     Memo1: TMemo;
     PaintBox1: TPaintBox;
     Timer3: TTimer;
+    BitBtn24: TBitBtn;
     procedure BitBtn4Click(Sender: TObject);
     procedure BitBtn6Click(Sender: TObject);
     procedure BitBtn5Click(Sender: TObject);

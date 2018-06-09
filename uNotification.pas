@@ -25,14 +25,17 @@ begin
   if dm.qNotSeenFaults.Active then dm.qNotSeenFaults.Close;
   dm.qNotSeenFaults.Open;
   if dm.qNotSeenFaults.RecordCount > 0 then
+  begin
+      frmNotification.PageControl1.ActivePageIndex := 0;
+      frmNotification.Memo1.Lines.Clear;
+      frmNotification.RadioGroup1.ItemIndex := -1;
       frmNotification.ShowModal;
+  end;
 end;
 
 procedure TNotifier.Execute;
 begin
   { Place thread code here }
-
-  sleep(15000);
 
   while not terminated do
   begin
@@ -43,7 +46,7 @@ begin
       end;
 
       Synchronize(showNotificationForm);
-      sleep(60000);
+      sleep(1000);
   end;
 end;
 
