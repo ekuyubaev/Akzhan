@@ -154,6 +154,14 @@ type
     qFaultID_smena: TIntegerField;
     qFaultDataSmena: TDateTimeField;
     qObjectsI: TADOQuery;
+    qNotSeenFaultsID_smena: TIntegerField;
+    qNotSeenFaultsID_EI: TIntegerField;
+    qNotSeenFaultsDataVvoda: TDateTimeField;
+    qNotSeenFaultsSrokSluzhby: TIntegerField;
+    qNotSeenFaultsID_uchastok: TIntegerField;
+    qNotSeenFaultsID_uchastok_1: TAutoIncField;
+    qNotSeenFaultsUchastok: TWideStringField;
+    qReadingsNotSeenFaults: TADOQuery;
     procedure qSmenaBeforePost(DataSet: TDataSet);
   private
     { Private declarations }
@@ -202,6 +210,7 @@ begin
   if not qEI.Active then qEI.Open;
   if not qArea.Active then qArea.Open;
   if not qObjectsI.Active then qObjectsI.Open;
+  if not qReadingsNotSeenFaults.Active then qReadingsNotSeenFaults.Open;
 end;
 
 Procedure Tdm.refreshSensors;

@@ -413,7 +413,8 @@ object dm: Tdm
     SQL.Strings = (
       'Select * From Avaria A left join Datchik D'
       'ON A.ID_datchik = D.ID_datchik  left join Object O'
-      'ON D.ID_object = O.ID_object'
+      'ON D.ID_object = O.ID_object left join Uchastok U'
+      'ON O.ID_uchastok = U.ID_uchastok'
       'Where Ustranena = 0')
     Left = 128
     Top = 168
@@ -543,6 +544,29 @@ object dm: Tdm
     end
     object qNotSeenFaultsDlina: TIntegerField
       FieldName = 'Dlina'
+    end
+    object qNotSeenFaultsID_smena: TIntegerField
+      FieldName = 'ID_smena'
+    end
+    object qNotSeenFaultsID_EI: TIntegerField
+      FieldName = 'ID_EI'
+    end
+    object qNotSeenFaultsDataVvoda: TDateTimeField
+      FieldName = 'DataVvoda'
+    end
+    object qNotSeenFaultsSrokSluzhby: TIntegerField
+      FieldName = 'SrokSluzhby'
+    end
+    object qNotSeenFaultsID_uchastok: TIntegerField
+      FieldName = 'ID_uchastok'
+    end
+    object qNotSeenFaultsID_uchastok_1: TAutoIncField
+      FieldName = 'ID_uchastok_1'
+      ReadOnly = True
+    end
+    object qNotSeenFaultsUchastok: TWideStringField
+      FieldName = 'Uchastok'
+      Size = 256
     end
   end
   object dsNotSeenFaults: TDataSource
@@ -804,5 +828,26 @@ object dm: Tdm
       'Select * From Object')
     Left = 424
     Top = 464
+  end
+  object qReadingsNotSeenFaults: TADOQuery
+    Active = True
+    Connection = DB_GATE
+    CursorType = ctStatic
+    DataSource = dsNotSeenFaults
+    Parameters = <
+      item
+        Name = 'ID_datchik'
+        Attributes = [paNullable]
+        DataType = ftInteger
+        NumericScale = 88
+        Precision = 255
+        Value = Null
+      end>
+    SQL.Strings = (
+      'Select * '
+      'From Pokazanie'
+      'Where ID_datchik = :ID_datchik')
+    Left = 128
+    Top = 296
   end
 end

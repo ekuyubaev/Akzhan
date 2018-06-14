@@ -1363,7 +1363,7 @@ object frmMain: TfrmMain
             OnClick = BitBtn11Click
           end
           object BitBtn30: TBitBtn
-            Left = 992
+            Left = 988
             Top = 2
             Width = 75
             Height = 25
@@ -1584,7 +1584,7 @@ object frmMain: TfrmMain
             OnClick = BitBtn10Click
           end
           object BitBtn27: TBitBtn
-            Left = 1000
+            Left = 996
             Top = 2
             Width = 75
             Height = 25
@@ -1882,7 +1882,7 @@ object frmMain: TfrmMain
             1094
             31)
           object BitBtn28: TBitBtn
-            Left = 1000
+            Left = 996
             Top = 2
             Width = 75
             Height = 25
@@ -21747,7 +21747,7 @@ object frmMain: TfrmMain
           1098
           37)
         object BitBtn29: TBitBtn
-          Left = 1000
+          Left = 996
           Top = 8
           Width = 75
           Height = 25
@@ -21913,7 +21913,6 @@ object frmMain: TfrmMain
   end
   object Timer5: TTimer
     Enabled = False
-    Interval = 90000
     OnTimer = Timer5Timer
     Left = 600
     Top = 448

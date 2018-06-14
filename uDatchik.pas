@@ -69,6 +69,8 @@ begin
   //генерация новых показаний
   Randomize;
   fpokazanie := fpokazanie +  RandG(fmx, fdx);
+  if fPokazanie > (fMAX + 12) then fPokazanie := fMAX + 12 +  RandG(fmx, fdx);
+
 
   dm.qGenerateReadings.SQL.Text := 'Update Model set Pokazanie = '
                       + StringReplace(FloatToStrF(fPokazanie, fffixed, 10, 4), ',', '.', [ rfReplaceAll, rfIgnoreCase ])

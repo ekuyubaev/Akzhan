@@ -25,18 +25,26 @@ var tempStr : string;
 begin
   if dm.qNotSeenFaults.Active then dm.qNotSeenFaults.Close;
   dm.qNotSeenFaults.Open;
-  if dm.qNotSeenFaults.RecordCount > 0 then
+   if dm.qReadingsNotSeenFaults.Active then dm.qReadingsNotSeenFaults.Close;
+  dm.qReadingsNotSeenFaults.Open;
+  if (dm.qNotSeenFaults.RecordCount > 0) then
   begin
-      tempStr := 'Обнаружена аварийная ситуация. ' + #13#10
-              + 'Объект: ' + dm.qNotSeenFaults.FieldByName('Naimenovanie_1').AsString + #13#10
-              + 'Датчик: ' + dm.qNotSeenFaults.FieldByName('Naimenovanie').AsString + #13#10
-              + 'Описание: ' + dm.qNotSeenFaults.FieldByName('Opisanie').AsString;
+      dm.qNotSeenFaults.RecNo := 1;
+      if (dm.qNotSeenFaults.FieldByName('Zamechena').AsInteger = 0) then
+      begin
+          tempStr := 'Обнаружена аварийная ситуация. ' + #13#10
+                  + 'Участок: ' + dm.qNotSeenFaults.FieldByName('Uchastok').AsString + #13#10
+                  + 'Объект: ' + dm.qNotSeenFaults.FieldByName('Naimenovanie_1').AsString + #13#10
+                  + 'Датчик: ' + dm.qNotSeenFaults.FieldByName('Naimenovanie').AsString + #13#10
+                  + 'Описание: ' + dm.qNotSeenFaults.FieldByName('Opisanie').AsString;
 
-      frmMain.ShowEvent(tempStr);
-      frmNotification.PageControl1.ActivePageIndex := 0;
-      frmNotification.Memo1.Lines.Clear;
-      frmNotification.RadioGroup1.ItemIndex := -1;
-      frmNotification.ShowModal;
+          frmMain.ShowEvent(tempStr);
+          frmNotification.PageControl1.ActivePageIndex := 0;
+          frmNotification.RadioGroup1.ItemIndex := -1;
+          frmNotification.RadioGroup2.ItemIndex := -1;
+          frmNotification.ShowModal;
+          beep;
+      end;
   end;
 end;
 
