@@ -17,19 +17,18 @@ type
     Label3: TLabel;
     Label4: TLabel;
     Label5: TLabel;
-    Label6: TLabel;
     Label8: TLabel;
     Label10: TLabel;
-    DBCheckBoxEh1: TDBCheckBoxEh;
     DBCheckBoxEh2: TDBCheckBoxEh;
     DBEditEh1: TDBEditEh;
     DBEditEh2: TDBEditEh;
     DBEditEh3: TDBEditEh;
     DBDateTimeEditEh1: TDBDateTimeEditEh;
     DBEditEh4: TDBEditEh;
-    DBDateTimeEditEh2: TDBDateTimeEditEh;
     DBDateTimeEditEh3: TDBDateTimeEditEh;
     DBMemoEh1: TDBMemoEh;
+    DBDateTimeEditEh2: TDBDateTimeEditEh;
+    Label6: TLabel;
     procedure BitBtn2Click(Sender: TObject);
     procedure BitBtn1Click(Sender: TObject);
   private

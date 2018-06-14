@@ -15,7 +15,9 @@ uses
   uReport in 'uReport.pas' {frmReport},
   uAbout in 'uAbout.pas' {frmAbout},
   uObjectClass in 'uObjectClass.pas',
-  uDolzhnost in 'uDolzhnost.pas' {frmDolzhnost};
+  uDolzhnost in 'uDolzhnost.pas' {frmDolzhnost},
+  uEI in 'uEI.pas' {frmEI},
+  uArea in 'uArea.pas' {frmArea};
 
 {$R *.res}
 
@@ -33,5 +35,7 @@ begin
   Application.CreateForm(TfrmReport, frmReport);
   Application.CreateForm(TfrmAbout, frmAbout);
   Application.CreateForm(TfrmDolzhnost, frmDolzhnost);
+  Application.CreateForm(TfrmEI, frmEI);
+  Application.CreateForm(TfrmArea, frmArea);
   Application.Run;
 end.

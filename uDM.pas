@@ -138,12 +138,30 @@ type
     qNotSeenFaultsDlina: TIntegerField;
     qSobytia: TADOQuery;
     dsSobytia: TDataSource;
+    qReps: TADOQuery;
+    qSmenaID_polzovatel: TIntegerField;
+    qEI: TADOQuery;
+    dsEI: TDataSource;
+    qSensorsIID_EI: TIntegerField;
+    qSensorsIDataVvoda: TDateTimeField;
+    qSensorsISrokSluzhby: TIntegerField;
+    qSensorsID_EI: TIntegerField;
+    qSensorsDataVvoda: TDateTimeField;
+    qSensorsSrokSluzhby: TIntegerField;
+    qArea: TADOQuery;
+    dsArea: TDataSource;
+    qObjectsID_uchastok: TIntegerField;
+    qFaultID_smena: TIntegerField;
+    qFaultDataSmena: TDateTimeField;
+    qObjectsI: TADOQuery;
+    procedure qSmenaBeforePost(DataSet: TDataSet);
   private
     { Private declarations }
   public
     { Public declarations }
     Procedure connect();
     procedure refreshSensors();
+    procedure refreshObjects();
     procedure refreshStates();
     procedure refreshReadings();
     procedure refreshFaults();
@@ -181,6 +199,9 @@ begin
   if not qSostav.Active then qSostav.Open;
   if not tblEvent.Active then tblEvent.Open;
   if not qUser.Active then qUser.Open;
+  if not qEI.Active then qEI.Open;
+  if not qArea.Active then qArea.Open;
+  if not qObjectsI.Active then qObjectsI.Open;
 end;
 
 Procedure Tdm.refreshSensors;
@@ -197,6 +218,22 @@ begin
   qSensorsI.Close;
   qSensorsI.Open;
   qSensorsI.RecNo := ind;
+end;
+
+Procedure Tdm.refreshObjects;
+var ind: integer;
+begin
+  if qObjects.State in [dsInsert, dsEdit] then exit;
+
+  ind := qObjects.RecNo;
+  qObjects.Close;
+  qObjects.Open;
+  qObjects.RecNo := ind;
+
+  ind := qObjectsI.RecNo;
+  qObjectsI.Close;
+  qObjectsI.Open;
+  qObjectsI.RecNo := ind;
 end;
 
 Procedure Tdm.refreshStates;
@@ -281,6 +318,12 @@ begin
                   + 'Values ( ' + QuotedStr(event) + ', '
                   + QuotedStr(FormatDateTime('yyyy-mm-dd hh:mm:ss',now)) + ')';
   qEvent.ExecSQL;
+end;
+
+procedure Tdm.qSmenaBeforePost(DataSet: TDataSet);
+begin
+  if DataSet.State in [dsInsert]
+      then DataSet.FieldByName('ID_polzovatel').Value := frmMain.user;
 end;
 
 end.

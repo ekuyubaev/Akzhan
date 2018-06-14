@@ -172,13 +172,11 @@ type
     BitBtn22: TBitBtn;
     DBGridEh11: TDBGridEh;
     N10: TMenuItem;
-    BitBtn23: TBitBtn;
     Timer2: TTimer;
     Panel13: TPanel;
     Memo1: TMemo;
     PaintBox1: TPaintBox;
     Timer3: TTimer;
-    BitBtn24: TBitBtn;
     TabSheet1: TTabSheet;
     Panel20: TPanel;
     BitBtn25: TBitBtn;
@@ -194,6 +192,11 @@ type
     BitBtn28: TBitBtn;
     BitBtn30: TBitBtn;
     BitBtn31: TBitBtn;
+    Timer4: TTimer;
+    Timer5: TTimer;
+    N9: TMenuItem;
+    N13: TMenuItem;
+    N14: TMenuItem;
     procedure BitBtn4Click(Sender: TObject);
     procedure BitBtn6Click(Sender: TObject);
     procedure BitBtn5Click(Sender: TObject);
@@ -223,11 +226,9 @@ type
     procedure BitBtn13Click(Sender: TObject);
     procedure N10Click(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
-    procedure BitBtn23Click(Sender: TObject);
     procedure Timer2Timer(Sender: TObject);
     procedure Timer3Timer(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
-    procedure BitBtn24Click(Sender: TObject);
     procedure N12Click(Sender: TObject);
     procedure N11Click(Sender: TObject);
     procedure BitBtn29Click(Sender: TObject);
@@ -236,18 +237,27 @@ type
     procedure BitBtn28Click(Sender: TObject);
     procedure BitBtn30Click(Sender: TObject);
     procedure BitBtn31Click(Sender: TObject);
+    procedure Timer4Timer(Sender: TObject);
+    procedure Timer5Timer(Sender: TObject);
+    procedure N9Click(Sender: TObject);
+    procedure N13Click(Sender: TObject);
+    procedure N14Click(Sender: TObject);
   private
     { Private declarations }
     sensorCount :integer;
     imgStep : integer;
+    eventStep : integer;
     mainfileName  :string;
     mainbitMap : TBitMap;
     mainw : TWicImage;
+    processStarted : boolean;
     procedure SetFrmSensorsDataSource(sensorDataSource:TDataSource);
     procedure DrawScheme();
   public
     { Public declarations }
     drawed : boolean;
+    user : integer;
+    datavremia : TDateTime;
     procedure stopInterrogation();
     procedure startInterrogation();
     procedure ShowEvent(event : String);
@@ -271,7 +281,7 @@ implementation
 {$R *.dfm}
 
 uses uDM, uObject, uSensor, uState, uReading, uFault, uReport, uAbout,
-  uDolzhnost;
+  uDolzhnost, uEI, uArea;
 
 Procedure TfrmMain.ShowEvent(event: string);
 begin
@@ -332,6 +342,8 @@ begin
       ShowMessage('ѕользовател€ с таким логином\паролем нет в системе!');
       Exit;
     end;
+    self.user := dm.qUser.FieldByName('ID_polzovatel').AsInteger;
+    self.datavremia := now();
   end
     else
   begin
@@ -352,6 +364,36 @@ begin
   end;
 
   PageControl1.ActivePage := tsSchema;
+
+  if not processStarted then
+  begin
+      mainfileName := 'resources\scheme\7.png';
+      mainw := TWicImage.Create;
+      mainw.LoadFromFile(mainfileName);
+      mainbitMap := TBitMap.Create;
+      mainbitMap.Assign(mainw);
+      drawed := false;
+
+
+      dm.qTemp.close;
+      dm.qTemp.SQL.Text := 'Update Avaria Set Ustranena = 1 '
+                          + 'Where Ustranena = 0 ';
+      dm.qTemp.ExecSQL;
+
+      dm.qTemp.close;
+      dm.qTemp.SQL.Text := 'Update Model Set Mx = 0, Dx = 0.01, Pokazanie = 49 '
+                          + 'Where ID_model = 3 ';
+      dm.qTemp.ExecSQL;
+
+      imgStep := 1;
+      eventStep := 1;
+      stopInterrogation;
+      Timer2.Enabled := false;
+      Timer3.Enabled := false;
+      Timer4.Enabled := false;
+      Timer5.Enabled := false;
+      Timer1.Enabled := true;
+  end;
 end;
 
 procedure TfrmMain.BitBtn13Click(Sender: TObject);
@@ -368,37 +410,6 @@ begin
   SetFrmSensorsDataSource(dm.dsSensors);
   frmSensors.query := @dm.qSensors;
   frmSensors.ShowModal;
-end;
-
-procedure TfrmMain.BitBtn23Click(Sender: TObject);
-begin
-  dm.qTemp.close;
-  dm.qTemp.SQL.Text := 'Update Avaria Set Ustranena = 1 '
-                      + 'Where Ustranena = 0 ';
-  dm.qTemp.ExecSQL;
-
-  dm.qTemp.close;
-  dm.qTemp.SQL.Text := 'Update Model Set Mx = 0, Dx = 0.01, Pokazanie = 49 '
-                      + 'Where ID_model = 3 ';
-  dm.qTemp.ExecSQL;
-
-  imgStep := 2;
-  stopInterrogation;
-  Timer2.Enabled := false;
-  Timer3.Enabled := false;
-  Timer1.Enabled := true;
-end;
-
-procedure TfrmMain.BitBtn24Click(Sender: TObject);
-var
-  I: Integer;
-begin
-  stopInterrogation;
-  dm.qTemp.close;
-  dm.qTemp.SQL.Text := 'Update Model Set Mx = 5, Dx = 2 '
-                      + 'Where ID_model = 3 ';
-  dm.qTemp.ExecSQL;
-  startInterrogation;
 end;
 
 procedure TfrmMain.BitBtn27Click(Sender: TObject);
@@ -539,7 +550,7 @@ var
   w : TWicImage;
   i : integer;
 begin
-    fileName := 'resources\scheme\55-' + IntToStr(imgStep) + '.png';
+    fileName := 'resources\scheme\' + IntToStr(imgStep) + '.png';
     w := TWicImage.Create;
     w.LoadFromFile(fileName);
     bitMap := TBitMap.Create;
@@ -554,7 +565,7 @@ begin
 
     Inc(imgStep);
 
-    if imgStep > 9 then
+    if imgStep > 7 then
     begin
       Timer1.Enabled := false;
 
@@ -563,16 +574,16 @@ begin
       SetLength(obecty, 0);
       SetLength(obecty, dm.qObjects.RecordCount);
 
-      for I := 1 to dm.qObjects.recordCount do
+      for I := 1 to dm.qObjectsI.recordCount do
       begin
-        dm.qObjects.RecNo := i;
+        dm.qObjectsI.RecNo := i;
         obecty[i-1] := TObect.Create;
-        obecty[i-1].id := dm.qObjects.FieldByName('ID_object').AsInteger;
-        obecty[i-1].xcentr := dm.qObjects.FieldByName('xcentr').AsInteger;
-        obecty[i-1].ycentr := dm.qObjects.FieldByName('ycentr').AsInteger;
-        obecty[i-1].dlina := dm.qObjects.FieldByName('dlina').AsInteger;
-        obecty[i-1].shirina := dm.qObjects.FieldByName('shirina').AsInteger;
-        obecty[i-1].naimenovanie := dm.qObjects.FieldByName('naimenovanie').AsString;
+        obecty[i-1].id := dm.qObjectsI.FieldByName('ID_object').AsInteger;
+        obecty[i-1].xcentr := dm.qObjectsI.FieldByName('xcentr').AsInteger;
+        obecty[i-1].ycentr := dm.qObjectsI.FieldByName('ycentr').AsInteger;
+        obecty[i-1].dlina := dm.qObjectsI.FieldByName('dlina').AsInteger;
+        obecty[i-1].shirina := dm.qObjectsI.FieldByName('shirina').AsInteger;
+        obecty[i-1].naimenovanie := dm.qObjectsI.FieldByName('Naimenovanie').AsString;
         obecty[i-1].initFields;
       end;
 
@@ -584,6 +595,8 @@ begin
 
       Timer2.Enabled := true;
       Timer3.Enabled := true;
+      Timer4.Enabled := true;
+      Timer5.Enabled := true;
     end;
 end;
 
@@ -607,6 +620,29 @@ begin
     DrawScheme;
     drawed := true;
   end;
+end;
+
+procedure TfrmMain.Timer4Timer(Sender: TObject);
+begin
+  if dm.tblEvent.Locate('id',eventStep,[]) then
+      ShowEvent(dm.tblEvent.FieldByName('event').AsString);
+
+  Inc(eventStep);
+
+  if eventStep > 7 then
+      eventStep := 1;
+end;
+
+procedure TfrmMain.Timer5Timer(Sender: TObject);
+begin
+  stopInterrogation;
+  dm.qTemp.close;
+  dm.qTemp.SQL.Text := 'Update Model Set Mx = 5, Dx = 2 '
+                      + 'Where ID_model = 3 ';
+  dm.qTemp.ExecSQL;
+  startInterrogation;
+
+  Timer5.Enabled := false;
 end;
 
 procedure TfrmMain.startInterrogation;
@@ -699,12 +735,7 @@ begin
 
   PageControl1.ActivePage := tsLogin;
 
-  mainfileName := 'resources\scheme\55-9.png';
-  mainw := TWicImage.Create;
-  mainw.LoadFromFile(mainfileName);
-  mainbitMap := TBitMap.Create;
-  mainbitMap.Assign(mainw);
-  drawed := false;
+  processStarted := false;
 end;
 
 procedure TfrmMain.FormDestroy(Sender: TObject);
@@ -738,6 +769,16 @@ begin
   Application.Terminate;
 end;
 
+procedure TfrmMain.N13Click(Sender: TObject);
+begin
+  frmEI.ShowModal;
+end;
+
+procedure TfrmMain.N14Click(Sender: TObject);
+begin
+  frmArea.ShowModal;
+end;
+
 procedure TfrmMain.N5Click(Sender: TObject);
 begin
   frmStates.ShowModal;
@@ -758,6 +799,11 @@ end;
 procedure TfrmMain.N8Click(Sender: TObject);
 begin
   frmAbout.ShowModal;
+end;
+
+procedure TfrmMain.N9Click(Sender: TObject);
+begin
+  frmReport.printDutyReport;
 end;
 
 procedure TfrmMain.SetFrmSensorsDataSource(sensorDataSource: TDataSource);

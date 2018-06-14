@@ -41,6 +41,7 @@ type
   public
     { Public declarations }
     procedure printRaport;
+    procedure printDutyReport;
   end;
 
 var
@@ -50,7 +51,7 @@ implementation
 
 {$R *.dfm}
 
-uses uDM;
+uses uDM, uMain;
 
 procedure TfrmReport.BitBtn1Click(Sender: TObject);
 begin
@@ -91,8 +92,141 @@ begin
   pathToTemplate := ExtractFilePath(Application.ExeName) + 'reports\Рапорт АС.dot';
   MsWord.Documents.Add(pathToTemplate);
 
+
+  MsWord.Selection.Find.ClearFormatting;
+  MsWord.Selection.Find.Replacement.ClearFormatting;
+  MsWord.Selection.Find.Replacement.Text:=FormatDateTime('dd.mm.yyyy hh:nn', dm.qFault.FieldByName('DV_obnaruzhena').AsDateTime);
+  MsWord.Selection.Find.Text := '[datetime]';
+  MsWord.Selection.Find.Forward := True;
+  MsWord.Selection.Find.Wrap := 1;
+  MsWord.Selection.Find.Format := False;
+  MsWord.Selection.Find.MatchCase := False;
+  MsWord.Selection.Find.MatchWholeWord := False;
+  MsWord.Selection.Find.MatchWildcards := False;
+  MsWord.Selection.Find.MatchSoundsLike := False;
+  MsWord.Selection.Find.MatchAllWordForms := False;
+  MsWord.Selection.Find.Execute(Replace := 2);
+
+  MsWord.Selection.Find.ClearFormatting;
+  MsWord.Selection.Find.Replacement.ClearFormatting;
+  MsWord.Selection.Find.Replacement.Text:= dm.qFault.FieldByName('Object').AsString;
+  MsWord.Selection.Find.Text := '[object]';
+  MsWord.Selection.Find.Forward := True;
+  MsWord.Selection.Find.Wrap := 1;
+  MsWord.Selection.Find.Format := False;
+  MsWord.Selection.Find.MatchCase := False;
+  MsWord.Selection.Find.MatchWholeWord := False;
+  MsWord.Selection.Find.MatchWildcards := False;
+  MsWord.Selection.Find.MatchSoundsLike := False;
+  MsWord.Selection.Find.MatchAllWordForms := False;
+  MsWord.Selection.Find.Execute(Replace := 2);
+
+  MsWord.Selection.Find.ClearFormatting;
+  MsWord.Selection.Find.Replacement.ClearFormatting;
+  MsWord.Selection.Find.Replacement.Text:= dm.qFault.FieldByName('DatchikNaimenovanie').AsString;
+  MsWord.Selection.Find.Text := '[sensor]';
+  MsWord.Selection.Find.Forward := True;
+  MsWord.Selection.Find.Wrap := 1;
+  MsWord.Selection.Find.Format := False;
+  MsWord.Selection.Find.MatchCase := False;
+  MsWord.Selection.Find.MatchWholeWord := False;
+  MsWord.Selection.Find.MatchWildcards := False;
+  MsWord.Selection.Find.MatchSoundsLike := False;
+  MsWord.Selection.Find.MatchAllWordForms := False;
+  MsWord.Selection.Find.Execute(Replace := 2);
+
+  dm.qReps.SQL.Text := 'Select * From db_cppn.Sotrudnik '
+                      +'Where ID_sotrudnik = ' + IntToStr(frmMain.user);
+  dm.qReps.Open;
+
+  MsWord.Selection.Find.ClearFormatting;
+  MsWord.Selection.Find.Replacement.ClearFormatting;
+  MsWord.Selection.Find.Replacement.Text:= dm.qReps.FieldByName('fio').AsString;
+  MsWord.Selection.Find.Text := '[user]';
+  MsWord.Selection.Find.Forward := True;
+  MsWord.Selection.Find.Wrap := 1;
+  MsWord.Selection.Find.Format := False;
+  MsWord.Selection.Find.MatchCase := False;
+  MsWord.Selection.Find.MatchWholeWord := False;
+  MsWord.Selection.Find.MatchWildcards := False;
+  MsWord.Selection.Find.MatchSoundsLike := False;
+  MsWord.Selection.Find.MatchAllWordForms := False;
+  MsWord.Selection.Find.Execute(Replace := 2);
+
+
   MsWord.Visible := True;
 end;
+
+
+procedure TfrmReport.printDutyReport;
+var
+  MSWord, bookmarks: Variant;
+  pathToTemplate : String;
+  startDate, endDate : TDateTime;
+  i : integer;
+  sDate, eDate : String;
+  step : real;
+  totalStep : real;
+begin
+  dm.qReps.SQL.Text := 'Select max(ID_smena) as id, datavremia, fio '
+                      +'From db_cppn.Smena sm left join db_cppn.Sotrudnik st '
+                      +'on sm.id_polzovatel = st.ID_sotrudnik';
+  dm.qReps.Open;
+
+  MsWord := CreateOleObject('Word.Application');
+
+  pathToTemplate := ExtractFilePath(Application.ExeName) + 'reports\Отчет за смену.dot';
+  MsWord.Documents.Add(pathToTemplate);
+
+  MsWord.Selection.Find.ClearFormatting;
+  MsWord.Selection.Find.Replacement.ClearFormatting;
+  MsWord.Selection.Find.Replacement.Text:=FormatDateTime('dd.mm.yyyy hh:nn', dm.qReps.FieldByName('datavremia').AsDateTime);
+  MsWord.Selection.Find.Text := '[date]';
+  MsWord.Selection.Find.Forward := True;
+  MsWord.Selection.Find.Wrap := 1;
+  MsWord.Selection.Find.Format := False;
+  MsWord.Selection.Find.MatchCase := False;
+  MsWord.Selection.Find.MatchWholeWord := False;
+  MsWord.Selection.Find.MatchWildcards := False;
+  MsWord.Selection.Find.MatchSoundsLike := False;
+  MsWord.Selection.Find.MatchAllWordForms := False;
+  MsWord.Selection.Find.Execute(Replace := 2);
+
+
+  MsWord.Selection.Find.ClearFormatting;
+  MsWord.Selection.Find.Replacement.ClearFormatting;
+  MsWord.Selection.Find.Replacement.Text:=dm.qReps.FieldByName('fio').asstring;
+  MsWord.Selection.Find.Text := '[dispatcher]';
+  MsWord.Selection.Find.Forward := True;
+  MsWord.Selection.Find.Wrap := 1;
+  MsWord.Selection.Find.Format := False;
+  MsWord.Selection.Find.MatchCase := False;
+  MsWord.Selection.Find.MatchWholeWord := False;
+  MsWord.Selection.Find.MatchWildcards := False;
+  MsWord.Selection.Find.MatchSoundsLike := False;
+  MsWord.Selection.Find.MatchAllWordForms := False;
+  MsWord.Selection.Find.Execute(Replace := 2);
+
+
+  i := dm.qReps.FieldByName('ID').AsInteger;
+  dm.qReps.SQL.Text := 'Select * From Sostav sv left join Sotrudnik st '
+                      +'on sv.ID_sotrudnik = st.ID_sotrudnik '
+                      +'left join Dolzhnost D '
+                      +'on st.ID_dolzhnost = d.ID_dolzhnosst '
+                      +'Where sv.ID_smena = ' + IntToStr(i);
+  dm.qReps.Open;
+
+  for i := 1 to dm.qReps.RecordCount do
+  begin
+      dm.qReps.RecNo := i;
+
+      MsWord.ActiveDocument.Tables.Item(1).Cell(i+1,1).Range.Text := dm.qReps.FieldByName('fio').AsString;
+      MsWord.ActiveDocument.Tables.Item(1).Cell(i+1,2).Range.Text := dm.qReps.FieldByName('Dolzhnost').AsString;
+  end;
+
+  MsWord.Visible := True;
+end;
+
 
 
 procedure TfrmReport.BitBtn2Click(Sender: TObject);
@@ -280,5 +414,6 @@ begin
   self.DateTimePicker7.DateTime := Now;
   self.DateTimePicker8.DateTime := Now;
 end;
+
 
 end.

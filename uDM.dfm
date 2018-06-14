@@ -54,6 +54,9 @@ object dm: Tdm
     object qObjectsDlina: TIntegerField
       FieldName = 'Dlina'
     end
+    object qObjectsID_uchastok: TIntegerField
+      FieldName = 'ID_uchastok'
+    end
   end
   object dsObjects: TDataSource
     DataSet = qObjects
@@ -68,7 +71,7 @@ object dm: Tdm
       item
         Name = 'ID_object'
         DataType = ftInteger
-        Value = 1
+        Value = 15
       end>
     SQL.Strings = (
       'Select * From Datchik'
@@ -116,6 +119,15 @@ object dm: Tdm
     object qSensorsPrimechanie: TWideMemoField
       FieldName = 'Primechanie'
       BlobType = ftWideMemo
+    end
+    object qSensorsID_EI: TIntegerField
+      FieldName = 'ID_EI'
+    end
+    object qSensorsDataVvoda: TDateTimeField
+      FieldName = 'DataVvoda'
+    end
+    object qSensorsSrokSluzhby: TIntegerField
+      FieldName = 'SrokSluzhby'
     end
   end
   object dsSensors: TDataSource
@@ -198,6 +210,15 @@ object dm: Tdm
     object qSensorsIPrimechanie: TWideMemoField
       FieldName = 'Primechanie'
       BlobType = ftWideMemo
+    end
+    object qSensorsIID_EI: TIntegerField
+      FieldName = 'ID_EI'
+    end
+    object qSensorsIDataVvoda: TDateTimeField
+      FieldName = 'DataVvoda'
+    end
+    object qSensorsISrokSluzhby: TIntegerField
+      FieldName = 'SrokSluzhby'
     end
   end
   object dsSensorsI: TDataSource
@@ -343,6 +364,18 @@ object dm: Tdm
     object qFaultOpisanie: TWideMemoField
       FieldName = 'Opisanie'
       BlobType = ftWideMemo
+    end
+    object qFaultID_smena: TIntegerField
+      FieldName = 'ID_smena'
+    end
+    object qFaultDataSmena: TDateTimeField
+      FieldKind = fkLookup
+      FieldName = 'DataSmena'
+      LookupDataSet = qSmena
+      LookupKeyFields = 'ID_smena'
+      LookupResultField = 'Datavremia'
+      KeyFields = 'ID_smena'
+      Lookup = True
     end
   end
   object qFaultReadings: TADOQuery
@@ -557,6 +590,7 @@ object dm: Tdm
     Active = True
     Connection = DB_GATE
     CursorType = ctStatic
+    BeforePost = qSmenaBeforePost
     Parameters = <>
     SQL.Strings = (
       'Select * '
@@ -575,6 +609,9 @@ object dm: Tdm
       FieldName = 'Primechanie'
       BlobType = ftWideMemo
     end
+    object qSmenaID_polzovatel: TIntegerField
+      FieldName = 'ID_polzovatel'
+    end
   end
   object qSostav: TADOQuery
     Active = True
@@ -585,7 +622,7 @@ object dm: Tdm
       item
         Name = 'ID_smena'
         DataType = ftInteger
-        Value = 1
+        Value = 3
       end>
     SQL.Strings = (
       'Select *'
@@ -720,5 +757,52 @@ object dm: Tdm
     DataSet = qSobytia
     Left = 560
     Top = 400
+  end
+  object qReps: TADOQuery
+    Connection = DB_GATE
+    Parameters = <>
+    Left = 640
+    Top = 352
+  end
+  object qEI: TADOQuery
+    Active = True
+    Connection = DB_GATE
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'Select * From EdinicaIzmerenia')
+    Left = 240
+    Top = 392
+  end
+  object dsEI: TDataSource
+    DataSet = qEI
+    Left = 240
+    Top = 440
+  end
+  object qArea: TADOQuery
+    Active = True
+    Connection = DB_GATE
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'Select *'
+      'From Uchastok')
+    Left = 304
+    Top = 392
+  end
+  object dsArea: TDataSource
+    DataSet = qArea
+    Left = 304
+    Top = 440
+  end
+  object qObjectsI: TADOQuery
+    Active = True
+    Connection = DB_GATE
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'Select * From Object')
+    Left = 424
+    Top = 464
   end
 end

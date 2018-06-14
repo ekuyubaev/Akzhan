@@ -3,7 +3,7 @@ object frmFault: TfrmFault
   Top = 0
   BorderStyle = bsNone
   Caption = 'frmFault'
-  ClientHeight = 416
+  ClientHeight = 341
   ClientWidth = 544
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -80,22 +80,9 @@ object frmFault: TfrmFault
     Font.Style = [fsBold]
     ParentFont = False
   end
-  object Label6: TLabel
-    Left = 16
-    Top = 161
-    Width = 132
-    Height = 13
-    Caption = #1044#1072#1090#1072'/'#1074#1088#1077#1084#1103' '#1079#1072#1084#1077#1095#1077#1085#1072
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -11
-    Font.Name = 'Tahoma'
-    Font.Style = [fsBold]
-    ParentFont = False
-  end
   object Label8: TLabel
-    Left = 16
-    Top = 224
+    Left = 211
+    Top = 168
     Width = 138
     Height = 13
     Caption = #1044#1072#1090#1072'/'#1074#1088#1077#1084#1103' '#1091#1089#1090#1088#1072#1085#1077#1085#1072
@@ -108,10 +95,23 @@ object frmFault: TfrmFault
   end
   object Label10: TLabel
     Left = 16
-    Top = 288
+    Top = 224
     Width = 70
     Height = 13
     Caption = #1055#1088#1080#1084#1077#1095#1072#1085#1080#1077
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object Label6: TLabel
+    Left = 16
+    Top = 168
+    Width = 36
+    Height = 13
+    Caption = #1057#1084#1077#1085#1072
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -11
@@ -126,7 +126,6 @@ object frmFault: TfrmFault
     Height = 35
     Align = alTop
     TabOrder = 0
-    ExplicitWidth = 463
     DesignSize = (
       544
       35)
@@ -201,7 +200,6 @@ object frmFault: TfrmFault
         FFFFFFFFFFFF}
       TabOrder = 0
       OnClick = BitBtn1Click
-      ExplicitLeft = 389
     end
     object BitBtn2: TBitBtn
       Left = 506
@@ -274,32 +272,11 @@ object frmFault: TfrmFault
         5E5ED3D3D3FF}
       TabOrder = 1
       OnClick = BitBtn2Click
-      ExplicitLeft = 425
     end
   end
-  object DBCheckBoxEh1: TDBCheckBoxEh
-    Left = 211
-    Top = 182
-    Width = 97
-    Height = 17
-    Caption = #1047#1040#1052#1045#1063#1045#1053#1040
-    DataField = 'Zamechena'
-    DataSource = dm.dsFault
-    DynProps = <>
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -11
-    Font.Name = 'Tahoma'
-    Font.Style = [fsBold]
-    ParentFont = False
-    ReadOnly = True
-    TabOrder = 1
-    ValueChecked = '1'
-    ValueUnchecked = '0'
-  end
   object DBCheckBoxEh2: TDBCheckBoxEh
-    Left = 211
-    Top = 245
+    Left = 406
+    Top = 189
     Width = 97
     Height = 17
     Caption = #1059#1057#1058#1056#1040#1053#1045#1053#1040
@@ -312,7 +289,7 @@ object frmFault: TfrmFault
     Font.Name = 'Tahoma'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 2
+    TabOrder = 1
     ValueChecked = '1'
     ValueUnchecked = '0'
   end
@@ -326,7 +303,7 @@ object frmFault: TfrmFault
     DynProps = <>
     EditButtons = <>
     ReadOnly = True
-    TabOrder = 3
+    TabOrder = 2
     Visible = True
   end
   object DBEditEh2: TDBEditEh
@@ -339,7 +316,7 @@ object frmFault: TfrmFault
     DynProps = <>
     EditButtons = <>
     ReadOnly = True
-    TabOrder = 4
+    TabOrder = 3
     Visible = True
   end
   object DBEditEh3: TDBEditEh
@@ -353,7 +330,7 @@ object frmFault: TfrmFault
     DynProps = <>
     EditButtons = <>
     ReadOnly = True
-    TabOrder = 5
+    TabOrder = 4
     Visible = True
   end
   object DBDateTimeEditEh1: TDBDateTimeEditEh
@@ -368,7 +345,7 @@ object frmFault: TfrmFault
     EditButtons = <>
     Kind = dtkDateTimeEh
     ReadOnly = True
-    TabOrder = 6
+    TabOrder = 5
     Visible = True
   end
   object DBEditEh4: TDBEditEh
@@ -381,26 +358,12 @@ object frmFault: TfrmFault
     DynProps = <>
     EditButtons = <>
     ReadOnly = True
-    TabOrder = 7
-    Visible = True
-  end
-  object DBDateTimeEditEh2: TDBDateTimeEditEh
-    Left = 16
-    Top = 180
-    Width = 163
-    Height = 21
-    DataField = 'DV_zamechena'
-    DataSource = dm.dsFault
-    DynProps = <>
-    EditButtons = <>
-    Kind = dtkDateTimeEh
-    ReadOnly = True
-    TabOrder = 8
+    TabOrder = 6
     Visible = True
   end
   object DBDateTimeEditEh3: TDBDateTimeEditEh
-    Left = 16
-    Top = 243
+    Left = 211
+    Top = 187
     Width = 163
     Height = 21
     DataField = 'DV_ustranena'
@@ -408,12 +371,12 @@ object frmFault: TfrmFault
     DynProps = <>
     EditButtons = <>
     Kind = dtkDateTimeEh
-    TabOrder = 9
+    TabOrder = 7
     Visible = True
   end
   object DBMemoEh1: TDBMemoEh
     Left = 16
-    Top = 307
+    Top = 243
     Width = 513
     Height = 89
     AutoSize = False
@@ -421,7 +384,21 @@ object frmFault: TfrmFault
     DataSource = dm.dsFault
     DynProps = <>
     EditButtons = <>
-    TabOrder = 10
+    TabOrder = 8
+    Visible = True
+  end
+  object DBDateTimeEditEh2: TDBDateTimeEditEh
+    Left = 16
+    Top = 187
+    Width = 162
+    Height = 21
+    DataField = 'DataSmena'
+    DataSource = dm.dsFault
+    DynProps = <>
+    EditButtons = <>
+    Kind = dtkDateEh
+    ReadOnly = True
+    TabOrder = 9
     Visible = True
   end
 end

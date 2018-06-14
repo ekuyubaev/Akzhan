@@ -4,7 +4,7 @@ object frmSensors: TfrmSensors
   BorderIcons = [biMinimize, biMaximize]
   BorderStyle = bsNone
   Caption = 'frmSensors'
-  ClientHeight = 449
+  ClientHeight = 502
   ClientWidth = 300
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -29,7 +29,7 @@ object frmSensors: TfrmSensors
       296
       31)
     object BitBtn1: TBitBtn
-      Left = 224
+      Left = 220
       Top = 1
       Width = 30
       Height = 30
@@ -101,7 +101,7 @@ object frmSensors: TfrmSensors
       OnClick = BitBtn1Click
     end
     object BitBtn2: TBitBtn
-      Left = 260
+      Left = 256
       Top = 1
       Width = 30
       Height = 30
@@ -177,11 +177,13 @@ object frmSensors: TfrmSensors
     Left = 0
     Top = 35
     Width = 300
-    Height = 414
+    Height = 467
     Align = alClient
     BevelKind = bkFlat
     BevelOuter = bvNone
     TabOrder = 1
+    ExplicitTop = 39
+    ExplicitHeight = 414
     object Label1: TLabel
       Left = 12
       Top = 13
@@ -222,11 +224,11 @@ object frmSensors: TfrmSensors
       ParentFont = False
     end
     object Label4: TLabel
-      Left = 12
+      Left = 164
       Top = 120
-      Width = 210
+      Width = 115
       Height = 13
-      Caption = #1052#1072#1082#1089#1080#1084#1072#1083#1100#1085#1086' '#1076#1086#1087#1091#1089#1090#1080#1084#1086#1077' '#1079#1085#1072#1095#1077#1085#1080#1077
+      Caption = #1052#1072#1082#1089'. '#1076#1086#1087#1091#1089#1090'. '#1079#1085#1072#1095'.'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -11
@@ -236,10 +238,10 @@ object frmSensors: TfrmSensors
     end
     object Label5: TLabel
       Left = 12
-      Top = 173
-      Width = 203
+      Top = 120
+      Width = 108
       Height = 13
-      Caption = #1052#1080#1085#1080#1084#1072#1083#1100#1085#1086' '#1076#1086#1087#1091#1089#1090#1080#1084#1086#1077' '#1079#1085#1072#1095#1077#1085#1080#1077
+      Caption = #1052#1080#1085'. '#1076#1086#1087#1091#1089#1090'. '#1079#1085#1072#1095'.'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -11
@@ -249,7 +251,7 @@ object frmSensors: TfrmSensors
     end
     object Label6: TLabel
       Left = 12
-      Top = 232
+      Top = 288
       Width = 61
       Height = 13
       Caption = #1057#1086#1089#1090#1086#1103#1085#1080#1077
@@ -262,10 +264,49 @@ object frmSensors: TfrmSensors
     end
     object Label7: TLabel
       Left = 12
-      Top = 285
+      Top = 341
       Width = 70
       Height = 13
       Caption = #1055#1088#1080#1084#1077#1095#1072#1085#1080#1077
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object Label8: TLabel
+      Left = 12
+      Top = 179
+      Width = 113
+      Height = 13
+      Caption = #1045#1076#1080#1085#1080#1094#1072' '#1080#1079#1084#1077#1088#1077#1085#1080#1103
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object Label9: TLabel
+      Left = 164
+      Top = 234
+      Width = 106
+      Height = 13
+      Caption = #1057#1088#1086#1082' '#1089#1083#1091#1078#1073#1099', '#1083#1077#1090
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object Label10: TLabel
+      Left = 12
+      Top = 234
+      Width = 120
+      Height = 13
+      Caption = #1044#1072#1090#1072' '#1074#1074#1086#1076#1072' '#1074' '#1101#1082#1089#1087#1083'.'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -11
@@ -312,7 +353,7 @@ object frmSensors: TfrmSensors
       Visible = True
     end
     object DBEditEh4: TDBEditEh
-      Left = 12
+      Left = 164
       Top = 139
       Width = 121
       Height = 21
@@ -326,7 +367,7 @@ object frmSensors: TfrmSensors
     end
     object DBEditEh5: TDBEditEh
       Left = 12
-      Top = 192
+      Top = 139
       Width = 121
       Height = 21
       Alignment = taCenter
@@ -339,7 +380,7 @@ object frmSensors: TfrmSensors
     end
     object DBLookupComboboxEh1: TDBLookupComboboxEh
       Left = 12
-      Top = 251
+      Top = 307
       Width = 273
       Height = 21
       DynProps = <>
@@ -351,7 +392,7 @@ object frmSensors: TfrmSensors
     end
     object DBMemoEh1: TDBMemoEh
       Left = 12
-      Top = 304
+      Top = 360
       Width = 273
       Height = 89
       AutoSize = False
@@ -360,6 +401,49 @@ object frmSensors: TfrmSensors
       DynProps = <>
       EditButtons = <>
       TabOrder = 6
+      Visible = True
+    end
+    object DBLookupComboboxEh2: TDBLookupComboboxEh
+      Left = 12
+      Top = 198
+      Width = 121
+      Height = 21
+      Alignment = taCenter
+      DynProps = <>
+      DataField = 'ID_EI'
+      DataSource = dm.dsSensors
+      EditButtons = <>
+      KeyField = 'ID_EI'
+      ListField = 'EI'
+      ListSource = dm.dsEI
+      TabOrder = 7
+      Visible = True
+    end
+    object DBDateTimeEditEh1: TDBDateTimeEditEh
+      Left = 12
+      Top = 253
+      Width = 121
+      Height = 21
+      Alignment = taCenter
+      DataField = 'DataVvoda'
+      DataSource = dm.dsSensors
+      DynProps = <>
+      EditButtons = <>
+      Kind = dtkDateEh
+      TabOrder = 8
+      Visible = True
+    end
+    object DBEditEh6: TDBEditEh
+      Left = 164
+      Top = 253
+      Width = 121
+      Height = 21
+      Alignment = taCenter
+      DataField = 'SrokSluzhby'
+      DataSource = dm.dsSensors
+      DynProps = <>
+      EditButtons = <>
+      TabOrder = 9
       Visible = True
     end
   end

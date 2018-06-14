@@ -27,6 +27,12 @@ type
     Label5: TLabel;
     Label6: TLabel;
     Label7: TLabel;
+    DBLookupComboboxEh2: TDBLookupComboboxEh;
+    DBDateTimeEditEh1: TDBDateTimeEditEh;
+    DBEditEh6: TDBEditEh;
+    Label8: TLabel;
+    Label9: TLabel;
+    Label10: TLabel;
     procedure BitBtn1Click(Sender: TObject);
     procedure BitBtn2Click(Sender: TObject);
   private

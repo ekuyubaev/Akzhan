@@ -22,7 +22,7 @@ object frmNotification: TfrmNotification
     Top = 0
     Width = 775
     Height = 458
-    ActivePage = TabSheet4
+    ActivePage = TabSheet8
     Align = alClient
     TabOrder = 0
     object TabSheet1: TTabSheet
@@ -258,7 +258,6 @@ object frmNotification: TfrmNotification
           ParentColor = False
           ParentFont = False
           WordWrap = True
-          ExplicitTop = 77
           ExplicitWidth = 569
         end
         object Label8: TLabel

@@ -1,11 +1,10 @@
-object frmObject: TfrmObject
+object frmArea: TfrmArea
   Left = 0
   Top = 0
-  BorderIcons = [biMinimize, biMaximize]
   BorderStyle = bsNone
-  Caption = 'frmObject'
-  ClientHeight = 367
-  ClientWidth = 300
+  Caption = 'frmArea'
+  ClientHeight = 352
+  ClientWidth = 349
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -13,23 +12,23 @@ object frmObject: TfrmObject
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
-  Position = poMainFormCenter
+  Position = poDesktopCenter
   PixelsPerInch = 96
   TextHeight = 13
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 300
-    Height = 37
+    Width = 349
+    Height = 35
     Align = alTop
-    BevelKind = bkFlat
     TabOrder = 0
+    ExplicitWidth = 463
     DesignSize = (
-      296
-      33)
+      349
+      35)
     object BitBtn1: TBitBtn
-      Left = 220
-      Top = 1
+      Left = 274
+      Top = 4
       Width = 30
       Height = 30
       Anchors = [akTop, akRight]
@@ -98,10 +97,11 @@ object frmObject: TfrmObject
         FFFFFFFFFFFF}
       TabOrder = 0
       OnClick = BitBtn1Click
+      ExplicitLeft = 388
     end
     object BitBtn2: TBitBtn
-      Left = 256
-      Top = 1
+      Left = 310
+      Top = 4
       Width = 30
       Height = 30
       Anchors = [akTop, akRight]
@@ -170,120 +170,45 @@ object frmObject: TfrmObject
         5E5ED3D3D3FF}
       TabOrder = 1
       OnClick = BitBtn2Click
+      ExplicitLeft = 424
     end
   end
-  object Panel2: TPanel
+  object DBGridEh1: TDBGridEh
     Left = 0
-    Top = 37
-    Width = 300
-    Height = 330
+    Top = 35
+    Width = 349
+    Height = 317
     Align = alClient
-    BevelKind = bkFlat
+    AutoFitColWidths = True
+    DataSource = dm.dsArea
+    DynProps = <>
+    IndicatorOptions = [gioShowRowIndicatorEh]
+    SortLocal = True
     TabOrder = 1
-    ExplicitHeight = 261
-    object Label1: TLabel
-      Left = 16
-      Top = 8
-      Width = 138
-      Height = 13
-      Caption = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077' '#1086#1073#1098#1077#1082#1090#1072
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = [fsBold]
-      ParentFont = False
-    end
-    object Label2: TLabel
-      Left = 16
-      Top = 64
-      Width = 130
-      Height = 13
-      Caption = #1054#1073#1086#1079#1085#1072#1095#1077#1085#1080#1077' '#1086#1073#1098#1077#1082#1090#1072
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = [fsBold]
-      ParentFont = False
-    end
-    object Label3: TLabel
-      Left = 16
-      Top = 176
-      Width = 70
-      Height = 13
-      Caption = #1055#1088#1080#1084#1077#1095#1072#1085#1080#1077
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = [fsBold]
-      ParentFont = False
-    end
-    object Label4: TLabel
-      Left = 16
-      Top = 120
-      Width = 49
-      Height = 13
-      Caption = #1059#1095#1072#1089#1090#1086#1082
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = [fsBold]
-      ParentFont = False
-    end
-    object DBEditEh1: TDBEditEh
-      Left = 16
-      Top = 27
-      Width = 265
-      Height = 21
-      DataField = 'Naimenovanie'
-      DataSource = dm.dsObjects
-      DynProps = <>
-      EditButtons = <>
-      TabOrder = 0
-      Visible = True
-    end
-    object DBEditEh2: TDBEditEh
-      Left = 16
-      Top = 83
-      Width = 265
-      Height = 21
-      DataField = 'Oboznachenie'
-      DataSource = dm.dsObjects
-      DynProps = <>
-      EditButtons = <>
-      TabOrder = 1
-      Visible = True
-    end
-    object DBMemoEh1: TDBMemoEh
-      Left = 16
-      Top = 195
-      Width = 265
-      Height = 110
-      AutoSize = False
-      DataField = 'Primechanie'
-      DataSource = dm.dsObjects
-      DynProps = <>
-      EditButtons = <>
-      TabOrder = 2
-      Visible = True
-    end
-    object DBLookupComboboxEh1: TDBLookupComboboxEh
-      Left = 16
-      Top = 139
-      Width = 265
-      Height = 21
-      DynProps = <>
-      DataField = 'ID_uchastok'
-      DataSource = dm.dsObjects
-      EditButtons = <>
-      KeyField = 'ID_uchastok'
-      ListField = 'Uchastok'
-      ListSource = dm.dsArea
-      TabOrder = 3
-      Visible = True
+    Columns = <
+      item
+        DynProps = <>
+        EditButtons = <>
+        FieldName = 'ID_uchastok'
+        Footers = <>
+        Visible = False
+      end
+      item
+        DynProps = <>
+        EditButtons = <>
+        FieldName = 'Uchastok'
+        Footers = <>
+        Title.Alignment = taCenter
+        Title.Caption = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077' '#1091#1095#1072#1089#1090#1082#1072
+        Title.Font.Charset = DEFAULT_CHARSET
+        Title.Font.Color = clWindowText
+        Title.Font.Height = -11
+        Title.Font.Name = 'Tahoma'
+        Title.Font.Style = [fsBold]
+        Title.TitleButton = True
+        Width = 300
+      end>
+    object RowDetailData: TRowDetailPanelControlEh
     end
   end
 end

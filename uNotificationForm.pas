@@ -87,7 +87,6 @@ implementation
 uses uDM, uMain, uNotification;
 
 procedure TfrmNotification.BitBtn10Click(Sender: TObject);
-var i : integer;
 begin
   close;
 end;
