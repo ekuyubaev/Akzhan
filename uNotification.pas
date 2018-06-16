@@ -43,7 +43,6 @@ begin
           frmNotification.RadioGroup1.ItemIndex := -1;
           frmNotification.RadioGroup2.ItemIndex := -1;
           frmNotification.ShowModal;
-          beep;
       end;
   end;
 end;

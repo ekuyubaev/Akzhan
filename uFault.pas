@@ -29,6 +29,12 @@ type
     DBMemoEh1: TDBMemoEh;
     DBDateTimeEditEh2: TDBDateTimeEditEh;
     Label6: TLabel;
+    DBEditEh5: TDBEditEh;
+    Label9: TLabel;
+    DBEditEh6: TDBEditEh;
+    Label7: TLabel;
+    DBEditEh7: TDBEditEh;
+    Label11: TLabel;
     procedure BitBtn2Click(Sender: TObject);
     procedure BitBtn1Click(Sender: TObject);
   private

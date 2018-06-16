@@ -17,7 +17,8 @@ uses
   uObjectClass in 'uObjectClass.pas',
   uDolzhnost in 'uDolzhnost.pas' {frmDolzhnost},
   uEI in 'uEI.pas' {frmEI},
-  uArea in 'uArea.pas' {frmArea};
+  uArea in 'uArea.pas' {frmArea},
+  uSmena in 'uSmena.pas' {frmSmena};
 
 {$R *.res}
 
@@ -37,5 +38,6 @@ begin
   Application.CreateForm(TfrmDolzhnost, frmDolzhnost);
   Application.CreateForm(TfrmEI, frmEI);
   Application.CreateForm(TfrmArea, frmArea);
+  Application.CreateForm(TfrmSmena, frmSmena);
   Application.Run;
 end.

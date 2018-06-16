@@ -28,7 +28,7 @@ object frmObject: TfrmObject
       296
       33)
     object BitBtn1: TBitBtn
-      Left = 220
+      Left = 216
       Top = 1
       Width = 30
       Height = 30
@@ -100,7 +100,7 @@ object frmObject: TfrmObject
       OnClick = BitBtn1Click
     end
     object BitBtn2: TBitBtn
-      Left = 256
+      Left = 252
       Top = 1
       Width = 30
       Height = 30
@@ -180,7 +180,6 @@ object frmObject: TfrmObject
     Align = alClient
     BevelKind = bkFlat
     TabOrder = 1
-    ExplicitHeight = 261
     object Label1: TLabel
       Left = 16
       Top = 8

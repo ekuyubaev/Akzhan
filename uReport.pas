@@ -109,6 +109,20 @@ begin
 
   MsWord.Selection.Find.ClearFormatting;
   MsWord.Selection.Find.Replacement.ClearFormatting;
+  MsWord.Selection.Find.Replacement.Text:= dm.qFault.FieldByName('Uchastok').AsString;
+  MsWord.Selection.Find.Text := '[area]';
+  MsWord.Selection.Find.Forward := True;
+  MsWord.Selection.Find.Wrap := 1;
+  MsWord.Selection.Find.Format := False;
+  MsWord.Selection.Find.MatchCase := False;
+  MsWord.Selection.Find.MatchWholeWord := False;
+  MsWord.Selection.Find.MatchWildcards := False;
+  MsWord.Selection.Find.MatchSoundsLike := False;
+  MsWord.Selection.Find.MatchAllWordForms := False;
+  MsWord.Selection.Find.Execute(Replace := 2);
+
+  MsWord.Selection.Find.ClearFormatting;
+  MsWord.Selection.Find.Replacement.ClearFormatting;
   MsWord.Selection.Find.Replacement.Text:= dm.qFault.FieldByName('Object').AsString;
   MsWord.Selection.Find.Text := '[object]';
   MsWord.Selection.Find.Forward := True;
@@ -123,8 +137,53 @@ begin
 
   MsWord.Selection.Find.ClearFormatting;
   MsWord.Selection.Find.Replacement.ClearFormatting;
-  MsWord.Selection.Find.Replacement.Text:= dm.qFault.FieldByName('DatchikNaimenovanie').AsString;
+  MsWord.Selection.Find.Replacement.Text:= dm.qFault.FieldByName('Naimenovanie').AsString;
   MsWord.Selection.Find.Text := '[sensor]';
+  MsWord.Selection.Find.Forward := True;
+  MsWord.Selection.Find.Wrap := 1;
+  MsWord.Selection.Find.Format := False;
+  MsWord.Selection.Find.MatchCase := False;
+  MsWord.Selection.Find.MatchWholeWord := False;
+  MsWord.Selection.Find.MatchWildcards := False;
+  MsWord.Selection.Find.MatchSoundsLike := False;
+  MsWord.Selection.Find.MatchAllWordForms := False;
+  MsWord.Selection.Find.Execute(Replace := 2);
+
+  MsWord.Selection.Find.ClearFormatting;
+  MsWord.Selection.Find.Replacement.ClearFormatting;
+  MsWord.Selection.Find.Replacement.Text:= dm.qFault.FieldByName('Neispravnost').AsString;
+  MsWord.Selection.Find.Text := '[fault]';
+  MsWord.Selection.Find.Forward := True;
+  MsWord.Selection.Find.Wrap := 1;
+  MsWord.Selection.Find.Format := False;
+  MsWord.Selection.Find.MatchCase := False;
+  MsWord.Selection.Find.MatchWholeWord := False;
+  MsWord.Selection.Find.MatchWildcards := False;
+  MsWord.Selection.Find.MatchSoundsLike := False;
+  MsWord.Selection.Find.MatchAllWordForms := False;
+  MsWord.Selection.Find.Execute(Replace := 2);
+
+  dm.qReps.SQL.Text := 'Select max(Pokazanie) as Pokazanie From Pokazanie '
+                      +'Where ID_avaria = ' + dm.qFault.FieldByName('ID_avaria').AsString;
+  dm.qReps.Open;
+  MsWord.Selection.Find.ClearFormatting;
+  MsWord.Selection.Find.Replacement.ClearFormatting;
+  MsWord.Selection.Find.Replacement.Text:= dm.qReps.FieldByName('Pokazanie').AsString;
+  MsWord.Selection.Find.Text := '[reading]';
+  MsWord.Selection.Find.Forward := True;
+  MsWord.Selection.Find.Wrap := 1;
+  MsWord.Selection.Find.Format := False;
+  MsWord.Selection.Find.MatchCase := False;
+  MsWord.Selection.Find.MatchWholeWord := False;
+  MsWord.Selection.Find.MatchWildcards := False;
+  MsWord.Selection.Find.MatchSoundsLike := False;
+  MsWord.Selection.Find.MatchAllWordForms := False;
+  MsWord.Selection.Find.Execute(Replace := 2);
+
+  MsWord.Selection.Find.ClearFormatting;
+  MsWord.Selection.Find.Replacement.ClearFormatting;
+  MsWord.Selection.Find.Replacement.Text:= dm.qFault.FieldByName('Reshenie').AsString;
+  MsWord.Selection.Find.Text := '[action]';
   MsWord.Selection.Find.Forward := True;
   MsWord.Selection.Find.Wrap := 1;
   MsWord.Selection.Find.Format := False;
@@ -167,6 +226,8 @@ var
   sDate, eDate : String;
   step : real;
   totalStep : real;
+  ID_smena : integer;
+
 begin
   dm.qReps.SQL.Text := 'Select max(ID_smena) as id, datavremia, fio '
                       +'From db_cppn.Smena sm left join db_cppn.Sotrudnik st '
@@ -208,12 +269,12 @@ begin
   MsWord.Selection.Find.Execute(Replace := 2);
 
 
-  i := dm.qReps.FieldByName('ID').AsInteger;
+  ID_smena := dm.qReps.FieldByName('ID').AsInteger;
   dm.qReps.SQL.Text := 'Select * From Sostav sv left join Sotrudnik st '
                       +'on sv.ID_sotrudnik = st.ID_sotrudnik '
                       +'left join Dolzhnost D '
                       +'on st.ID_dolzhnost = d.ID_dolzhnosst '
-                      +'Where sv.ID_smena = ' + IntToStr(i);
+                      +'Where sv.ID_smena = ' + IntToStr(ID_smena);
   dm.qReps.Open;
 
   for i := 1 to dm.qReps.RecordCount do
@@ -223,6 +284,25 @@ begin
       MsWord.ActiveDocument.Tables.Item(1).Cell(i+1,1).Range.Text := dm.qReps.FieldByName('fio').AsString;
       MsWord.ActiveDocument.Tables.Item(1).Cell(i+1,2).Range.Text := dm.qReps.FieldByName('Dolzhnost').AsString;
   end;
+
+
+  dm.qReps.SQL.Text := 'Select * From db_cppn.Avaria '
+                      +'Where ID_smena = ' + IntToStr(ID_smena);
+  dm.qReps.Open;
+
+  MsWord.Selection.Find.ClearFormatting;
+  MsWord.Selection.Find.Replacement.ClearFormatting;
+  MsWord.Selection.Find.Replacement.Text:= dm.qReps.FieldByName('fio').AsString;
+  MsWord.Selection.Find.Text := '[emergency]';
+  MsWord.Selection.Find.Forward := True;
+  MsWord.Selection.Find.Wrap := 1;
+  MsWord.Selection.Find.Format := False;
+  MsWord.Selection.Find.MatchCase := False;
+  MsWord.Selection.Find.MatchWholeWord := False;
+  MsWord.Selection.Find.MatchWildcards := False;
+  MsWord.Selection.Find.MatchSoundsLike := False;
+  MsWord.Selection.Find.MatchAllWordForms := False;
+  MsWord.Selection.Find.Execute(Replace := 2);
 
   MsWord.Visible := True;
 end;

@@ -88,7 +88,7 @@ uses
   DBGridEhGrouping, ToolCtrlsEh, DBGridEhToolCtrls, DynVarsEh, EhLibVCL,
   GridsEh, DBAxisGridsEh, DBGridEh, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Buttons, EhLibADO,
   Data.DB, Vcl.Imaging.jpeg, uDatchik, uNotification, iniFiles,uObjectClass,
-  Vcl.Imaging.pngimage;
+  Vcl.Imaging.pngimage, DateUtils;
 
 const IMG_WIDTH = 1000;
       IMG_HEIGHT = 723;
@@ -194,9 +194,9 @@ type
     BitBtn31: TBitBtn;
     Timer4: TTimer;
     Timer5: TTimer;
-    N9: TMenuItem;
     N13: TMenuItem;
     N14: TMenuItem;
+    BitBtn23: TBitBtn;
     procedure BitBtn4Click(Sender: TObject);
     procedure BitBtn6Click(Sender: TObject);
     procedure BitBtn5Click(Sender: TObject);
@@ -239,9 +239,10 @@ type
     procedure BitBtn31Click(Sender: TObject);
     procedure Timer4Timer(Sender: TObject);
     procedure Timer5Timer(Sender: TObject);
-    procedure N9Click(Sender: TObject);
     procedure N13Click(Sender: TObject);
     procedure N14Click(Sender: TObject);
+    procedure BitBtn23Click(Sender: TObject);
+    procedure BitBtn14Click(Sender: TObject);
   private
     { Private declarations }
     sensorCount :integer;
@@ -258,6 +259,7 @@ type
     drawed : boolean;
     user : integer;
     datavremia : TDateTime;
+    ID_smena : integer;
     procedure stopInterrogation();
     procedure startInterrogation();
     procedure ShowEvent(event : String);
@@ -281,7 +283,7 @@ implementation
 {$R *.dfm}
 
 uses uDM, uObject, uSensor, uState, uReading, uFault, uReport, uAbout,
-  uDolzhnost, uEI, uArea;
+  uDolzhnost, uEI, uArea, uSmena;
 
 Procedure TfrmMain.ShowEvent(event: string);
 begin
@@ -306,6 +308,7 @@ end;
 procedure TfrmMain.BitBtn12Click(Sender: TObject);
 var i: integer;
     DBUser, DBPass, DBHost :string;
+
 begin
   settingsIni := TIniFile.Create(ExtractFilePath(Application.ExeName)+ 'settings.ini');
   DBUser := settingsIni.ReadString('DBSettings','DBUser','root');
@@ -365,6 +368,40 @@ begin
 
   PageControl1.ActivePage := tsSchema;
 
+  dm.qTemp.SQL.Text := 'Select max(Datavremia) as smena From Smena';
+  dm.qTemp.Open;
+  if (HoursBetween(dm.qTemp.FieldByName('smena').AsDateTime, Now()) < 12 ) then
+  begin
+    if(MessageDlg('С момента предыдущей смены прошло менее 12 часов. Все равно создать запись о новой смене?', mtConfirmation, [mbYes, mbNo], 0) = mrYes) then
+    begin
+      dm.qTemp.SQL.Text := 'Insert Into Smena (Datavremia, ID_polzovatel) '
+                          +'Values ('+ QuotedStr(FormatDateTime('yyyy-mm-dd hh:nn:ss', Now)) +', '+ IntToStr(self.user) +')';
+      dm.qTemp.ExecSQL;
+
+      dm.qTemp.SQL.Text := 'Select max(ID_smena) as ID_smena From Smena';
+      dm.qTemp.Open;
+      ID_smena := dm.qTemp.FieldByName('ID_smena').AsInteger;
+    end
+      else
+    begin
+      dm.qTemp.SQL.Text := 'Select max(ID_smena) as ID_smena From Smena';
+      dm.qTemp.Open;
+      ID_smena := dm.qTemp.FieldByName('ID_smena').AsInteger;
+    end;
+  end
+    else
+  begin
+      dm.qTemp.SQL.Text := 'Insert Into Smena (Datavremia, ID_polzovatel) '
+                            +'Values ('+ QuotedStr(FormatDateTime('yyyy-mm-dd hh:nn:ss', Now)) +', '+ IntToStr(self.user) +')';
+      dm.qTemp.ExecSQL;
+
+      dm.qTemp.SQL.Text := 'Select max(ID_smena) as ID_smena From Smena';
+      dm.qTemp.Open;
+      ID_smena := dm.qTemp.FieldByName('ID_smena').AsInteger;
+  end;
+
+  dm.refreshSmena;
+
   if not processStarted then
   begin
       mainfileName := 'resources\scheme\7.png';
@@ -404,12 +441,30 @@ begin
   startInterrogation;
 end;
 
+procedure TfrmMain.BitBtn14Click(Sender: TObject);
+begin
+  dm.qTemp.SQL.Text := 'Select max(Datavremia) as smena From Smena';
+  dm.qTemp.Open;
+  if (HoursBetween(dm.qTemp.FieldByName('smena').AsDateTime, Now()) < 12 ) then
+  begin
+    if(MessageDlg('С момента предыдущей смены прошло менее 12 часов. Все равно продолжить?', mtConfirmation, [mbYes, mbNo], 0) = mrYes) then
+    begin
+      frmSmena.ShowModal;
+    end;
+  end;
+end;
+
 procedure TfrmMain.BitBtn1Click(Sender: TObject);
 begin
   dm.qSensors.Insert;
   SetFrmSensorsDataSource(dm.dsSensors);
   frmSensors.query := @dm.qSensors;
   frmSensors.ShowModal;
+end;
+
+procedure TfrmMain.BitBtn23Click(Sender: TObject);
+begin
+  frmReport.printDutyReport;
 end;
 
 procedure TfrmMain.BitBtn27Click(Sender: TObject);
@@ -799,11 +854,6 @@ end;
 procedure TfrmMain.N8Click(Sender: TObject);
 begin
   frmAbout.ShowModal;
-end;
-
-procedure TfrmMain.N9Click(Sender: TObject);
-begin
-  frmReport.printDutyReport;
 end;
 
 procedure TfrmMain.SetFrmSensorsDataSource(sensorDataSource: TDataSource);

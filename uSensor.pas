@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Buttons,
-  DBGridEh, DBCtrlsEh, DBLookupEh, Vcl.Mask, Data.Win.ADODB;
+  DBGridEh, DBCtrlsEh, DBLookupEh, Vcl.Mask, Data.Win.ADODB, DB;
 
 type
   TfrmSensors = class(TForm)
@@ -53,7 +53,7 @@ uses uDM, uMain;
 
 procedure TfrmSensors.BitBtn1Click(Sender: TObject);
 begin
-  query.Post;
+  if query.State in [dsEdit, dsInsert] then query.Post;
   dm.refreshSensors;
   frmMain.startInterrogation;
   close;
@@ -61,7 +61,7 @@ end;
 
 procedure TfrmSensors.BitBtn2Click(Sender: TObject);
 begin
-  query.Cancel;
+  if query.State in [dsEdit, dsInsert] then query.Cancel;
   close;
 end;
 

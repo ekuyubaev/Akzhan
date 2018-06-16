@@ -46,6 +46,7 @@ type
     RadioGroup2: TRadioGroup;
     Label4: TLabel;
     Label5: TLabel;
+    Timer1: TTimer;
     procedure BitBtn1Click(Sender: TObject);
     procedure BitBtn3Click(Sender: TObject);
     procedure BitBtn4Click(Sender: TObject);
@@ -60,6 +61,10 @@ type
     procedure TabSheet5Show(Sender: TObject);
     procedure TabSheet6Show(Sender: TObject);
     procedure TabSheet7Show(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure RadioGroup2Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -110,13 +115,29 @@ end;
 
 procedure TfrmNotification.BitBtn8Click(Sender: TObject);
 begin
+  if RadioGroup1.ItemIndex < 0 then
+  begin
+    ShowMessage('Выберите вариант возможной неисправности!');
+    Exit;
+  end;
+
+  dm.qNotSeenFaults.Edit;
+  dm.qNotSeenFaults.FieldByName('Neispravnost').Value
+      := RadioGroup1.Items[RadioGroup1.ItemIndex];
+  dm.qNotSeenFaults.Post;
   PageControl1.ActivePageIndex := 6;
 end;
 
 procedure TfrmNotification.BitBtn9Click(Sender: TObject);
 var i : integer;
 begin
-{  frmMain.stopInterrogation;
+  if RadioGroup2.ItemIndex < 0 then
+  begin
+    ShowMessage('Выберите вариант возможной неисправности!');
+    Exit;
+  end;
+
+  {  frmMain.stopInterrogation;
 
   dm.qEmergency.SQL.Text := 'Select * From Avaria Where Ustranena = 0';
   dm.qEmergency.Open;
@@ -140,18 +161,38 @@ begin
   end;
 
   frmMain.startInterrogation;  }
+  dm.qNotSeenFaults.Edit;
+  dm.qNotSeenFaults.FieldByName('Reshenie').Value
+      := RadioGroup2.Items[RadioGroup2.ItemIndex];
+  dm.qNotSeenFaults.Post;
   PageControl1.ActivePageIndex := 7;
 end;
 
+procedure TfrmNotification.FormActivate(Sender: TObject);
+begin
+  Timer1.Enabled := true;
+end;
+
+procedure TfrmNotification.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  Timer1.Enabled := false;
+  dm.refreshFaults;
+end;
+
 procedure TfrmNotification.FormCreate(Sender: TObject);
-  var
+var
   I: Integer;
 begin
   for I := 1 to PageControl1.PageCount do
       PageControl1.Pages[i-1].TabVisible := false;
 end;
 
-procedure TfrmNotification.TabSheet3Show(Sender: TObject);
+prprocedure TfrmNotification.RadioGroup2Click(Sender: TObject);
+begin
+
+end;
+
+ocedure TfrmNotification.TabSheet3Show(Sender: TObject);
 begin
   Label8.Caption :=  'Участок: ' + dm.qNotSeenFaults.FieldByName('Uchastok').AsString;
 end;
@@ -195,6 +236,11 @@ begin
               + 'Датчик: ' + dm.qNotSeenFaults.FieldByName('Naimenovanie').AsString + #13#10
               + 'Текущее показание: ' + dm.qEmergency.FieldByName('Pokazanie').AsString + #13#10
               + 'Неисправность: ' + RadioGroup1.Items[RadioGroup1.ItemIndex];
+end;
+
+procedure TfrmNotification.Timer1Timer(Sender: TObject);
+begin
+  PlaySound(pchar('resources\alarm.wav'), 0, SND_FILENAME or SND_ASYNC);
 end;
 
 end.

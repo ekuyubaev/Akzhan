@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls,
-  DBCtrlsEh, Vcl.Mask, DBGridEh, DBLookupEh;
+  DBCtrlsEh, Vcl.Mask, DBGridEh, DBLookupEh, DB;
 
 type
   TfrmObject = class(TForm)
@@ -40,13 +40,14 @@ uses uDM;
 
 procedure TfrmObject.BitBtn1Click(Sender: TObject);
 begin
-  dm.qObjects.Post;
+  if dm.qObjects.State in [dsEdit, dsInsert] then dm.qObjects.Post;
+  dm.refreshObjects;
   Close;
 end;
 
 procedure TfrmObject.BitBtn2Click(Sender: TObject);
 begin
-  dm.qObjects.Cancel;
+  if dm.qObjects.State in [dsEdit, dsInsert] then dm.qObjects.Cancel;
   Close;
 end;
 

@@ -299,7 +299,14 @@ object dm: Tdm
     CursorType = ctStatic
     Parameters = <>
     SQL.Strings = (
-      'Select * From Avaria')
+      
+        'Select A.*, D.Naimenovanie, D.Oboznachenie, O.Naimenovanie as Ob' +
+        'ject,'
+      'U.Uchastok'
+      'From Avaria A left join Datchik D'
+      'On A.ID_datchik = D.ID_datchik left join Object O'
+      'On D.ID_object = O.ID_object left join Uchastok U'
+      'On O.ID_uchastok = U.ID_uchastok')
     Left = 600
     Top = 24
     object qFaultID_avaria: TAutoIncField
@@ -309,35 +316,9 @@ object dm: Tdm
     object qFaultID_datchik: TIntegerField
       FieldName = 'ID_datchik'
     end
-    object qFaultDatchikNaimenovanie: TStringField
-      FieldKind = fkLookup
-      FieldName = 'DatchikNaimenovanie'
-      LookupDataSet = qSensorsI
-      LookupKeyFields = 'ID_datchik'
-      LookupResultField = 'Naimenovanie'
-      KeyFields = 'ID_datchik'
-      Size = 256
-      Lookup = True
-    end
-    object qFaultDatchikOboznachenie: TStringField
-      FieldKind = fkLookup
-      FieldName = 'DatchikOboznachenie'
-      LookupDataSet = qSensorsI
-      LookupKeyFields = 'ID_datchik'
-      LookupResultField = 'Oboznachenie'
-      KeyFields = 'ID_datchik'
-      Size = 64
-      Lookup = True
-    end
-    object qFaultObject: TStringField
-      FieldKind = fkLookup
+    object qFaultObject: TWideStringField
       FieldName = 'Object'
-      LookupDataSet = qSensorsI
-      LookupKeyFields = 'ID_datchik'
-      LookupResultField = 'Object'
-      KeyFields = 'ID_datchik'
       Size = 256
-      Lookup = True
     end
     object qFaultZamechena: TSmallintField
       FieldName = 'Zamechena'
@@ -376,6 +357,26 @@ object dm: Tdm
       LookupResultField = 'Datavremia'
       KeyFields = 'ID_smena'
       Lookup = True
+    end
+    object qFaultNaimenovanie: TWideStringField
+      FieldName = 'Naimenovanie'
+      Size = 256
+    end
+    object qFaultOboznachenie: TWideStringField
+      FieldName = 'Oboznachenie'
+      Size = 64
+    end
+    object qFaultUchastok: TWideStringField
+      FieldName = 'Uchastok'
+      Size = 256
+    end
+    object qFaultNeispravnost: TWideStringField
+      FieldName = 'Neispravnost'
+      Size = 512
+    end
+    object qFaultReshenie: TWideStringField
+      FieldName = 'Reshenie'
+      Size = 512
     end
   end
   object qFaultReadings: TADOQuery
@@ -568,6 +569,14 @@ object dm: Tdm
       FieldName = 'Uchastok'
       Size = 256
     end
+    object qNotSeenFaultsNeispravnost: TWideStringField
+      FieldName = 'Neispravnost'
+      Size = 512
+    end
+    object qNotSeenFaultsReshenie: TWideStringField
+      FieldName = 'Reshenie'
+      Size = 512
+    end
   end
   object dsNotSeenFaults: TDataSource
     DataSet = qNotSeenFaults
@@ -646,7 +655,7 @@ object dm: Tdm
       item
         Name = 'ID_smena'
         DataType = ftInteger
-        Value = 3
+        Value = 5
       end>
     SQL.Strings = (
       'Select *'
@@ -841,7 +850,7 @@ object dm: Tdm
         DataType = ftInteger
         NumericScale = 88
         Precision = 255
-        Value = Null
+        Value = 8
       end>
     SQL.Strings = (
       'Select * '

@@ -14,6 +14,8 @@ object frmNotification: TfrmNotification
   Font.Style = []
   OldCreateOrder = False
   Position = poMainFormCenter
+  OnActivate = FormActivate
+  OnClose = FormClose
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
@@ -22,7 +24,7 @@ object frmNotification: TfrmNotification
     Top = 0
     Width = 775
     Height = 458
-    ActivePage = TabSheet8
+    ActivePage = TabSheet7
     Align = alClient
     TabOrder = 0
     object TabSheet1: TTabSheet
@@ -41,7 +43,7 @@ object frmNotification: TfrmNotification
           Left = 4
           Top = 21
           Width = 759
-          Height = 196
+          Height = 45
           Margins.Top = 20
           Margins.Bottom = 20
           Align = alTop
@@ -56,6 +58,7 @@ object frmNotification: TfrmNotification
           ParentColor = False
           ParentFont = False
           Layout = tlCenter
+          ExplicitWidth = 403
         end
         object BitBtn1: TBitBtn
           Left = 520
@@ -327,7 +330,6 @@ object frmNotification: TfrmNotification
             #1074#1099#1093#1086#1076#1085#1086#1081' '#1089#1080#1075#1085#1072#1083' '#1086#1090#1089#1091#1090#1089#1090#1074#1091#1077#1090)
           ParentFont = False
           TabOrder = 1
-          ExplicitTop = 118
         end
       end
     end
@@ -399,10 +401,11 @@ object frmNotification: TfrmNotification
               #1053#1072#1088#1091#1096#1077#1085#1072' '#1075#1077#1088#1084#1077#1090#1080#1095#1085#1086#1089#1090#1100' '#1091#1087#1083#1086#1090#1085#1077#1085#1080#1103' '#1084#1086#1085#1090#1072#1078#1085#1086#1075#1086' '#1092#1083#1072#1085#1094#1072' '#1080#1083#1080' '#1085#1080#1087#1087#1077#1083#1103' ' +
               #1076#1072#1090#1095#1080#1082#1072'. '#1047#1072#1084#1077#1085#1080#1090#1100' '#1091#1087#1083#1086#1090#1085#1080#1090#1077#1083#1100#1085#1086#1077' '#1082#1086#1083#1100#1094#1086'.'
             
-              #1053#1072#1088#1091#1096#1077#1085#1072' '#1075#1077#1088#1084#1077#1090#1080#1095#1085#1086#1089#1090#1100' '#1087#1088#1086#1073#1082#1080' '#1092#1083#1072#1085#1094#1072' '#1089#1077#1085#1089#1086#1088#1072' '#1076#1072#1090#1095#1080#1082#1072'.'#1055#1086#1076#1085#1103#1090#1100' '#1087#1088#1086 +
-              #1073#1082#1080'.')
+              #1053#1072#1088#1091#1096#1077#1085#1072' '#1075#1077#1088#1084#1077#1090#1080#1095#1085#1086#1089#1090#1100' '#1087#1088#1086#1073#1082#1080' '#1092#1083#1072#1085#1094#1072' '#1089#1077#1085#1089#1086#1088#1072' '#1076#1072#1090#1095#1080#1082#1072'. '#1055#1086#1076#1085#1103#1090#1100' '#1087#1088 +
+              #1086#1073#1082#1080'.')
           ParentFont = False
           TabOrder = 1
+          OnClick = RadioGroup2Click
         end
       end
     end
@@ -498,5 +501,12 @@ object frmNotification: TfrmNotification
         end
       end
     end
+  end
+  object Timer1: TTimer
+    Enabled = False
+    Interval = 3000
+    OnTimer = Timer1Timer
+    Left = 592
+    Top = 360
   end
 end

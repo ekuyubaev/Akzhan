@@ -59,9 +59,6 @@ type
     qFaultDV_zamechena: TDateTimeField;
     qFaultDV_ustranena: TDateTimeField;
     qFaultOpisanie: TWideMemoField;
-    qFaultDatchikNaimenovanie: TStringField;
-    qFaultDatchikOboznachenie: TStringField;
-    qFaultObject: TStringField;
     qReadingsID_pokazanie: TLargeintField;
     qReadingsID_datchik: TIntegerField;
     qReadingsPokazanie: TFloatField;
@@ -162,6 +159,14 @@ type
     qNotSeenFaultsID_uchastok_1: TAutoIncField;
     qNotSeenFaultsUchastok: TWideStringField;
     qReadingsNotSeenFaults: TADOQuery;
+    qFaultNaimenovanie: TWideStringField;
+    qFaultOboznachenie: TWideStringField;
+    qFaultObject: TWideStringField;
+    qFaultUchastok: TWideStringField;
+    qFaultNeispravnost: TWideStringField;
+    qFaultReshenie: TWideStringField;
+    qNotSeenFaultsNeispravnost: TWideStringField;
+    qNotSeenFaultsReshenie: TWideStringField;
     procedure qSmenaBeforePost(DataSet: TDataSet);
   private
     { Private declarations }
@@ -175,6 +180,7 @@ type
     procedure refreshFaults();
     Procedure refreshSobytia;
     procedure insertEvent(event : String);
+    Procedure refreshSmena;
   end;
 
 var
@@ -211,6 +217,17 @@ begin
   if not qArea.Active then qArea.Open;
   if not qObjectsI.Active then qObjectsI.Open;
   if not qReadingsNotSeenFaults.Active then qReadingsNotSeenFaults.Open;
+end;
+
+Procedure Tdm.refreshSmena;
+var ind: integer;
+begin
+  if qSmena.State in [dsInsert, dsEdit] then exit;
+
+  ind := qSmena.RecNo;
+  qSmena.Close;
+  qSmena.Open;
+  qSmena.RecNo := ind;
 end;
 
 Procedure Tdm.refreshSensors;

@@ -34,6 +34,7 @@ uses uDM;
 procedure TfrmArea.BitBtn1Click(Sender: TObject);
 begin
   if dm.qArea.State in [dsEdit, dsInsert] then dm.qArea.Post;
+  dm.refreshObjects;
   close;
 end;
 

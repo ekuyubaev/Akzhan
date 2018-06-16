@@ -22,7 +22,6 @@ object frmArea: TfrmArea
     Height = 35
     Align = alTop
     TabOrder = 0
-    ExplicitWidth = 463
     DesignSize = (
       349
       35)
@@ -97,7 +96,6 @@ object frmArea: TfrmArea
         FFFFFFFFFFFF}
       TabOrder = 0
       OnClick = BitBtn1Click
-      ExplicitLeft = 388
     end
     object BitBtn2: TBitBtn
       Left = 310
@@ -170,7 +168,6 @@ object frmArea: TfrmArea
         5E5ED3D3D3FF}
       TabOrder = 1
       OnClick = BitBtn2Click
-      ExplicitLeft = 424
     end
   end
   object DBGridEh1: TDBGridEh

@@ -108,13 +108,13 @@ begin
     begin
         if dm.qTemp.Active then dm.qTemp.Close;
         dm.qTemp.SQL.Text := 'Insert into Avaria (ID_datchik, ID_stepen, '
-                          +'DV_obnaruzhena, Opisanie) '
+                          +'DV_obnaruzhena, Opisanie, ID_smena) '
                         + 'Values('
                         + IntToStr(fID_datchik) + ', '
                         + '0' + ', '
                         + 'STR_TO_DATE(' + QuotedStr(dataVremia) + ','
                                         + QuotedStr('%Y-%m-%d %H:%i:%s') + '), '
-                        +  QuotedStr(opisanie) + ')';
+                        +  QuotedStr(opisanie) + ', '+ IntToStr(frmMain.ID_smena) +')';
         dm.qTemp.ExecSQL;
 
         dm.qTemp.SQL.Text := 'Select last_insert_id() as last_id from Avaria';
