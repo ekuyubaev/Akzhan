@@ -64,7 +64,6 @@ type
     procedure Timer1Timer(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
-    procedure RadioGroup2Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -81,10 +80,40 @@ implementation
 uses uDM, uMain, uNotification;
 
 procedure TfrmNotification.BitBtn11Click(Sender: TObject);
+Var i : integer;
 begin
-  dm.qNotSeenFaults.Edit;
+  {dm.qNotSeenFaults.Edit;
   dm.qNotSeenFaults.FieldByName('Zamechena').Value := 1;
-  dm.qNotSeenFaults.Post;
+  dm.qNotSeenFaults.Post;}
+
+  if MessageDlg('Аварийная ситуация устранена?', mtConfirmation,[mbYes, mbNo], 0) = mrNo
+      then exit;
+
+  frmMain.stopInterrogation;
+
+  dm.qEmergency.SQL.Text := 'Select * From Avaria Where Ustranena = 0';
+  dm.qEmergency.Open;
+
+  for i := 1 to dm.qEmergency.RecordCount do
+  begin
+    dm.qEmergency.RecNo := i;
+
+    dm.qElimination.SQL.Text := 'Update Model Set Mx = 0, Dx = 0.01, Pokazanie = 55 '
+                      + 'Where ID_model = 3 ';
+    dm.qElimination.ExecSQL;
+
+    dm.qElimination.SQL.Text := 'Update Avaria Set Primechanie = '
+          + QuotedStr(RadioGroup1.Items[RadioGroup1.ItemIndex]+'-'
+                      + RadioGroup1.Items[RadioGroup1.ItemIndex]) + ', Ustranena = 1, DV_ustranena = '
+          + QuotedStr(FormatDateTime('yyyy-mm-dd hh:nn:ss', Now))
+          + ' Where ID_avaria = ' + dm.qEmergency.FieldByName('ID_avaria').AsString;
+    dm.qElimination.ExecSQL;
+
+    frmMain.ShowEvent(FormatDateTime('dd.mm.yyyy hh:nn:ss', now) + ' - Аварийная ситуация была устранена.');
+  end;
+
+  frmMain.startInterrogation;
+
   close;
 end;
 
@@ -137,30 +166,6 @@ begin
     Exit;
   end;
 
-  {  frmMain.stopInterrogation;
-
-  dm.qEmergency.SQL.Text := 'Select * From Avaria Where Ustranena = 0';
-  dm.qEmergency.Open;
-
-  for i := 1 to dm.qEmergency.RecordCount do
-  begin
-    dm.qEmergency.RecNo := i;
-
-    dm.qElimination.SQL.Text := 'Update Model Set Mx = 0, Dx = 0.01, Pokazanie = 55 '
-                      + 'Where ID_model = 3 ';
-    dm.qElimination.ExecSQL;
-
-    dm.qElimination.SQL.Text := 'Update Avaria Set Primechanie = '
-          + QuotedStr(RadioGroup1.Items[RadioGroup1.ItemIndex]+'-'
-                      +RadioGroup1.Items[RadioGroup1.ItemIndex]) + ', Ustranena = 1, DV_ustranena = '
-          + QuotedStr(FormatDateTime('yyyy-mm-dd hh:nn:ss', Now))
-          + ' Where ID_avaria = ' + dm.qEmergency.FieldByName('ID_avaria').AsString;
-    dm.qElimination.ExecSQL;
-
-    frmMain.ShowEvent('Аварийная ситуация была устранена.');
-  end;
-
-  frmMain.startInterrogation;  }
   dm.qNotSeenFaults.Edit;
   dm.qNotSeenFaults.FieldByName('Reshenie').Value
       := RadioGroup2.Items[RadioGroup2.ItemIndex];
@@ -187,12 +192,7 @@ begin
       PageControl1.Pages[i-1].TabVisible := false;
 end;
 
-prprocedure TfrmNotification.RadioGroup2Click(Sender: TObject);
-begin
-
-end;
-
-ocedure TfrmNotification.TabSheet3Show(Sender: TObject);
+procedure TfrmNotification.TabSheet3Show(Sender: TObject);
 begin
   Label8.Caption :=  'Участок: ' + dm.qNotSeenFaults.FieldByName('Uchastok').AsString;
 end;

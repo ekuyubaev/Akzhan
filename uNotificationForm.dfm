@@ -24,7 +24,7 @@ object frmNotification: TfrmNotification
     Top = 0
     Width = 775
     Height = 458
-    ActivePage = TabSheet7
+    ActivePage = TabSheet8
     Align = alClient
     TabOrder = 0
     object TabSheet1: TTabSheet
@@ -405,7 +405,6 @@ object frmNotification: TfrmNotification
               #1086#1073#1082#1080'.')
           ParentFont = False
           TabOrder = 1
-          OnClick = RadioGroup2Click
         end
       end
     end

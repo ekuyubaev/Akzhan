@@ -3,7 +3,7 @@ unit uDM;
 interface
 
 uses
-  System.SysUtils, System.Classes, Data.DB, Data.Win.ADODB;
+  System.SysUtils, System.Classes, Data.DB, Data.Win.ADODB, Vcl.Dialogs;
 
 type
   Tdm = class(TDataModule)
@@ -167,6 +167,20 @@ type
     qFaultReshenie: TWideStringField;
     qNotSeenFaultsNeispravnost: TWideStringField;
     qNotSeenFaultsReshenie: TWideStringField;
+    qSmenaID_polzovatel_1: TAutoIncField;
+    qSmenaLogin: TWideStringField;
+    qSmenaParol: TWideStringField;
+    qSmenaID_sotrudnik: TIntegerField;
+    qSmenaID_sotrudnik_1: TAutoIncField;
+    qSmenaFIO: TWideStringField;
+    qSmenaID_dolzhnost: TIntegerField;
+    qSmenaTelefon: TWideStringField;
+    qSmenaPrimechanie_1: TWideMemoField;
+    qUserID_polzovatel: TAutoIncField;
+    qUserLogin: TWideStringField;
+    qUserParol: TWideStringField;
+    qUserID_sotrudnik: TIntegerField;
+    qUserFIO: TStringField;
     procedure qSmenaBeforePost(DataSet: TDataSet);
   private
     { Private declarations }
@@ -348,6 +362,12 @@ end;
 
 procedure Tdm.qSmenaBeforePost(DataSet: TDataSet);
 begin
+  if DataSet.FieldByName('Datavremia').AsDateTime > now then
+  begin
+    ShowMessage('Дата/время дежурства не может быть больше текущей даты/времени');
+    Abort;
+  end;
+
   if DataSet.State in [dsInsert]
       then DataSet.FieldByName('ID_polzovatel').Value := frmMain.user;
 end;

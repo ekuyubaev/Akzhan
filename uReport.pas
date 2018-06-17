@@ -230,8 +230,9 @@ var
 
 begin
   dm.qReps.SQL.Text := 'Select max(ID_smena) as id, datavremia, fio '
-                      +'From db_cppn.Smena sm left join db_cppn.Sotrudnik st '
-                      +'on sm.id_polzovatel = st.ID_sotrudnik';
+                      +'From db_cppn.Smena sm left join Polzovatel P '
+                      +'ON sm.ID_polzovatel = P.ID_polzovatel left join Sotrudnik st '
+                      +'on P.id_sotrudnik = st.ID_sotrudnik';
   dm.qReps.Open;
 
   MsWord := CreateOleObject('Word.Application');
@@ -292,7 +293,7 @@ begin
 
   MsWord.Selection.Find.ClearFormatting;
   MsWord.Selection.Find.Replacement.ClearFormatting;
-  MsWord.Selection.Find.Replacement.Text:= dm.qReps.FieldByName('fio').AsString;
+  MsWord.Selection.Find.Replacement.Text:= dm.qReps.FieldByName('Opisanie').AsString;
   MsWord.Selection.Find.Text := '[emergency]';
   MsWord.Selection.Find.Forward := True;
   MsWord.Selection.Find.Wrap := 1;

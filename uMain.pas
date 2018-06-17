@@ -243,6 +243,7 @@ type
     procedure N14Click(Sender: TObject);
     procedure BitBtn23Click(Sender: TObject);
     procedure BitBtn14Click(Sender: TObject);
+    procedure BitBtn15Click(Sender: TObject);
   private
     { Private declarations }
     sensorCount :integer;
@@ -449,9 +450,21 @@ begin
   begin
     if(MessageDlg('С момента предыдущей смены прошло менее 12 часов. Все равно продолжить?', mtConfirmation, [mbYes, mbNo], 0) = mrYes) then
     begin
+      dm.qSmena.Insert;
       frmSmena.ShowModal;
     end;
+  end
+    else
+  begin
+      dm.qSmena.Insert;
+      frmSmena.ShowModal;
   end;
+end;
+
+procedure TfrmMain.BitBtn15Click(Sender: TObject);
+begin
+  dm.qSmena.Edit;
+  frmSmena.ShowModal;
 end;
 
 procedure TfrmMain.BitBtn1Click(Sender: TObject);
@@ -605,6 +618,9 @@ var
   w : TWicImage;
   i : integer;
 begin
+    if dm.tblEvent.Locate('id',imgStep,[]) then
+        ShowEvent(dm.tblEvent.FieldByName('event').AsString);
+
     fileName := 'resources\scheme\' + IntToStr(imgStep) + '.png';
     w := TWicImage.Create;
     w.LoadFromFile(fileName);
@@ -613,10 +629,6 @@ begin
     Image1.Picture.Bitmap.Assign(bitMap);
     w.Free;
     bitMap.Free;
-
-    if dm.tblEvent.Locate('id',imgStep,[]) then
-        ShowEvent(dm.tblEvent.FieldByName('event').AsString);
-
 
     Inc(imgStep);
 

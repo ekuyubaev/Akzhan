@@ -1,7 +1,7 @@
 object frmMain: TfrmMain
   Left = 0
   Top = 0
-  ActiveControl = BitBtn10
+  ActiveControl = Edit5
   BorderStyle = bsToolWindow
   Caption = #1040#1056#1052' '#1062#1055#1055#1053
   ClientHeight = 635
@@ -27,7 +27,7 @@ object frmMain: TfrmMain
     Top = 0
     Width = 1110
     Height = 635
-    ActivePage = tsFailure
+    ActivePage = tsLogin
     Align = alClient
     Style = tsFlatButtons
     TabOrder = 0
@@ -1363,7 +1363,7 @@ object frmMain: TfrmMain
             OnClick = BitBtn11Click
           end
           object BitBtn30: TBitBtn
-            Left = 976
+            Left = 972
             Top = 2
             Width = 75
             Height = 25
@@ -1584,7 +1584,7 @@ object frmMain: TfrmMain
             OnClick = BitBtn10Click
           end
           object BitBtn27: TBitBtn
-            Left = 984
+            Left = 980
             Top = 2
             Width = 75
             Height = 25
@@ -1911,7 +1911,7 @@ object frmMain: TfrmMain
             1094
             31)
           object BitBtn28: TBitBtn
-            Left = 984
+            Left = 980
             Top = 2
             Width = 75
             Height = 25
@@ -20853,6 +20853,7 @@ object frmMain: TfrmMain
               FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
               FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
             TabOrder = 1
+            OnClick = BitBtn15Click
           end
           object BitBtn16: TBitBtn
             Left = 80
@@ -20944,6 +20945,9 @@ object frmMain: TfrmMain
           DrawMemoText = True
           DynProps = <>
           IndicatorOptions = [gioShowRowIndicatorEh]
+          OptionsEh = [dghFixed3D, dghHighlightFocus, dghClearSelection, dghAutoSortMarking, dghDialogFind, dghColumnResize, dghColumnMove, dghExtendVertLines]
+          ReadOnly = True
+          SortLocal = True
           TabOrder = 1
           Columns = <
             item
@@ -20957,6 +20961,7 @@ object frmMain: TfrmMain
               Title.Font.Height = -11
               Title.Font.Name = 'Tahoma'
               Title.Font.Style = [fsBold]
+              Title.TitleButton = True
               Visible = False
               Width = 250
             end
@@ -20978,7 +20983,24 @@ object frmMain: TfrmMain
               Title.Font.Height = -11
               Title.Font.Name = 'Tahoma'
               Title.Font.Style = [fsBold]
+              Title.TitleButton = True
               Width = 150
+            end
+            item
+              AutoFitColWidth = False
+              DynProps = <>
+              EditButtons = <>
+              FieldName = 'FIO'
+              Footers = <>
+              Title.Alignment = taCenter
+              Title.Caption = #1044#1080#1089#1087#1077#1090#1095#1077#1088
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -11
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
+              Title.TitleButton = True
+              Width = 250
             end
             item
               DynProps = <>
@@ -20992,6 +21014,7 @@ object frmMain: TfrmMain
               Title.Font.Height = -11
               Title.Font.Name = 'Tahoma'
               Title.Font.Style = [fsBold]
+              Title.TitleButton = True
               Width = 250
             end>
           object RowDetailData: TRowDetailPanelControlEh
@@ -21730,10 +21753,10 @@ object frmMain: TfrmMain
           item
             DynProps = <>
             EditButtons = <>
-            FieldName = 'ID_sotrudnik'
+            FieldName = 'Login'
             Footers = <>
             Title.Alignment = taCenter
-            Title.Caption = #1057#1086#1090#1088#1091#1076#1085#1080#1082
+            Title.Caption = #1051#1086#1075#1080#1085
             Title.Font.Charset = DEFAULT_CHARSET
             Title.Font.Color = clWindowText
             Title.Font.Height = -11
@@ -21743,12 +21766,16 @@ object frmMain: TfrmMain
             Width = 300
           end
           item
+            LookupParams.KeyFieldNames = 'ID_sotrudnik'
+            LookupParams.LookupDataSet = dm.qSotrudnik
+            LookupParams.LookupDisplayFieldName = 'FIO'
+            LookupParams.LookupKeyFieldNames = 'ID_sotrudnik'
             DynProps = <>
             EditButtons = <>
-            FieldName = 'Login'
+            FieldName = 'ID_sotrudnik'
             Footers = <>
             Title.Alignment = taCenter
-            Title.Caption = #1051#1086#1075#1080#1085
+            Title.Caption = #1057#1086#1090#1088#1091#1076#1085#1080#1082
             Title.Font.Charset = DEFAULT_CHARSET
             Title.Font.Color = clWindowText
             Title.Font.Height = -11
@@ -21792,7 +21819,7 @@ object frmMain: TfrmMain
           1098
           37)
         object BitBtn29: TBitBtn
-          Left = 984
+          Left = 980
           Top = 8
           Width = 75
           Height = 25
@@ -21846,6 +21873,7 @@ object frmMain: TfrmMain
             FieldName = 'Datavremia'
             Footers = <>
             Title.Alignment = taCenter
+            Title.Caption = #1044#1072#1090#1072'/'#1074#1088#1077#1084#1103
             Title.Font.Charset = DEFAULT_CHARSET
             Title.Font.Color = clWindowText
             Title.Font.Height = -11
@@ -21860,6 +21888,7 @@ object frmMain: TfrmMain
             FieldName = 'Opisanie'
             Footers = <>
             Title.Alignment = taCenter
+            Title.Caption = #1054#1087#1080#1089#1072#1085#1080#1077' '#1089#1086#1073#1099#1090#1080#1103
             Title.Font.Charset = DEFAULT_CHARSET
             Title.Font.Color = clWindowText
             Title.Font.Height = -11
@@ -21908,7 +21937,7 @@ object frmMain: TfrmMain
         OnClick = N13Click
       end
       object N14: TMenuItem
-        Caption = #1054#1073#1098#1077#1082#1090#1099
+        Caption = #1059#1095#1072#1089#1090#1082#1080
         OnClick = N14Click
       end
     end

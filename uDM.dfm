@@ -627,7 +627,10 @@ object dm: Tdm
     Parameters = <>
     SQL.Strings = (
       'Select * '
-      'From Smena'
+      'From Smena S left join Polzovatel P'
+      'On S.ID_polzovatel = P.ID_polzovatel left join Sotrudnik St'
+      'On P.ID_sotrudnik = St.ID_sotrudnik'
+      ''
       '')
     Left = 424
     Top = 168
@@ -645,6 +648,40 @@ object dm: Tdm
     object qSmenaID_polzovatel: TIntegerField
       FieldName = 'ID_polzovatel'
     end
+    object qSmenaID_polzovatel_1: TAutoIncField
+      FieldName = 'ID_polzovatel_1'
+      ReadOnly = True
+    end
+    object qSmenaLogin: TWideStringField
+      FieldName = 'Login'
+      Size = 45
+    end
+    object qSmenaParol: TWideStringField
+      FieldName = 'Parol'
+      Size = 45
+    end
+    object qSmenaID_sotrudnik: TIntegerField
+      FieldName = 'ID_sotrudnik'
+    end
+    object qSmenaID_sotrudnik_1: TAutoIncField
+      FieldName = 'ID_sotrudnik_1'
+      ReadOnly = True
+    end
+    object qSmenaFIO: TWideStringField
+      FieldName = 'FIO'
+      Size = 45
+    end
+    object qSmenaID_dolzhnost: TIntegerField
+      FieldName = 'ID_dolzhnost'
+    end
+    object qSmenaTelefon: TWideStringField
+      FieldName = 'Telefon'
+      Size = 45
+    end
+    object qSmenaPrimechanie_1: TWideMemoField
+      FieldName = 'Primechanie_1'
+      BlobType = ftWideMemo
+    end
   end
   object qSostav: TADOQuery
     Active = True
@@ -655,7 +692,7 @@ object dm: Tdm
       item
         Name = 'ID_smena'
         DataType = ftInteger
-        Value = 5
+        Value = 1
       end>
     SQL.Strings = (
       'Select *'
@@ -762,6 +799,30 @@ object dm: Tdm
       'From Polzovatel')
     Left = 424
     Top = 352
+    object qUserID_polzovatel: TAutoIncField
+      FieldName = 'ID_polzovatel'
+      ReadOnly = True
+    end
+    object qUserLogin: TWideStringField
+      FieldName = 'Login'
+      Size = 45
+    end
+    object qUserParol: TWideStringField
+      FieldName = 'Parol'
+      Size = 45
+    end
+    object qUserID_sotrudnik: TIntegerField
+      FieldName = 'ID_sotrudnik'
+    end
+    object qUserFIO: TStringField
+      FieldKind = fkLookup
+      FieldName = 'FIO'
+      LookupDataSet = qSotrudnik
+      LookupKeyFields = 'ID_sotrudnik'
+      LookupResultField = 'FIO'
+      KeyFields = 'ID_sotrudnik'
+      Lookup = True
+    end
   end
   object dsUser: TDataSource
     DataSet = qUser
@@ -850,7 +911,7 @@ object dm: Tdm
         DataType = ftInteger
         NumericScale = 88
         Precision = 255
-        Value = 8
+        Value = Null
       end>
     SQL.Strings = (
       'Select * '
