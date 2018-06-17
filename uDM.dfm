@@ -692,7 +692,7 @@ object dm: Tdm
       item
         Name = 'ID_smena'
         DataType = ftInteger
-        Value = 1
+        Value = 5
       end>
     SQL.Strings = (
       'Select *'
@@ -919,5 +919,11 @@ object dm: Tdm
       'Where ID_datchik = :ID_datchik')
     Left = 128
     Top = 296
+  end
+  object qArch: TADOQuery
+    Connection = DB_GATE
+    Parameters = <>
+    Left = 496
+    Top = 464
   end
 end

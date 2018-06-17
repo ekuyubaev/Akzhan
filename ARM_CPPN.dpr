@@ -18,7 +18,8 @@ uses
   uDolzhnost in 'uDolzhnost.pas' {frmDolzhnost},
   uEI in 'uEI.pas' {frmEI},
   uArea in 'uArea.pas' {frmArea},
-  uSmena in 'uSmena.pas' {frmSmena};
+  uSmena in 'uSmena.pas' {frmSmena},
+  uArchive in 'uArchive.pas' {frmArchive};
 
 {$R *.res}
 
@@ -39,5 +40,6 @@ begin
   Application.CreateForm(TfrmEI, frmEI);
   Application.CreateForm(TfrmArea, frmArea);
   Application.CreateForm(TfrmSmena, frmSmena);
+  Application.CreateForm(TfrmArchive, frmArchive);
   Application.Run;
 end.

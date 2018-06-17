@@ -1,7 +1,7 @@
 object frmMain: TfrmMain
   Left = 0
   Top = 0
-  ActiveControl = Edit5
+  ActiveControl = Memo1
   BorderStyle = bsToolWindow
   Caption = #1040#1056#1052' '#1062#1055#1055#1053
   ClientHeight = 635
@@ -27,7 +27,7 @@ object frmMain: TfrmMain
     Top = 0
     Width = 1110
     Height = 635
-    ActivePage = tsLogin
+    ActivePage = tsSchema
     Align = alClient
     Style = tsFlatButtons
     TabOrder = 0
@@ -1363,7 +1363,7 @@ object frmMain: TfrmMain
             OnClick = BitBtn11Click
           end
           object BitBtn30: TBitBtn
-            Left = 972
+            Left = 968
             Top = 2
             Width = 75
             Height = 25
@@ -1584,7 +1584,7 @@ object frmMain: TfrmMain
             OnClick = BitBtn10Click
           end
           object BitBtn27: TBitBtn
-            Left = 980
+            Left = 976
             Top = 2
             Width = 75
             Height = 25
@@ -1911,7 +1911,7 @@ object frmMain: TfrmMain
             1094
             31)
           object BitBtn28: TBitBtn
-            Left = 980
+            Left = 976
             Top = 2
             Width = 75
             Height = 25
@@ -21819,7 +21819,7 @@ object frmMain: TfrmMain
           1098
           37)
         object BitBtn29: TBitBtn
-          Left = 980
+          Left = 976
           Top = 8
           Width = 75
           Height = 25
@@ -21909,6 +21909,10 @@ object frmMain: TfrmMain
       object N11: TMenuItem
         Caption = #1057#1084#1077#1085#1080#1090#1100' '#1087#1086#1083#1100#1079#1086#1074#1072#1090#1077#1083#1103
         OnClick = N11Click
+      end
+      object N9: TMenuItem
+        Caption = #1040#1088#1093#1080#1074#1080#1088#1086#1074#1072#1085#1080#1077' '#1087#1086#1082#1072#1079#1072#1085#1080#1081
+        OnClick = N9Click
       end
     end
     object N2: TMenuItem

@@ -197,6 +197,7 @@ type
     N13: TMenuItem;
     N14: TMenuItem;
     BitBtn23: TBitBtn;
+    N9: TMenuItem;
     procedure BitBtn4Click(Sender: TObject);
     procedure BitBtn6Click(Sender: TObject);
     procedure BitBtn5Click(Sender: TObject);
@@ -244,6 +245,7 @@ type
     procedure BitBtn23Click(Sender: TObject);
     procedure BitBtn14Click(Sender: TObject);
     procedure BitBtn15Click(Sender: TObject);
+    procedure N9Click(Sender: TObject);
   private
     { Private declarations }
     sensorCount :integer;
@@ -284,7 +286,7 @@ implementation
 {$R *.dfm}
 
 uses uDM, uObject, uSensor, uState, uReading, uFault, uReport, uAbout,
-  uDolzhnost, uEI, uArea, uSmena;
+  uDolzhnost, uEI, uArea, uSmena, uArchive;
 
 Procedure TfrmMain.ShowEvent(event: string);
 begin
@@ -866,6 +868,11 @@ end;
 procedure TfrmMain.N8Click(Sender: TObject);
 begin
   frmAbout.ShowModal;
+end;
+
+procedure TfrmMain.N9Click(Sender: TObject);
+begin
+  frmArchive.ShowModal;
 end;
 
 procedure TfrmMain.SetFrmSensorsDataSource(sensorDataSource: TDataSource);

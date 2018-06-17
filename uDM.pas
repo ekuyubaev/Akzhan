@@ -181,6 +181,7 @@ type
     qUserParol: TWideStringField;
     qUserID_sotrudnik: TIntegerField;
     qUserFIO: TStringField;
+    qArch: TADOQuery;
     procedure qSmenaBeforePost(DataSet: TDataSet);
   private
     { Private declarations }
