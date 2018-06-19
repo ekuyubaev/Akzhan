@@ -158,6 +158,19 @@ object frmFault: TfrmFault
     Font.Style = [fsBold]
     ParentFont = False
   end
+  object Label12: TLabel
+    Left = 16
+    Top = 216
+    Width = 36
+    Height = 13
+    Caption = #1057#1084#1077#1085#1072
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
   object Panel1: TPanel
     Left = 0
     Top = 0
@@ -462,7 +475,6 @@ object frmFault: TfrmFault
     DataSource = dm.dsFault
     DynProps = <>
     EditButtons = <>
-    ReadOnly = True
     TabOrder = 11
     Visible = True
   end
@@ -475,7 +487,6 @@ object frmFault: TfrmFault
     DataSource = dm.dsFault
     DynProps = <>
     EditButtons = <>
-    ReadOnly = True
     TabOrder = 12
     Visible = True
   end

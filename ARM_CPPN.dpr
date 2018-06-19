@@ -19,7 +19,9 @@ uses
   uEI in 'uEI.pas' {frmEI},
   uArea in 'uArea.pas' {frmArea},
   uSmena in 'uSmena.pas' {frmSmena},
-  uArchive in 'uArchive.pas' {frmArchive};
+  uArchive in 'uArchive.pas' {frmArchive},
+  uSotrudnik in 'uSotrudnik.pas' {frmSotrudnik},
+  uUser in 'uUser.pas' {frmUser};
 
 {$R *.res}
 
@@ -41,5 +43,7 @@ begin
   Application.CreateForm(TfrmArea, frmArea);
   Application.CreateForm(TfrmSmena, frmSmena);
   Application.CreateForm(TfrmArchive, frmArchive);
+  Application.CreateForm(TfrmSotrudnik, frmSotrudnik);
+  Application.CreateForm(TfrmUser, frmUser);
   Application.Run;
 end.

@@ -24,11 +24,12 @@ object frmNotification: TfrmNotification
     Top = 0
     Width = 775
     Height = 458
-    ActivePage = TabSheet8
+    ActivePage = TabSheet4
     Align = alClient
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = 'TabSheet1'
+      OnShow = TabSheet1Show
       object Panel1: TPanel
         Left = 0
         Top = 0
@@ -60,174 +61,10 @@ object frmNotification: TfrmNotification
           Layout = tlCenter
           ExplicitWidth = 403
         end
-        object BitBtn1: TBitBtn
-          Left = 520
-          Top = 304
-          Width = 160
-          Height = 84
-          Caption = #1057#1055#1055#1056
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -21
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-          TabOrder = 0
-          OnClick = BitBtn1Click
-        end
-      end
-    end
-    object TabSheet2: TTabSheet
-      Caption = 'TabSheet2'
-      ImageIndex = 1
-      object Panel2: TPanel
-        Left = 0
-        Top = 0
-        Width = 767
-        Height = 430
-        Align = alClient
-        Color = cl3DLight
-        ParentBackground = False
-        TabOrder = 0
-        object BitBtn3: TBitBtn
-          Left = 152
-          Top = 70
-          Width = 433
-          Height = 155
-          Caption = #1054#1087#1088#1077#1076#1077#1083#1080#1090#1100' '#1091#1095#1072#1089#1090#1086#1082' '#1085#1072' '#1082#1086#1090#1086#1088#1086#1084' '#1074#1086#1079#1085#1080#1082#1083#1072' '#1072#1074#1072#1088#1080#1081#1085#1072#1103' '#1089#1080#1090#1091#1072#1094#1080#1103
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -24
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          ParentFont = False
-          TabOrder = 0
-          WordWrap = True
-          OnClick = BitBtn3Click
-        end
-      end
-    end
-    object TabSheet3: TTabSheet
-      Caption = 'TabSheet3'
-      ImageIndex = 2
-      OnShow = TabSheet3Show
-      object Panel3: TPanel
-        Left = 0
-        Top = 0
-        Width = 767
-        Height = 430
-        Align = alClient
-        Color = cl3DLight
-        ParentBackground = False
-        TabOrder = 0
-        object Label8: TLabel
-          AlignWithMargins = True
-          Left = 4
-          Top = 11
-          Width = 759
-          Height = 38
-          Margins.Top = 10
-          Margins.Bottom = 10
-          Align = alTop
-          Alignment = taCenter
-          Caption = 
-            '['#1085#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077' '#1091#1095#1072#1089#1090#1082#1072'] ['#1085#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077' '#1086#1073#1098#1077#1082#1090#1072'] ['#1085#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077' '#1076#1072#1090#1095 +
-            #1080#1082#1072'] ['#1086#1087#1080#1089#1072#1085#1080#1077' '#1072#1074#1072#1088#1080#1081#1085#1086#1081' '#1089#1080#1090#1091#1072#1094#1080#1080']'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -16
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          ParentFont = False
-          WordWrap = True
-          ExplicitWidth = 714
-        end
-        object BitBtn4: TBitBtn
-          Left = 208
-          Top = 237
-          Width = 385
-          Height = 92
-          Caption = #1054#1087#1088#1077#1076#1077#1083#1080#1090#1100' '#1086#1073#1098#1077#1082#1090
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -16
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-          TabOrder = 0
-          OnClick = BitBtn4Click
-        end
-      end
-    end
-    object TabSheet4: TTabSheet
-      Caption = 'TabSheet4'
-      ImageIndex = 3
-      OnShow = TabSheet4Show
-      object Panel4: TPanel
-        Left = 0
-        Top = 0
-        Width = 767
-        Height = 430
-        Align = alClient
-        Color = cl3DLight
-        ParentBackground = False
-        TabOrder = 0
-        object Label2: TLabel
-          AlignWithMargins = True
-          Left = 4
-          Top = 11
-          Width = 759
-          Height = 38
-          Margins.Top = 10
-          Margins.Bottom = 10
-          Align = alTop
-          Alignment = taCenter
-          Caption = 
-            '['#1085#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077' '#1091#1095#1072#1089#1090#1082#1072'] ['#1085#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077' '#1086#1073#1098#1077#1082#1090#1072'] ['#1085#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077' '#1076#1072#1090#1095 +
-            #1080#1082#1072'] ['#1086#1087#1080#1089#1072#1085#1080#1077' '#1072#1074#1072#1088#1080#1081#1085#1086#1081' '#1089#1080#1090#1091#1072#1094#1080#1080']'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -16
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          ParentFont = False
-          WordWrap = True
-          ExplicitWidth = 714
-        end
-        object BitBtn5: TBitBtn
-          Left = 168
-          Top = 240
-          Width = 409
-          Height = 97
-          Caption = #1054#1087#1088#1077#1076#1077#1083#1080#1090#1100' '#1076#1072#1090#1095#1080#1082
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -16
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-          TabOrder = 0
-          OnClick = BitBtn5Click
-        end
-      end
-    end
-    object TabSheet5: TTabSheet
-      Caption = 'TabSheet5'
-      ImageIndex = 4
-      OnShow = TabSheet5Show
-      object Panel5: TPanel
-        Left = 0
-        Top = 0
-        Width = 767
-        Height = 430
-        Align = alClient
-        Color = cl3DLight
-        ParentBackground = False
-        TabOrder = 0
         object Label13: TLabel
           AlignWithMargins = True
           Left = 4
-          Top = 11
+          Top = 96
           Width = 759
           Height = 23
           Margins.Top = 10
@@ -244,29 +81,29 @@ object frmNotification: TfrmNotification
           WordWrap = True
           ExplicitWidth = 286
         end
-        object BitBtn7: TBitBtn
-          Left = 192
-          Top = 192
-          Width = 385
-          Height = 113
-          Caption = #1055#1077#1088#1077#1095#1077#1085#1100' '#1074#1086#1079#1084#1086#1078#1085#1099#1093' '#1085#1077#1080#1089#1087#1088#1072#1074#1085#1086#1089#1090#1077#1081' '#1080' '#1089#1087#1086#1089#1086#1073#1099' '#1080#1093' '#1091#1089#1090#1088#1072#1085#1077#1085#1080#1103
+        object BitBtn1: TBitBtn
+          Left = 240
+          Top = 240
+          Width = 289
+          Height = 84
+          Caption = #1054#1087#1088#1077#1076#1077#1083#1080#1090#1100' '#1089#1087#1080#1089#1086#1082' '#1074#1086#1079#1084#1086#1078#1085#1099#1093' '#1085#1077#1080#1089#1087#1088#1072#1074#1085#1086#1089#1090#1077#1081
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
-          Font.Height = -21
+          Font.Height = -16
           Font.Name = 'Tahoma'
-          Font.Style = []
+          Font.Style = [fsBold]
           ParentFont = False
           TabOrder = 0
           WordWrap = True
-          OnClick = BitBtn7Click
+          OnClick = BitBtn1Click
         end
       end
     end
-    object TabSheet6: TTabSheet
-      Caption = 'TabSheet6'
-      ImageIndex = 5
-      OnShow = TabSheet6Show
-      object Panel6: TPanel
+    object TabSheet2: TTabSheet
+      Caption = 'TabSheet2'
+      ImageIndex = 1
+      OnShow = TabSheet2Show
+      object Panel2: TPanel
         Left = 0
         Top = 0
         Width = 767
@@ -295,21 +132,21 @@ object frmNotification: TfrmNotification
           WordWrap = True
           ExplicitWidth = 286
         end
-        object BitBtn8: TBitBtn
-          Left = 256
-          Top = 344
-          Width = 256
-          Height = 69
-          Caption = #1042#1086#1079#1084#1086#1078#1085#1099#1077' '#1089#1087#1086#1089#1086#1073#1099' '#1091#1089#1090#1088#1072#1085#1077#1085#1080#1103
+        object BitBtn3: TBitBtn
+          Left = 272
+          Top = 320
+          Width = 257
+          Height = 65
+          Caption = #1054#1087#1088#1077#1076#1077#1083#1080#1090#1100' '#1074#1086#1079#1084#1086#1078#1085#1099#1077' '#1089#1087#1086#1089#1086#1073#1099' '#1091#1089#1090#1088#1072#1085#1077#1085#1080#1103
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
-          Font.Height = -21
+          Font.Height = -16
           Font.Name = 'Tahoma'
-          Font.Style = []
+          Font.Style = [fsBold]
           ParentFont = False
           TabOrder = 0
           WordWrap = True
-          OnClick = BitBtn8Click
+          OnClick = BitBtn3Click
         end
         object RadioGroup1: TRadioGroup
           Left = 1
@@ -333,11 +170,11 @@ object frmNotification: TfrmNotification
         end
       end
     end
-    object TabSheet7: TTabSheet
-      Caption = 'TabSheet7'
-      ImageIndex = 6
-      OnShow = TabSheet7Show
-      object Panel7: TPanel
+    object TabSheet3: TTabSheet
+      Caption = 'TabSheet3'
+      ImageIndex = 2
+      OnShow = TabSheet3Show
+      object Panel3: TPanel
         Left = 0
         Top = 0
         Width = 767
@@ -349,11 +186,11 @@ object frmNotification: TfrmNotification
         object Label15: TLabel
           AlignWithMargins = True
           Left = 4
-          Top = 31
+          Top = 11
           Width = 759
           Height = 46
-          Margins.Top = 30
-          Margins.Bottom = 30
+          Margins.Top = 10
+          Margins.Bottom = 20
           Align = alTop
           Alignment = taCenter
           Caption = 
@@ -368,50 +205,85 @@ object frmNotification: TfrmNotification
           WordWrap = True
           ExplicitWidth = 690
         end
-        object BitBtn9: TBitBtn
-          Left = 264
-          Top = 344
-          Width = 216
-          Height = 66
-          Caption = #1044#1086#1083#1086#1078#1080#1090#1100' '#1085#1072#1095#1072#1083#1100#1085#1080#1082#1091' '#1089#1084#1077#1085#1099
+        object Label2: TLabel
+          Left = 1
+          Top = 77
+          Width = 765
+          Height = 23
+          Margins.Top = 10
+          Margins.Bottom = 10
+          Align = alTop
+          Caption = #1042#1086#1079#1084#1086#1078#1085#1099#1077' '#1089#1087#1086#1089#1086#1073#1099' '#1091#1089#1090#1088#1072#1085#1077#1085#1080#1103':'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
-          Font.Height = -21
+          Font.Height = -19
           Font.Name = 'Tahoma'
           Font.Style = []
+          ParentFont = False
+          ExplicitWidth = 292
+        end
+        object Label6: TLabel
+          Left = 1
+          Top = 143
+          Width = 765
+          Height = 23
+          Margins.Left = 10
+          Margins.Top = 10
+          Margins.Bottom = 10
+          Align = alTop
+          Caption = 
+            '- '#1085#1072#1088#1091#1096#1077#1085#1072' '#1075#1077#1088#1084#1077#1090#1080#1095#1085#1086#1089#1090#1100' '#1087#1088#1086#1073#1082#1080' '#1092#1083#1072#1085#1094#1072' '#1089#1077#1085#1089#1086#1088#1072' '#1076#1072#1090#1095#1080#1082#1072'. '#1055#1086#1076#1085#1103#1090#1100' ' +
+            #1087#1088#1086#1073#1082#1080'.'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -19
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          ExplicitWidth = 689
+        end
+        object Label7: TLabel
+          AlignWithMargins = True
+          Left = 4
+          Top = 110
+          Width = 759
+          Height = 23
+          Margins.Top = 10
+          Margins.Bottom = 10
+          Align = alTop
+          Caption = 
+            '- '#1085#1072#1088#1091#1096#1077#1085#1072' '#1075#1077#1088#1084#1077#1090#1080#1095#1085#1086#1089#1090#1100' '#1091#1087#1083#1086#1090#1085#1077#1085#1080#1103' '#1084#1086#1085#1090#1072#1078#1085#1086#1075#1086' '#1092#1083#1072#1085#1094#1072' '#1080#1083#1080' '#1085#1080#1087#1087#1077#1083 +
+            #1103' '#1076#1072#1090#1095#1080#1082#1072'. '#1047#1072#1084#1077#1085#1080#1090#1100' '#1091#1087#1083#1086#1090#1085#1080#1090#1077#1083#1100#1085#1086#1077' '#1082#1086#1083#1100#1094#1086'.'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -19
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          ExplicitWidth = 1042
+        end
+        object BitBtn4: TBitBtn
+          Left = 440
+          Top = 312
+          Width = 225
+          Height = 65
+          Caption = #1076#1072#1083#1077#1077
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -16
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
           ParentFont = False
           TabOrder = 0
-          WordWrap = True
-          OnClick = BitBtn9Click
-        end
-        object RadioGroup2: TRadioGroup
-          Left = 1
-          Top = 107
-          Width = 765
-          Height = 134
-          Align = alTop
-          Caption = #1042#1086#1079#1084#1086#1078#1085#1099#1077' '#1085#1077#1080#1089#1087#1088#1072#1074#1085#1086#1089#1090#1080
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -13
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          Items.Strings = (
-            
-              #1053#1072#1088#1091#1096#1077#1085#1072' '#1075#1077#1088#1084#1077#1090#1080#1095#1085#1086#1089#1090#1100' '#1091#1087#1083#1086#1090#1085#1077#1085#1080#1103' '#1084#1086#1085#1090#1072#1078#1085#1086#1075#1086' '#1092#1083#1072#1085#1094#1072' '#1080#1083#1080' '#1085#1080#1087#1087#1077#1083#1103' ' +
-              #1076#1072#1090#1095#1080#1082#1072'. '#1047#1072#1084#1077#1085#1080#1090#1100' '#1091#1087#1083#1086#1090#1085#1080#1090#1077#1083#1100#1085#1086#1077' '#1082#1086#1083#1100#1094#1086'.'
-            
-              #1053#1072#1088#1091#1096#1077#1085#1072' '#1075#1077#1088#1084#1077#1090#1080#1095#1085#1086#1089#1090#1100' '#1087#1088#1086#1073#1082#1080' '#1092#1083#1072#1085#1094#1072' '#1089#1077#1085#1089#1086#1088#1072' '#1076#1072#1090#1095#1080#1082#1072'. '#1055#1086#1076#1085#1103#1090#1100' '#1087#1088 +
-              #1086#1073#1082#1080'.')
-          ParentFont = False
-          TabOrder = 1
+          OnClick = BitBtn4Click
         end
       end
     end
-    object TabSheet8: TTabSheet
-      Caption = 'TabSheet8'
-      ImageIndex = 7
-      object Panel8: TPanel
+    object TabSheet4: TTabSheet
+      Caption = 'TabSheet4'
+      ImageIndex = 3
+      OnShow = TabSheet4Show
+      object Panel4: TPanel
         Left = 0
         Top = 0
         Width = 767
@@ -420,59 +292,17 @@ object frmNotification: TfrmNotification
         Color = cl3DLight
         ParentBackground = False
         TabOrder = 0
-        object Label16: TLabel
-          AlignWithMargins = True
-          Left = 4
-          Top = 220
-          Width = 759
-          Height = 23
-          Margins.Top = 30
-          Margins.Bottom = 30
-          Align = alTop
-          Alignment = taCenter
-          Caption = '3) '#1042#1099#1079#1074#1072#1090#1100' '#1086#1090#1074#1077#1090#1089#1090#1074#1077#1085#1085#1099#1093' '#1089#1086#1090#1088#1091#1076#1085#1080#1082#1086#1074
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -19
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          ParentFont = False
-          WordWrap = True
-          ExplicitWidth = 347
-        end
         object Label4: TLabel
           AlignWithMargins = True
           Left = 4
-          Top = 114
-          Width = 759
-          Height = 46
-          Margins.Top = 30
-          Margins.Bottom = 30
-          Align = alTop
-          Alignment = taCenter
-          Caption = 
-            '2) '#1054#1087#1086#1074#1077#1089#1090#1080#1090#1100' '#1076#1077#1078#1091#1088#1085#1091#1102' '#1089#1084#1077#1085#1091' '#1086' '#1074#1086#1079#1085#1080#1082#1085#1086#1074#1077#1085#1080#1080' '#1072#1074#1072#1088#1080#1081#1085#1086#1081' '#1089#1080#1090#1091#1072#1094#1080#1080' ' +
-            #1080' '#1089#1087#1086#1089#1086#1073#1077' '#1077#1077' '#1091#1089#1090#1088#1072#1085#1077#1085#1080#1103
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -19
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          ParentFont = False
-          WordWrap = True
-          ExplicitWidth = 745
-        end
-        object Label5: TLabel
-          AlignWithMargins = True
-          Left = 4
-          Top = 31
+          Top = 21
           Width = 759
           Height = 23
-          Margins.Top = 30
-          Margins.Bottom = 30
+          Margins.Top = 20
+          Margins.Bottom = 20
           Align = alTop
           Alignment = taCenter
-          Caption = '1) '#1042#1099#1079#1074#1072#1090#1100' '#1101#1082#1089#1090#1088#1077#1085#1085#1091#1102' '#1089#1083#1091#1078#1073#1091' '#1087#1086' '#1085#1086#1084#1077#1088#1091' 112'
+          Caption = '1) '#1054#1087#1086#1074#1077#1089#1090#1080#1090#1100' '#1076#1077#1078#1091#1088#1085#1091#1102' '#1089#1084#1077#1085#1091
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -19
@@ -480,23 +310,43 @@ object frmNotification: TfrmNotification
           Font.Style = []
           ParentFont = False
           WordWrap = True
-          ExplicitWidth = 403
+          ExplicitWidth = 277
         end
-        object BitBtn11: TBitBtn
-          Left = 256
-          Top = 344
-          Width = 200
-          Height = 50
-          Caption = #1047#1072#1082#1088#1099#1090#1100' '#1086#1082#1085#1086
+        object Label16: TLabel
+          AlignWithMargins = True
+          Left = 4
+          Top = 84
+          Width = 759
+          Height = 23
+          Margins.Top = 20
+          Margins.Bottom = 20
+          Align = alTop
+          Alignment = taCenter
+          Caption = '2) '#1044#1086#1083#1086#1078#1080#1090#1100' '#1085#1072#1095#1072#1083#1100#1085#1080#1082#1091' '#1089#1084#1077#1085#1099
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
-          Font.Height = -13
+          Font.Height = -19
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          WordWrap = True
+          ExplicitWidth = 280
+        end
+        object BitBtn5: TBitBtn
+          Left = 240
+          Top = 232
+          Width = 273
+          Height = 89
+          Caption = #1055#1077#1088#1077#1081#1090#1080' '#1082' '#1089#1086#1089#1090#1072#1074#1083#1077#1085#1080#1102' '#1086#1090#1095#1077#1090#1085#1086#1075#1086' '#1088#1072#1087#1086#1088#1090#1072
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -16
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           ParentFont = False
           TabOrder = 0
           WordWrap = True
-          OnClick = BitBtn11Click
+          OnClick = BitBtn5Click
         end
       end
     end

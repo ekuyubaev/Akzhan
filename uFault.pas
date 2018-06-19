@@ -35,6 +35,7 @@ type
     Label7: TLabel;
     DBEditEh7: TDBEditEh;
     Label11: TLabel;
+    Label12: TLabel;
     procedure BitBtn2Click(Sender: TObject);
     procedure BitBtn1Click(Sender: TObject);
   private

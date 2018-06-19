@@ -41,7 +41,6 @@ begin
           frmMain.ShowEvent(tempStr);
           frmNotification.PageControl1.ActivePageIndex := 0;
           frmNotification.RadioGroup1.ItemIndex := -1;
-          frmNotification.RadioGroup2.ItemIndex := -1;
           frmNotification.ShowModal;
       end;
   end;

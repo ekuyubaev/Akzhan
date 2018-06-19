@@ -22,31 +22,18 @@ type
     BitBtn3: TBitBtn;
     Panel3: TPanel;
     BitBtn4: TBitBtn;
-    Label8: TLabel;
     Panel4: TPanel;
     BitBtn5: TBitBtn;
-    TabSheet5: TTabSheet;
-    Panel5: TPanel;
+    Timer1: TTimer;
     Label13: TLabel;
-    BitBtn7: TBitBtn;
-    TabSheet6: TTabSheet;
-    Panel6: TPanel;
-    BitBtn8: TBitBtn;
-    TabSheet7: TTabSheet;
-    Panel7: TPanel;
-    Label15: TLabel;
-    BitBtn9: TBitBtn;
-    TabSheet8: TTabSheet;
-    Panel8: TPanel;
-    Label16: TLabel;
-    BitBtn11: TBitBtn;
-    Label2: TLabel;
     RadioGroup1: TRadioGroup;
     Label3: TLabel;
-    RadioGroup2: TRadioGroup;
+    Label15: TLabel;
     Label4: TLabel;
-    Label5: TLabel;
-    Timer1: TTimer;
+    Label16: TLabel;
+    Label2: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
     procedure BitBtn1Click(Sender: TObject);
     procedure BitBtn3Click(Sender: TObject);
     procedure BitBtn4Click(Sender: TObject);
@@ -54,16 +41,14 @@ type
     procedure BitBtn7Click(Sender: TObject);
     procedure BitBtn8Click(Sender: TObject);
     procedure BitBtn11Click(Sender: TObject);
-    procedure BitBtn9Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure TabSheet3Show(Sender: TObject);
     procedure TabSheet4Show(Sender: TObject);
-    procedure TabSheet5Show(Sender: TObject);
-    procedure TabSheet6Show(Sender: TObject);
-    procedure TabSheet7Show(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure TabSheet1Show(Sender: TObject);
+    procedure TabSheet2Show(Sender: TObject);
   private
     { Private declarations }
   public
@@ -124,6 +109,11 @@ end;
 
 procedure TfrmNotification.BitBtn3Click(Sender: TObject);
 begin
+  if RadioGroup1.ItemIndex < 0 then
+  begin
+    ShowMessage('Выберите вариант возможной неисправности!');
+    Exit;
+  end;
   PageControl1.ActivePageIndex := 2;
 end;
 
@@ -133,8 +123,38 @@ begin
 end;
 
 procedure TfrmNotification.BitBtn5Click(Sender: TObject);
+var i : integer;
 begin
-  PageControl1.ActivePageIndex := 4;
+  if MessageDlg('Аварийная ситуация устранена?', mtConfirmation,[mbYes, mbNo], 0) = mrNo
+      then exit;
+
+  frmMain.stopInterrogation;
+
+  dm.qEmergency.SQL.Text := 'Select * From Avaria Where Ustranena = 0';
+  dm.qEmergency.Open;
+
+  for i := 1 to dm.qEmergency.RecordCount do
+  begin
+    dm.qEmergency.RecNo := i;
+
+    dm.qElimination.SQL.Text := 'Update Model Set Mx = 0, Dx = 0.01, Pokazanie = 0.3 '
+                      + 'Where ID_model = 3 ';
+    dm.qElimination.ExecSQL;
+
+    dm.qElimination.SQL.Text := 'Update Avaria Set Ustranena = 1, DV_ustranena = '
+          + QuotedStr(FormatDateTime('yyyy-mm-dd hh:nn:ss', Now))
+          + ' Where ID_avaria = ' + dm.qEmergency.FieldByName('ID_avaria').AsString;
+    dm.qElimination.ExecSQL;
+
+    frmMain.ShowEvent(FormatDateTime('dd.mm.yyyy hh:nn:ss', now) + ' - Аварийная ситуация была устранена.');
+  end;
+
+  frmMain.startInterrogation;
+
+  close;
+
+  frmMain.PageControl1.ActivePage := frmMain.tsFailure;
+  close;
 end;
 
 procedure TfrmNotification.BitBtn7Click(Sender: TObject);
@@ -144,33 +164,13 @@ end;
 
 procedure TfrmNotification.BitBtn8Click(Sender: TObject);
 begin
-  if RadioGroup1.ItemIndex < 0 then
-  begin
-    ShowMessage('Выберите вариант возможной неисправности!');
-    Exit;
-  end;
+
 
   dm.qNotSeenFaults.Edit;
   dm.qNotSeenFaults.FieldByName('Neispravnost').Value
       := RadioGroup1.Items[RadioGroup1.ItemIndex];
   dm.qNotSeenFaults.Post;
   PageControl1.ActivePageIndex := 6;
-end;
-
-procedure TfrmNotification.BitBtn9Click(Sender: TObject);
-var i : integer;
-begin
-  if RadioGroup2.ItemIndex < 0 then
-  begin
-    ShowMessage('Выберите вариант возможной неисправности!');
-    Exit;
-  end;
-
-  dm.qNotSeenFaults.Edit;
-  dm.qNotSeenFaults.FieldByName('Reshenie').Value
-      := RadioGroup2.Items[RadioGroup2.ItemIndex];
-  dm.qNotSeenFaults.Post;
-  PageControl1.ActivePageIndex := 7;
 end;
 
 procedure TfrmNotification.FormActivate(Sender: TObject);
@@ -192,9 +192,41 @@ begin
       PageControl1.Pages[i-1].TabVisible := false;
 end;
 
+procedure TfrmNotification.TabSheet1Show(Sender: TObject);
+begin
+  dm.qEmergency.SQL.Text := 'Select MAX(Pokazanie) as Pokazanie From Pokazanie Where ID_avaria = '
+                            + dm.qNotSeenFaults.FieldByName('ID_avaria').AsString;
+  dm.qEmergency.Open;
+
+  Label13.Caption := 'Участок: ' + dm.qNotSeenFaults.FieldByName('Uchastok').AsString + #13#10
+              + 'Объект: ' + dm.qNotSeenFaults.FieldByName('Naimenovanie_1').AsString + #13#10
+              + 'Датчик: ' + dm.qNotSeenFaults.FieldByName('Naimenovanie').AsString + #13#10
+              + 'Текущее показание: ' + dm.qEmergency.FieldByName('Pokazanie').AsString;
+end;
+
+procedure TfrmNotification.TabSheet2Show(Sender: TObject);
+begin
+  dm.qEmergency.SQL.Text := 'Select MAX(Pokazanie) as Pokazanie From Pokazanie Where ID_avaria = '
+                            + dm.qNotSeenFaults.FieldByName('ID_avaria').AsString;
+  dm.qEmergency.Open;
+
+  Label3.Caption := 'Участок: ' + dm.qNotSeenFaults.FieldByName('Uchastok').AsString + #13#10
+              + 'Объект: ' + dm.qNotSeenFaults.FieldByName('Naimenovanie_1').AsString + #13#10
+              + 'Датчик: ' + dm.qNotSeenFaults.FieldByName('Naimenovanie').AsString + #13#10
+              + 'Текущее показание: ' + dm.qEmergency.FieldByName('Pokazanie').AsString;
+end;
+
 procedure TfrmNotification.TabSheet3Show(Sender: TObject);
 begin
-  Label8.Caption :=  'Участок: ' + dm.qNotSeenFaults.FieldByName('Uchastok').AsString;
+  dm.qEmergency.SQL.Text := 'Select MAX(Pokazanie) as Pokazanie From Pokazanie Where ID_avaria = '
+                            + dm.qNotSeenFaults.FieldByName('ID_avaria').AsString;
+  dm.qEmergency.Open;
+
+  Label3.Caption := 'Участок: ' + dm.qNotSeenFaults.FieldByName('Uchastok').AsString + #13#10
+              + 'Объект: ' + dm.qNotSeenFaults.FieldByName('Naimenovanie_1').AsString + #13#10
+              + 'Датчик: ' + dm.qNotSeenFaults.FieldByName('Naimenovanie').AsString + #13#10
+              + 'Текущее показание: ' + dm.qEmergency.FieldByName('Pokazanie').AsString + #13#10
+              + 'Неисправность: ' + RadioGroup1.Items[RadioGroup1.ItemIndex];
 end;
 
 procedure TfrmNotification.TabSheet4Show(Sender: TObject);
@@ -203,40 +235,7 @@ begin
                 + 'Объект: ' + dm.qNotSeenFaults.FieldByName('Naimenovanie_1').AsString;
 end;
 
-procedure TfrmNotification.TabSheet5Show(Sender: TObject);
-begin
-  dm.qEmergency.SQL.Text := 'Select MAX(Pokazanie) as Pokazanie From Pokazanie Where ID_avaria = '
-                            + dm.qNotSeenFaults.FieldByName('ID_avaria').AsString;
-  dm.qEmergency.Open;
 
-    Label13.Caption := 'Участок: ' + dm.qNotSeenFaults.FieldByName('Uchastok').AsString + #13#10
-                + 'Объект: ' + dm.qNotSeenFaults.FieldByName('Naimenovanie_1').AsString + #13#10
-                + 'Датчик: ' + dm.qNotSeenFaults.FieldByName('Naimenovanie').AsString + #13#10
-                + 'Текущее показание: ' + dm.qEmergency.FieldByName('Pokazanie').AsString;
-end;
-
-procedure TfrmNotification.TabSheet6Show(Sender: TObject);
-begin
-  dm.qEmergency.SQL.Text := 'Select MAX(Pokazanie) as Pokazanie From Pokazanie Where ID_avaria = '
-                            + dm.qNotSeenFaults.FieldByName('ID_avaria').AsString;
-  dm.qEmergency.Open;
-  Label3.Caption := 'Участок: ' + dm.qNotSeenFaults.FieldByName('Uchastok').AsString + #13#10
-            + 'Объект: ' + dm.qNotSeenFaults.FieldByName('Naimenovanie_1').AsString + #13#10
-            + 'Датчик: ' + dm.qNotSeenFaults.FieldByName('Naimenovanie').AsString + #13#10
-            + 'Текущее показание: ' + dm.qEmergency.FieldByName('Pokazanie').AsString;
-end;
-
-procedure TfrmNotification.TabSheet7Show(Sender: TObject);
-begin
-  dm.qEmergency.SQL.Text := 'Select MAX(Pokazanie) as Pokazanie From Pokazanie Where ID_avaria = '
-                            + dm.qNotSeenFaults.FieldByName('ID_avaria').AsString;
-  dm.qEmergency.Open;
-  Label15.Caption := 'Участок: ' + dm.qNotSeenFaults.FieldByName('Uchastok').AsString + #13#10
-              + 'Объект: ' + dm.qNotSeenFaults.FieldByName('Naimenovanie_1').AsString + #13#10
-              + 'Датчик: ' + dm.qNotSeenFaults.FieldByName('Naimenovanie').AsString + #13#10
-              + 'Текущее показание: ' + dm.qEmergency.FieldByName('Pokazanie').AsString + #13#10
-              + 'Неисправность: ' + RadioGroup1.Items[RadioGroup1.ItemIndex];
-end;
 
 procedure TfrmNotification.Timer1Timer(Sender: TObject);
 begin

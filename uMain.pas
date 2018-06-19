@@ -156,11 +156,8 @@ type
     Panel15: TPanel;
     Panel16: TPanel;
     Panel17: TPanel;
-    BitBtn14: TBitBtn;
     BitBtn15: TBitBtn;
-    BitBtn16: TBitBtn;
     BitBtn17: TBitBtn;
-    BitBtn18: TBitBtn;
     BitBtn19: TBitBtn;
     DBGridEh9: TDBGridEh;
     DBGridEh10: TDBGridEh;
@@ -198,6 +195,7 @@ type
     N14: TMenuItem;
     BitBtn23: TBitBtn;
     N9: TMenuItem;
+    BitBtn14: TBitBtn;
     procedure BitBtn4Click(Sender: TObject);
     procedure BitBtn6Click(Sender: TObject);
     procedure BitBtn5Click(Sender: TObject);
@@ -243,9 +241,16 @@ type
     procedure N13Click(Sender: TObject);
     procedure N14Click(Sender: TObject);
     procedure BitBtn23Click(Sender: TObject);
-    procedure BitBtn14Click(Sender: TObject);
     procedure BitBtn15Click(Sender: TObject);
     procedure N9Click(Sender: TObject);
+    procedure BitBtn20Click(Sender: TObject);
+    procedure BitBtn21Click(Sender: TObject);
+    procedure BitBtn22Click(Sender: TObject);
+    procedure BitBtn14Click(Sender: TObject);
+    procedure BitBtn25Click(Sender: TObject);
+    procedure BitBtn26Click(Sender: TObject);
+    procedure BitBtn17Click(Sender: TObject);
+    procedure BitBtn19Click(Sender: TObject);
   private
     { Private declarations }
     sensorCount :integer;
@@ -286,7 +291,7 @@ implementation
 {$R *.dfm}
 
 uses uDM, uObject, uSensor, uState, uReading, uFault, uReport, uAbout,
-  uDolzhnost, uEI, uArea, uSmena, uArchive;
+  uDolzhnost, uEI, uArea, uSmena, uArchive, uSotrudnik, uUser;
 
 Procedure TfrmMain.ShowEvent(event: string);
 begin
@@ -357,7 +362,7 @@ begin
     Exit;
   end;
 
-  ShowEvent('Пользователь: ' + Edit5.Text + ' авторизовался в системе.');
+  ShowEvent('Пользователь: ' + dm.qUser.FieldByName('FIO').AsString + ' авторизовался в системе.');
   Edit6.Clear;
 
   for i := 0 to MainMenu1.Items.Count-1 do
@@ -371,37 +376,13 @@ begin
 
   PageControl1.ActivePage := tsSchema;
 
-  dm.qTemp.SQL.Text := 'Select max(Datavremia) as smena From Smena';
+  dm.qTemp.SQL.Text := 'Insert Into Smena (Datavremia, ID_polzovatel) '
+                        +'Values ('+ QuotedStr(FormatDateTime('yyyy-mm-dd hh:nn:ss', Now)) +', '+ IntToStr(self.user) +')';
+  dm.qTemp.ExecSQL;
+
+  dm.qTemp.SQL.Text := 'Select max(ID_smena) as ID_smena From Smena';
   dm.qTemp.Open;
-  if (HoursBetween(dm.qTemp.FieldByName('smena').AsDateTime, Now()) < 12 ) then
-  begin
-    if(MessageDlg('С момента предыдущей смены прошло менее 12 часов. Все равно создать запись о новой смене?', mtConfirmation, [mbYes, mbNo], 0) = mrYes) then
-    begin
-      dm.qTemp.SQL.Text := 'Insert Into Smena (Datavremia, ID_polzovatel) '
-                          +'Values ('+ QuotedStr(FormatDateTime('yyyy-mm-dd hh:nn:ss', Now)) +', '+ IntToStr(self.user) +')';
-      dm.qTemp.ExecSQL;
-
-      dm.qTemp.SQL.Text := 'Select max(ID_smena) as ID_smena From Smena';
-      dm.qTemp.Open;
-      ID_smena := dm.qTemp.FieldByName('ID_smena').AsInteger;
-    end
-      else
-    begin
-      dm.qTemp.SQL.Text := 'Select max(ID_smena) as ID_smena From Smena';
-      dm.qTemp.Open;
-      ID_smena := dm.qTemp.FieldByName('ID_smena').AsInteger;
-    end;
-  end
-    else
-  begin
-      dm.qTemp.SQL.Text := 'Insert Into Smena (Datavremia, ID_polzovatel) '
-                            +'Values ('+ QuotedStr(FormatDateTime('yyyy-mm-dd hh:nn:ss', Now)) +', '+ IntToStr(self.user) +')';
-      dm.qTemp.ExecSQL;
-
-      dm.qTemp.SQL.Text := 'Select max(ID_smena) as ID_smena From Smena';
-      dm.qTemp.Open;
-      ID_smena := dm.qTemp.FieldByName('ID_smena').AsInteger;
-  end;
+  ID_smena := dm.qTemp.FieldByName('ID_smena').AsInteger;
 
   dm.refreshSmena;
 
@@ -421,7 +402,7 @@ begin
       dm.qTemp.ExecSQL;
 
       dm.qTemp.close;
-      dm.qTemp.SQL.Text := 'Update Model Set Mx = 0, Dx = 0.01, Pokazanie = 49 '
+      dm.qTemp.SQL.Text := 'Update Model Set Mx = 0, Dx = 0.01, Pokazanie = 0.3 '
                           + 'Where ID_model = 3 ';
       dm.qTemp.ExecSQL;
 
@@ -444,29 +425,21 @@ begin
   startInterrogation;
 end;
 
-procedure TfrmMain.BitBtn14Click(Sender: TObject);
-begin
-  dm.qTemp.SQL.Text := 'Select max(Datavremia) as smena From Smena';
-  dm.qTemp.Open;
-  if (HoursBetween(dm.qTemp.FieldByName('smena').AsDateTime, Now()) < 12 ) then
-  begin
-    if(MessageDlg('С момента предыдущей смены прошло менее 12 часов. Все равно продолжить?', mtConfirmation, [mbYes, mbNo], 0) = mrYes) then
-    begin
-      dm.qSmena.Insert;
-      frmSmena.ShowModal;
-    end;
-  end
-    else
-  begin
-      dm.qSmena.Insert;
-      frmSmena.ShowModal;
-  end;
-end;
-
 procedure TfrmMain.BitBtn15Click(Sender: TObject);
 begin
   dm.qSmena.Edit;
   frmSmena.ShowModal;
+end;
+
+procedure TfrmMain.BitBtn17Click(Sender: TObject);
+begin
+  dm.qSostav.Insert;
+end;
+
+procedure TfrmMain.BitBtn19Click(Sender: TObject);
+begin
+  if MessageDlg('Вы уверены что хотите удалить запись?', mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+      dm.qSostav.Delete;
 end;
 
 procedure TfrmMain.BitBtn1Click(Sender: TObject);
@@ -477,9 +450,45 @@ begin
   frmSensors.ShowModal;
 end;
 
+procedure TfrmMain.BitBtn20Click(Sender: TObject);
+begin
+  dm.qSotrudnik.Insert;
+  frmSotrudnik.ShowModal;
+end;
+
+procedure TfrmMain.BitBtn21Click(Sender: TObject);
+begin
+  dm.qSotrudnik.Edit;
+  frmSotrudnik.ShowModal;
+end;
+
+procedure TfrmMain.BitBtn14Click(Sender: TObject);
+begin
+  if MessageDlg('Вы уверены что хотите удалить запись?', mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+      dm.qUser.Delete;
+end;
+
+procedure TfrmMain.BitBtn22Click(Sender: TObject);
+begin
+  if MessageDlg('Вы уверены что хотите удалить запись?', mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+      dm.qSotrudnik.Delete;
+end;
+
 procedure TfrmMain.BitBtn23Click(Sender: TObject);
 begin
   frmReport.printDutyReport;
+end;
+
+procedure TfrmMain.BitBtn25Click(Sender: TObject);
+begin
+  dm.qUser.Insert;
+  frmUser.ShowModal;
+end;
+
+procedure TfrmMain.BitBtn26Click(Sender: TObject);
+begin
+  dm.qUser.Edit;
+  frmUser.ShowModal;
 end;
 
 procedure TfrmMain.BitBtn27Click(Sender: TObject);
@@ -706,7 +715,7 @@ procedure TfrmMain.Timer5Timer(Sender: TObject);
 begin
   stopInterrogation;
   dm.qTemp.close;
-  dm.qTemp.SQL.Text := 'Update Model Set Mx = 5, Dx = 2 '
+  dm.qTemp.SQL.Text := 'Update Model Set Mx = 0.01, Dx = 0.01 '
                       + 'Where ID_model = 3 ';
   dm.qTemp.ExecSQL;
   startInterrogation;
