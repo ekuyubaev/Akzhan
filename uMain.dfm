@@ -26,7 +26,7 @@ object frmMain: TfrmMain
     Top = 0
     Width = 1110
     Height = 635
-    ActivePage = tsLogin
+    ActivePage = tsModel
     Align = alClient
     Style = tsFlatButtons
     TabOrder = 0
@@ -1362,7 +1362,7 @@ object frmMain: TfrmMain
             OnClick = BitBtn11Click
           end
           object BitBtn30: TBitBtn
-            Left = 960
+            Left = 956
             Top = 2
             Width = 75
             Height = 25
@@ -1583,7 +1583,7 @@ object frmMain: TfrmMain
             OnClick = BitBtn10Click
           end
           object BitBtn27: TBitBtn
-            Left = 968
+            Left = 964
             Top = 2
             Width = 75
             Height = 25
@@ -1910,7 +1910,7 @@ object frmMain: TfrmMain
             1094
             31)
           object BitBtn28: TBitBtn
-            Left = 968
+            Left = 964
             Top = 2
             Width = 75
             Height = 25
@@ -21702,7 +21702,7 @@ object frmMain: TfrmMain
           1098
           37)
         object BitBtn29: TBitBtn
-          Left = 968
+          Left = 964
           Top = 8
           Width = 75
           Height = 25

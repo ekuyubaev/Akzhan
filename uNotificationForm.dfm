@@ -183,34 +183,13 @@ object frmNotification: TfrmNotification
         Color = cl3DLight
         ParentBackground = False
         TabOrder = 0
-        object Label15: TLabel
+        object Label2: TLabel
           AlignWithMargins = True
           Left = 4
-          Top = 11
+          Top = 41
           Width = 759
-          Height = 46
-          Margins.Top = 10
-          Margins.Bottom = 20
-          Align = alTop
-          Alignment = taCenter
-          Caption = 
-            #1042#1074#1077#1076#1080#1090#1077' '#1080#1085#1092#1086#1088#1084#1072#1094#1080#1102' '#1086' '#1088#1077#1079#1091#1083#1100#1090#1072#1090#1072#1093' '#1084#1077#1088#1086#1087#1088#1080#1103#1090#1080#1081' '#1087#1086' '#1091#1089#1090#1088#1072#1085#1077#1085#1080#1102' '#1072#1074#1072#1088#1080 +
-            #1081#1085#1086#1081' '#1089#1080#1090#1091#1072#1094#1080#1080
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -19
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          ParentFont = False
-          WordWrap = True
-          ExplicitWidth = 690
-        end
-        object Label2: TLabel
-          Left = 1
-          Top = 77
-          Width = 765
           Height = 23
-          Margins.Top = 10
+          Margins.Top = 40
           Margins.Bottom = 10
           Align = alTop
           Caption = #1042#1086#1079#1084#1086#1078#1085#1099#1077' '#1089#1087#1086#1089#1086#1073#1099' '#1091#1089#1090#1088#1072#1085#1077#1085#1080#1103':'
@@ -220,11 +199,13 @@ object frmNotification: TfrmNotification
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
+          ExplicitLeft = 1
+          ExplicitTop = 77
           ExplicitWidth = 292
         end
         object Label6: TLabel
           Left = 1
-          Top = 143
+          Top = 117
           Width = 765
           Height = 23
           Margins.Left = 10
@@ -240,12 +221,13 @@ object frmNotification: TfrmNotification
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
+          ExplicitTop = 143
           ExplicitWidth = 689
         end
         object Label7: TLabel
           AlignWithMargins = True
           Left = 4
-          Top = 110
+          Top = 84
           Width = 759
           Height = 23
           Margins.Top = 10
@@ -260,6 +242,7 @@ object frmNotification: TfrmNotification
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
+          ExplicitTop = 110
           ExplicitWidth = 1042
         end
         object BitBtn4: TBitBtn

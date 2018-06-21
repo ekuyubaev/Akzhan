@@ -28,7 +28,6 @@ type
     Label13: TLabel;
     RadioGroup1: TRadioGroup;
     Label3: TLabel;
-    Label15: TLabel;
     Label4: TLabel;
     Label16: TLabel;
     Label2: TLabel;
@@ -83,7 +82,7 @@ begin
   begin
     dm.qEmergency.RecNo := i;
 
-    dm.qElimination.SQL.Text := 'Update Model Set Mx = 0, Dx = 0.01, Pokazanie = 55 '
+    dm.qElimination.SQL.Text := 'Update Model Set Mx = 0, Dx = 0.01, Pokazanie = 0.03 '
                       + 'Where ID_model = 3 ';
     dm.qElimination.ExecSQL;
 
@@ -95,6 +94,8 @@ begin
     dm.qElimination.ExecSQL;
 
     frmMain.ShowEvent(FormatDateTime('dd.mm.yyyy hh:nn:ss', now) + ' - Аварийная ситуация была устранена.');
+
+    faultSensorID := -1;
   end;
 
   frmMain.startInterrogation;
@@ -147,6 +148,8 @@ begin
     dm.qElimination.ExecSQL;
 
     frmMain.ShowEvent(FormatDateTime('dd.mm.yyyy hh:nn:ss', now) + ' - Аварийная ситуация была устранена.');
+
+    faultSensorID := -1;
   end;
 
   frmMain.startInterrogation;
@@ -164,8 +167,6 @@ end;
 
 procedure TfrmNotification.BitBtn8Click(Sender: TObject);
 begin
-
-
   dm.qNotSeenFaults.Edit;
   dm.qNotSeenFaults.FieldByName('Neispravnost').Value
       := RadioGroup1.Items[RadioGroup1.ItemIndex];
@@ -193,40 +194,99 @@ begin
 end;
 
 procedure TfrmNotification.TabSheet1Show(Sender: TObject);
+Var pokazanie, pogr, max, min : real;
 begin
   dm.qEmergency.SQL.Text := 'Select MAX(Pokazanie) as Pokazanie From Pokazanie Where ID_avaria = '
                             + dm.qNotSeenFaults.FieldByName('ID_avaria').AsString;
   dm.qEmergency.Open;
 
-  Label13.Caption := 'Участок: ' + dm.qNotSeenFaults.FieldByName('Uchastok').AsString + #13#10
+  pokazanie := dm.qEmergency.FieldByName('Pokazanie').AsFloat;
+  min := dm.qNotSeenFaults.FieldByName('MIN').AsFloat;
+  max := dm.qNotSeenFaults.FieldByName('MAX').AsFloat;
+
+  if (pokazanie <= MIN) then begin
+    pogr := MIN - pokazanie;
+    Label13.Caption := 'Участок: ' + dm.qNotSeenFaults.FieldByName('Uchastok').AsString + #13#10
               + 'Объект: ' + dm.qNotSeenFaults.FieldByName('Naimenovanie_1').AsString + #13#10
               + 'Датчик: ' + dm.qNotSeenFaults.FieldByName('Naimenovanie').AsString + #13#10
-              + 'Текущее показание: ' + dm.qEmergency.FieldByName('Pokazanie').AsString;
+              + 'Текущее показание: ' + FloatToStrF(dm.qEmergency.FieldByName('Pokazanie').AsFloat,
+                                          fffixed, 10, 2)  + #13#10
+              + 'Текущее показание меньше минимума на: ' + FloatToStrF(pogr, fffixed, 10, 2);
+  end else
+  if (pokazanie > MAX) then begin
+    pogr := pokazanie - MAX;
+    Label13.Caption := 'Участок: ' + dm.qNotSeenFaults.FieldByName('Uchastok').AsString + #13#10
+              + 'Объект: ' + dm.qNotSeenFaults.FieldByName('Naimenovanie_1').AsString + #13#10
+              + 'Датчик: ' + dm.qNotSeenFaults.FieldByName('Naimenovanie').AsString + #13#10
+              + 'Текущее показание: ' + FloatToStrF(dm.qEmergency.FieldByName('Pokazanie').AsFloat,
+                                          fffixed, 10, 2)  + #13#10
+              + 'Текущее показание больше максимума на: ' + FloatToStrF(pogr, fffixed, 10, 2);
+    faultSensorID := -1;
+  end;
 end;
 
 procedure TfrmNotification.TabSheet2Show(Sender: TObject);
+Var pokazanie, pogr, max, min : real;
 begin
   dm.qEmergency.SQL.Text := 'Select MAX(Pokazanie) as Pokazanie From Pokazanie Where ID_avaria = '
                             + dm.qNotSeenFaults.FieldByName('ID_avaria').AsString;
   dm.qEmergency.Open;
 
-  Label3.Caption := 'Участок: ' + dm.qNotSeenFaults.FieldByName('Uchastok').AsString + #13#10
+  pokazanie := dm.qEmergency.FieldByName('Pokazanie').AsFloat;
+  min := dm.qNotSeenFaults.FieldByName('MIN').AsFloat;
+  max := dm.qNotSeenFaults.FieldByName('MAX').AsFloat;
+
+  if (pokazanie <= MIN) then begin
+    pogr := MIN - pokazanie;
+    Label13.Caption := 'Участок: ' + dm.qNotSeenFaults.FieldByName('Uchastok').AsString + #13#10
               + 'Объект: ' + dm.qNotSeenFaults.FieldByName('Naimenovanie_1').AsString + #13#10
               + 'Датчик: ' + dm.qNotSeenFaults.FieldByName('Naimenovanie').AsString + #13#10
-              + 'Текущее показание: ' + dm.qEmergency.FieldByName('Pokazanie').AsString;
+              + 'Текущее показание: ' + FloatToStrF(dm.qEmergency.FieldByName('Pokazanie').AsFloat,
+                                          fffixed, 10, 2)  + #13#10
+              + 'Текущее показание меньше минимума на: ' + FloatToStrF(pogr, fffixed, 10, 2);
+  end else
+  if (pokazanie > MAX) then begin
+    pogr := pokazanie - MAX;
+    Label13.Caption := 'Участок: ' + dm.qNotSeenFaults.FieldByName('Uchastok').AsString + #13#10
+              + 'Объект: ' + dm.qNotSeenFaults.FieldByName('Naimenovanie_1').AsString + #13#10
+              + 'Датчик: ' + dm.qNotSeenFaults.FieldByName('Naimenovanie').AsString + #13#10
+              + 'Текущее показание: ' + FloatToStrF(dm.qEmergency.FieldByName('Pokazanie').AsFloat,
+                                          fffixed, 10, 2)  + #13#10
+              + 'Текущее показание больше максимума на: ' + FloatToStrF(pogr, fffixed, 10, 2);
+  end;
 end;
 
 procedure TfrmNotification.TabSheet3Show(Sender: TObject);
+Var pokazanie, pogr, max, min : real;
 begin
   dm.qEmergency.SQL.Text := 'Select MAX(Pokazanie) as Pokazanie From Pokazanie Where ID_avaria = '
                             + dm.qNotSeenFaults.FieldByName('ID_avaria').AsString;
   dm.qEmergency.Open;
 
-  Label3.Caption := 'Участок: ' + dm.qNotSeenFaults.FieldByName('Uchastok').AsString + #13#10
+  pokazanie := dm.qEmergency.FieldByName('Pokazanie').AsFloat;
+  min := dm.qNotSeenFaults.FieldByName('MIN').AsFloat;
+  max := dm.qNotSeenFaults.FieldByName('MAX').AsFloat;
+
+  if (pokazanie <= MIN) then begin
+    pogr := MIN - pokazanie;
+    Label13.Caption := 'Участок: ' + dm.qNotSeenFaults.FieldByName('Uchastok').AsString + #13#10
               + 'Объект: ' + dm.qNotSeenFaults.FieldByName('Naimenovanie_1').AsString + #13#10
               + 'Датчик: ' + dm.qNotSeenFaults.FieldByName('Naimenovanie').AsString + #13#10
-              + 'Текущее показание: ' + dm.qEmergency.FieldByName('Pokazanie').AsString + #13#10
+              + 'Текущее показание: ' + FloatToStrF(dm.qEmergency.FieldByName('Pokazanie').AsFloat,
+                                          fffixed, 10, 2)  + #13#10
+              + 'Текущее показание меньше минимума на: ' + FloatToStrF(pogr, fffixed, 10, 2) + #13#10
               + 'Неисправность: ' + RadioGroup1.Items[RadioGroup1.ItemIndex];
+  end else
+  if (pokazanie > MAX) then begin
+    pogr := pokazanie - MAX;
+    Label13.Caption := 'Участок: ' + dm.qNotSeenFaults.FieldByName('Uchastok').AsString + #13#10
+              + 'Объект: ' + dm.qNotSeenFaults.FieldByName('Naimenovanie_1').AsString + #13#10
+              + 'Датчик: ' + dm.qNotSeenFaults.FieldByName('Naimenovanie').AsString + #13#10
+              + 'Текущее показание: ' + FloatToStrF(dm.qEmergency.FieldByName('Pokazanie').AsFloat,
+                                          fffixed, 10, 2)  + #13#10
+              + 'Текущее показание больше максимума на: ' + FloatToStrF(pogr, fffixed, 10, 2) + #13#10
+              + 'Неисправность: ' + RadioGroup1.Items[RadioGroup1.ItemIndex];
+  end;
 end;
 
 procedure TfrmNotification.TabSheet4Show(Sender: TObject);

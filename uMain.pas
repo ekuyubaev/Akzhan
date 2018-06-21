@@ -284,6 +284,7 @@ var
   settingsIni: TIniFile;
   tubeColor : TColor = clInactiveCaptionText;
   period : integer;
+  faultSensorID : integer = -1;
 
 
 implementation
@@ -712,12 +713,22 @@ begin
 end;
 
 procedure TfrmMain.Timer5Timer(Sender: TObject);
+var
+  I: Integer;
 begin
   stopInterrogation;
   dm.qTemp.close;
-  dm.qTemp.SQL.Text := 'Update Model Set Mx = 0.01, Dx = 0.01 '
+  dm.qTemp.SQL.Text := 'Update Model Set Mx = 0.02, Dx = 0.01 '
                       + 'Where ID_model = 3 ';
   dm.qTemp.ExecSQL;
+
+  dm.qTemp.close;
+  dm.qTemp.SQL.Text := 'Select ID_datchik From Model '
+                      + 'Where ID_model = 3 ';
+  dm.qTemp.Open;
+
+  faultSensorID := dm.qTemp.FieldByName('ID_datchik').AsInteger;
+
   startInterrogation;
 
   Timer5.Enabled := false;
@@ -763,7 +774,8 @@ begin
       datchiki[i-1].dx := dm.qTemp.FieldByName('Dx').AsFloat;
 
       datchiki[i-1].ID_avaria := -1;
-      datchiki[i-1].period := period;
+      if faultSensorID = datchiki[i-1].id_datchika  then datchiki[i-1].period := 5000
+      else datchiki[i-1].period := period;
       datchiki[i-1].Resume;
   end;
 end;

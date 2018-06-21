@@ -295,6 +295,7 @@ object dm: Tdm
     Top = 24
   end
   object qFault: TADOQuery
+    Active = True
     Connection = DB_GATE
     CursorType = ctStatic
     Parameters = <>
@@ -306,7 +307,8 @@ object dm: Tdm
       'From Avaria A left join Datchik D'
       'On A.ID_datchik = D.ID_datchik left join Object O'
       'On D.ID_object = O.ID_object left join Uchastok U'
-      'On O.ID_uchastok = U.ID_uchastok')
+      'On O.ID_uchastok = U.ID_uchastok'
+      'Order by DV_obnaruzhena desc')
     Left = 600
     Top = 24
     object qFaultID_avaria: TAutoIncField
