@@ -96,9 +96,9 @@ object frmFault: TfrmFault
   object Label10: TLabel
     Left = 16
     Top = 384
-    Width = 70
+    Width = 105
     Height = 13
-    Caption = #1055#1088#1080#1084#1077#1095#1072#1085#1080#1077
+    Caption = #1060#1048#1054' '#1091#1089#1090#1088#1072#1085#1103#1074#1096#1080#1093
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -11
@@ -329,7 +329,7 @@ object frmFault: TfrmFault
   object DBCheckBoxEh2: TDBCheckBoxEh
     Left = 406
     Top = 237
-    Width = 97
+    Width = 75
     Height = 17
     Caption = #1059#1057#1058#1056#1040#1053#1045#1053#1040
     DataField = 'Ustranena'
@@ -429,7 +429,7 @@ object frmFault: TfrmFault
   object DBMemoEh1: TDBMemoEh
     Left = 16
     Top = 403
-    Width = 513
+    Width = 508
     Height = 89
     AutoSize = False
     DataField = 'Primechanie'

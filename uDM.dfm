@@ -64,6 +64,7 @@ object dm: Tdm
     Top = 72
   end
   object qSensors: TADOQuery
+    Active = True
     Connection = DB_GATE
     CursorType = ctStatic
     DataSource = dsObjects
@@ -99,9 +100,11 @@ object dm: Tdm
     end
     object qSensorsMAX: TFloatField
       FieldName = 'MAX'
+      DisplayFormat = '#,##0.00'
     end
     object qSensorsMIN: TFloatField
       FieldName = 'MIN'
+      DisplayFormat = '#,##0.00'
     end
     object qSensorsID_sostoianie: TIntegerField
       FieldName = 'ID_sostoianie'
@@ -190,9 +193,11 @@ object dm: Tdm
     end
     object qSensorsIMAX: TFloatField
       FieldName = 'MAX'
+      DisplayFormat = '#,##0.00'
     end
     object qSensorsIMIN: TFloatField
       FieldName = 'MIN'
+      DisplayFormat = '#,##0.00'
     end
     object qSensorsIID_sostoianie: TIntegerField
       FieldName = 'ID_sostoianie'
@@ -300,14 +305,8 @@ object dm: Tdm
     CursorType = ctStatic
     Parameters = <>
     SQL.Strings = (
-      
-        'Select A.*, D.Naimenovanie, D.Oboznachenie, O.Naimenovanie as Ob' +
-        'ject,'
-      'U.Uchastok'
-      'From Avaria A left join Datchik D'
-      'On A.ID_datchik = D.ID_datchik left join Object O'
-      'On D.ID_object = O.ID_object left join Uchastok U'
-      'On O.ID_uchastok = U.ID_uchastok'
+      'Select *'
+      'From Avaria'
       'Order by DV_obnaruzhena desc')
     Left = 600
     Top = 24
@@ -317,10 +316,6 @@ object dm: Tdm
     end
     object qFaultID_datchik: TIntegerField
       FieldName = 'ID_datchik'
-    end
-    object qFaultObject: TWideStringField
-      FieldName = 'Object'
-      Size = 256
     end
     object qFaultZamechena: TSmallintField
       FieldName = 'Zamechena'
@@ -351,6 +346,41 @@ object dm: Tdm
     object qFaultID_smena: TIntegerField
       FieldName = 'ID_smena'
     end
+    object qFaultNeispravnost: TWideStringField
+      FieldName = 'Neispravnost'
+      Size = 512
+    end
+    object qFaultReshenie: TWideStringField
+      FieldName = 'Reshenie'
+      Size = 512
+    end
+    object qFaultID_object: TIntegerField
+      FieldKind = fkLookup
+      FieldName = 'ID_object'
+      LookupDataSet = qSensorsI
+      LookupKeyFields = 'ID_datchik'
+      LookupResultField = 'ID_object'
+      KeyFields = 'ID_datchik'
+      Lookup = True
+    end
+    object qFaultID_uchastok: TIntegerField
+      FieldKind = fkLookup
+      FieldName = 'ID_uchastok'
+      LookupDataSet = qObjects
+      LookupKeyFields = 'ID_object'
+      LookupResultField = 'ID_uchastok'
+      KeyFields = 'ID_object'
+      Lookup = True
+    end
+    object qFaultUchastok: TStringField
+      FieldKind = fkLookup
+      FieldName = 'Uchastok'
+      LookupDataSet = qArea
+      LookupKeyFields = 'ID_uchastok'
+      LookupResultField = 'Uchastok'
+      KeyFields = 'ID_uchastok'
+      Lookup = True
+    end
     object qFaultDataSmena: TDateTimeField
       FieldKind = fkLookup
       FieldName = 'DataSmena'
@@ -360,25 +390,32 @@ object dm: Tdm
       KeyFields = 'ID_smena'
       Lookup = True
     end
-    object qFaultNaimenovanie: TWideStringField
-      FieldName = 'Naimenovanie'
-      Size = 256
-    end
-    object qFaultOboznachenie: TWideStringField
+    object qFaultOboznachenie: TStringField
+      FieldKind = fkLookup
       FieldName = 'Oboznachenie'
-      Size = 64
+      LookupDataSet = qSensorsI
+      LookupKeyFields = 'ID_datchik'
+      LookupResultField = 'Oboznachenie'
+      KeyFields = 'ID_datchik'
+      Lookup = True
     end
-    object qFaultUchastok: TWideStringField
-      FieldName = 'Uchastok'
-      Size = 256
+    object qFaultNaimenovanie: TStringField
+      FieldKind = fkLookup
+      FieldName = 'Naimenovanie'
+      LookupDataSet = qSensorsI
+      LookupKeyFields = 'ID_datchik'
+      LookupResultField = 'Naimenovanie'
+      KeyFields = 'ID_datchik'
+      Lookup = True
     end
-    object qFaultNeispravnost: TWideStringField
-      FieldName = 'Neispravnost'
-      Size = 512
-    end
-    object qFaultReshenie: TWideStringField
-      FieldName = 'Reshenie'
-      Size = 512
+    object qFaultObject: TStringField
+      FieldKind = fkLookup
+      FieldName = 'Object'
+      LookupDataSet = qObjects
+      LookupKeyFields = 'ID_object'
+      LookupResultField = 'Naimenovanie'
+      KeyFields = 'ID_object'
+      Lookup = True
     end
   end
   object qFaultReadings: TADOQuery
@@ -389,7 +426,7 @@ object dm: Tdm
       item
         Name = 'ID_avaria'
         DataType = ftInteger
-        Value = 665
+        Value = 67
       end>
     SQL.Strings = (
       'Select * From Pokazanie'
@@ -397,6 +434,34 @@ object dm: Tdm
       'Order by Datavremia DESC')
     Left = 672
     Top = 24
+    object qFaultReadingsID_pokazanie: TLargeintField
+      FieldName = 'ID_pokazanie'
+    end
+    object qFaultReadingsID_datchik: TIntegerField
+      FieldName = 'ID_datchik'
+    end
+    object qFaultReadingsPokazanie: TFloatField
+      FieldName = 'Pokazanie'
+    end
+    object qFaultReadingsDatavremia: TDateTimeField
+      FieldName = 'Datavremia'
+    end
+    object qFaultReadingsNorma: TSmallintField
+      FieldName = 'Norma'
+    end
+    object qFaultReadingsPrimechanie: TWideMemoField
+      FieldName = 'Primechanie'
+      BlobType = ftWideMemo
+    end
+    object qFaultReadingsID_avaria: TIntegerField
+      FieldName = 'ID_avaria'
+    end
+    object qFaultReadingsBolshe_MAX_na: TFloatField
+      FieldName = 'Bolshe_MAX_na'
+    end
+    object qFaultReadingsMenshe_MIN_na: TFloatField
+      FieldName = 'Menshe_MIN_na'
+    end
   end
   object dsFault: TDataSource
     DataSet = qFault
@@ -795,6 +860,7 @@ object dm: Tdm
     Active = True
     Connection = DB_GATE
     CursorType = ctStatic
+    BeforePost = qUserBeforePost
     Parameters = <>
     SQL.Strings = (
       'Select * '
@@ -927,5 +993,64 @@ object dm: Tdm
     Parameters = <>
     Left = 496
     Top = 464
+  end
+  object qDatchik: TADOQuery
+    Active = True
+    Connection = DB_GATE
+    CursorType = ctStatic
+    Parameters = <>
+    SQL.Strings = (
+      'Select *'
+      'From Datchik')
+    Left = 112
+    Top = 368
+    object qDatchikID_datchik: TAutoIncField
+      FieldName = 'ID_datchik'
+      ReadOnly = True
+    end
+    object qDatchikID_object: TIntegerField
+      FieldName = 'ID_object'
+    end
+    object qDatchikNaimenovanie: TWideStringField
+      FieldName = 'Naimenovanie'
+      Size = 256
+    end
+    object qDatchikOboznachenie: TWideStringField
+      FieldName = 'Oboznachenie'
+      Size = 64
+    end
+    object qDatchikNomer: TWideStringField
+      FieldName = 'Nomer'
+      Size = 64
+    end
+    object qDatchikMAX: TFloatField
+      FieldName = 'MAX'
+      DisplayFormat = '#,##0.00'
+    end
+    object qDatchikMIN: TFloatField
+      FieldName = 'MIN'
+      DisplayFormat = '#,##0.00'
+    end
+    object qDatchikID_sostoianie: TIntegerField
+      FieldName = 'ID_sostoianie'
+    end
+    object qDatchikPrimechanie: TWideMemoField
+      FieldName = 'Primechanie'
+      BlobType = ftWideMemo
+    end
+    object qDatchikID_EI: TIntegerField
+      FieldName = 'ID_EI'
+    end
+    object qDatchikDataVvoda: TDateTimeField
+      FieldName = 'DataVvoda'
+    end
+    object qDatchikSrokSluzhby: TIntegerField
+      FieldName = 'SrokSluzhby'
+    end
+  end
+  object dsDatchik: TDataSource
+    DataSet = qDatchik
+    Left = 104
+    Top = 416
   end
 end

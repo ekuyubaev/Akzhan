@@ -49,16 +49,6 @@ type
     qFaultReadings: TADOQuery;
     dsFault: TDataSource;
     dsFaultReadings: TDataSource;
-    qFaultID_avaria: TAutoIncField;
-    qFaultID_datchik: TIntegerField;
-    qFaultZamechena: TSmallintField;
-    qFaultUstranena: TSmallintField;
-    qFaultID_stepen: TIntegerField;
-    qFaultPrimechanie: TWideMemoField;
-    qFaultDV_obnaruzhena: TDateTimeField;
-    qFaultDV_zamechena: TDateTimeField;
-    qFaultDV_ustranena: TDateTimeField;
-    qFaultOpisanie: TWideMemoField;
     qReadingsID_pokazanie: TLargeintField;
     qReadingsID_datchik: TIntegerField;
     qReadingsPokazanie: TFloatField;
@@ -148,8 +138,6 @@ type
     qArea: TADOQuery;
     dsArea: TDataSource;
     qObjectsID_uchastok: TIntegerField;
-    qFaultID_smena: TIntegerField;
-    qFaultDataSmena: TDateTimeField;
     qObjectsI: TADOQuery;
     qNotSeenFaultsID_smena: TIntegerField;
     qNotSeenFaultsID_EI: TIntegerField;
@@ -159,12 +147,6 @@ type
     qNotSeenFaultsID_uchastok_1: TAutoIncField;
     qNotSeenFaultsUchastok: TWideStringField;
     qReadingsNotSeenFaults: TADOQuery;
-    qFaultNaimenovanie: TWideStringField;
-    qFaultOboznachenie: TWideStringField;
-    qFaultObject: TWideStringField;
-    qFaultUchastok: TWideStringField;
-    qFaultNeispravnost: TWideStringField;
-    qFaultReshenie: TWideStringField;
     qNotSeenFaultsNeispravnost: TWideStringField;
     qNotSeenFaultsReshenie: TWideStringField;
     qSmenaID_polzovatel_1: TAutoIncField;
@@ -182,7 +164,51 @@ type
     qUserID_sotrudnik: TIntegerField;
     qUserFIO: TStringField;
     qArch: TADOQuery;
+    qFaultID_avaria: TAutoIncField;
+    qFaultID_datchik: TIntegerField;
+    qFaultZamechena: TSmallintField;
+    qFaultUstranena: TSmallintField;
+    qFaultID_stepen: TIntegerField;
+    qFaultPrimechanie: TWideMemoField;
+    qFaultDV_obnaruzhena: TDateTimeField;
+    qFaultDV_zamechena: TDateTimeField;
+    qFaultDV_ustranena: TDateTimeField;
+    qFaultOpisanie: TWideMemoField;
+    qFaultID_smena: TIntegerField;
+    qFaultNeispravnost: TWideStringField;
+    qFaultReshenie: TWideStringField;
+    qFaultID_object: TIntegerField;
+    qFaultID_uchastok: TIntegerField;
+    qFaultUchastok: TStringField;
+    qFaultDataSmena: TDateTimeField;
+    qFaultOboznachenie: TStringField;
+    qFaultNaimenovanie: TStringField;
+    qFaultObject: TStringField;
+    qDatchik: TADOQuery;
+    dsDatchik: TDataSource;
+    qDatchikID_datchik: TAutoIncField;
+    qDatchikID_object: TIntegerField;
+    qDatchikNaimenovanie: TWideStringField;
+    qDatchikOboznachenie: TWideStringField;
+    qDatchikNomer: TWideStringField;
+    qDatchikMAX: TFloatField;
+    qDatchikMIN: TFloatField;
+    qDatchikID_sostoianie: TIntegerField;
+    qDatchikPrimechanie: TWideMemoField;
+    qDatchikID_EI: TIntegerField;
+    qDatchikDataVvoda: TDateTimeField;
+    qDatchikSrokSluzhby: TIntegerField;
+    qFaultReadingsID_pokazanie: TLargeintField;
+    qFaultReadingsID_datchik: TIntegerField;
+    qFaultReadingsPokazanie: TFloatField;
+    qFaultReadingsDatavremia: TDateTimeField;
+    qFaultReadingsNorma: TSmallintField;
+    qFaultReadingsPrimechanie: TWideMemoField;
+    qFaultReadingsID_avaria: TIntegerField;
+    qFaultReadingsBolshe_MAX_na: TFloatField;
+    qFaultReadingsMenshe_MIN_na: TFloatField;
     procedure qSmenaBeforePost(DataSet: TDataSet);
+    procedure qUserBeforePost(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -205,7 +231,7 @@ implementation
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
-uses uObjectClass, uMain;
+uses uObjectClass, uMain, IdHash, IdHashMessageDigest ;
 
 {$R *.dfm}
 Procedure Tdm.connect;
@@ -232,6 +258,8 @@ begin
   if not qArea.Active then qArea.Open;
   if not qObjectsI.Active then qObjectsI.Open;
   if not qReadingsNotSeenFaults.Active then qReadingsNotSeenFaults.Open;
+  if not qDatchik.Active then qDatchik.Open;
+
 end;
 
 Procedure Tdm.refreshSmena;
@@ -371,6 +399,17 @@ begin
 
   if DataSet.State in [dsInsert]
       then DataSet.FieldByName('ID_polzovatel').Value := frmMain.user;
+end;
+
+procedure Tdm.qUserBeforePost(DataSet: TDataSet);
+var
+    hashMessageDigest5 : TIdHashMessageDigest5;
+begin
+  if (DataSet.State in [dsInsert]) and (not DataSet.FieldByName('Parol').IsNull) then
+  begin
+      hashMessageDigest5 := TIdHashMessageDigest5.Create;
+      DataSet.FieldByName('Parol').Value := hashMessageDigest5.HashStringAsHex(DataSet.FieldByName('Parol').Value);
+  end;
 end;
 
 end.

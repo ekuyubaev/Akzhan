@@ -22,7 +22,6 @@ object frmSotrudnik: TfrmSotrudnik
     Height = 35
     Align = alTop
     TabOrder = 0
-    ExplicitWidth = 271
     DesignSize = (
       287
       35)
@@ -97,7 +96,6 @@ object frmSotrudnik: TfrmSotrudnik
         5E5ED3D3D3FF}
       TabOrder = 0
       OnClick = BitBtn2Click
-      ExplicitLeft = 233
     end
     object BitBtn1: TBitBtn
       Left = 213
@@ -170,7 +168,6 @@ object frmSotrudnik: TfrmSotrudnik
         FFFFFFFFFFFF}
       TabOrder = 1
       OnClick = BitBtn1Click
-      ExplicitLeft = 207
     end
   end
   object Panel2: TPanel
@@ -182,8 +179,6 @@ object frmSotrudnik: TfrmSotrudnik
     BevelKind = bkTile
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitWidth = 281
-    ExplicitHeight = 291
     object Label1: TLabel
       Left = 16
       Top = 16

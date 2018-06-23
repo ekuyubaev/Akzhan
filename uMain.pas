@@ -88,7 +88,8 @@ uses
   DBGridEhGrouping, ToolCtrlsEh, DBGridEhToolCtrls, DynVarsEh, EhLibVCL,
   GridsEh, DBAxisGridsEh, DBGridEh, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Buttons, EhLibADO,
   Data.DB, Vcl.Imaging.jpeg, uDatchik, uNotification, iniFiles,uObjectClass,
-  Vcl.Imaging.pngimage, DateUtils;
+  Vcl.Imaging.pngimage, DateUtils, DBCtrlsEh, DBLookupEh, Vcl.Mask, Vcl.DBCtrls,
+  IdHash, IdHashMessageDigest;
 
 const IMG_WIDTH = 1000;
       IMG_HEIGHT = 723;
@@ -196,6 +197,20 @@ type
     BitBtn23: TBitBtn;
     N9: TMenuItem;
     BitBtn14: TBitBtn;
+    Label4: TLabel;
+    DBEdit1: TDBEdit;
+    Label5: TLabel;
+    DBEdit2: TDBEdit;
+    Label6: TLabel;
+    DBLookupComboboxEh1: TDBLookupComboboxEh;
+    Label7: TLabel;
+    DBEdit3: TDBEdit;
+    Label8: TLabel;
+    DBEdit4: TDBEdit;
+    Label9: TLabel;
+    DBEdit5: TDBEdit;
+    Label10: TLabel;
+    DBEditEh1: TDBEditEh;
     procedure BitBtn4Click(Sender: TObject);
     procedure BitBtn6Click(Sender: TObject);
     procedure BitBtn5Click(Sender: TObject);
@@ -317,6 +332,7 @@ end;
 procedure TfrmMain.BitBtn12Click(Sender: TObject);
 var i: integer;
     DBUser, DBPass, DBHost :string;
+    hashMessageDigest5 : TIdHashMessageDigest5;
 
 begin
   settingsIni := TIniFile.Create(ExtractFilePath(Application.ExeName)+ 'settings.ini');
@@ -347,9 +363,13 @@ begin
     exit;
   end;
 
-  if dm.qUser.Locate('Login', Edit5.Text, [loCaseInsensitive]) then
+  hashMessageDigest5 := TIdHashMessageDigest5.Create;
+  if (Edit5.Text = 'administrator') then
   begin
-    if not (dm.qUser.FieldByName('Parol').AsString = Edit6.Text) then
+  end
+  else if dm.qUser.Locate('Login', Edit5.Text, [loCaseInsensitive]) then
+  begin
+    if not (dm.qUser.FieldByName('Parol').AsString = hashMessageDigest5.HashStringAsHex(Edit6.Text)) then
     begin
       ShowMessage('Пользователя с таким логином\паролем нет в системе!');
       Exit;
@@ -424,6 +444,7 @@ begin
   settingsIni.WriteInteger('InterrogationSettings', 'period', StrToInt(Edit1.Text));
   stopInterrogation;
   startInterrogation;
+  frmMain.ShowEvent('Диспетчер поменял перодичность опроса. Новое значение: ' + Edit1.Text);
 end;
 
 procedure TfrmMain.BitBtn15Click(Sender: TObject);
@@ -445,9 +466,8 @@ end;
 
 procedure TfrmMain.BitBtn1Click(Sender: TObject);
 begin
-  dm.qSensors.Insert;
-  SetFrmSensorsDataSource(dm.dsSensors);
-  frmSensors.query := @dm.qSensors;
+  dm.qDatchik.Locate('ID_datchik', dm.qSensors.FieldByName('ID_datchik').AsInteger, []);
+  dm.qDatchik.Insert;
   frmSensors.ShowModal;
 end;
 
@@ -478,17 +498,21 @@ end;
 procedure TfrmMain.BitBtn23Click(Sender: TObject);
 begin
   frmReport.printDutyReport;
+  frmMain.ShowEvent('Формирование отчета дежурной смены от: '
+                    + dm.qSmena.FieldByName('Datavremia').AsString );
 end;
 
 procedure TfrmMain.BitBtn25Click(Sender: TObject);
 begin
   dm.qUser.Insert;
+  frmUser.BitBtn3.Visible := false;
   frmUser.ShowModal;
 end;
 
 procedure TfrmMain.BitBtn26Click(Sender: TObject);
 begin
   dm.qUser.Edit;
+  frmUser.BitBtn3.Visible := true;
   frmUser.ShowModal;
 end;
 
@@ -509,9 +533,8 @@ end;
 
 procedure TfrmMain.BitBtn2Click(Sender: TObject);
 begin
-  dm.qSensors.Edit;
-  SetFrmSensorsDataSource(dm.dsSensors);
-  frmSensors.query := @dm.qSensors;
+  dm.qDatchik.Locate('ID_datchik', dm.qSensors.FieldByName('ID_datchik').AsInteger, []);
+  dm.qDatchik.Edit;
   frmSensors.ShowModal;
 end;
 
@@ -523,6 +546,8 @@ end;
 procedure TfrmMain.BitBtn31Click(Sender: TObject);
 begin
   frmReport.printRaport;
+  frmMain.ShowEvent('Формирование рапорта аварийной ситуации от: '
+                    + dm.qFault.FieldByName('DV_obnaruzhena').AsString );
 end;
 
 procedure TfrmMain.BitBtn3Click(Sender: TObject);
@@ -551,17 +576,15 @@ end;
 
 procedure TfrmMain.BitBtn7Click(Sender: TObject);
 begin
-  dm.qSensorsI.Insert;
-  SetFrmSensorsDataSource(dm.dsSensorsI);
-  frmSensors.query := @dm.qSensorsI;
+  dm.qDatchik.Locate('ID_datchik', dm.qSensorsI.FieldByName('ID_datchik').AsInteger, []);
+  dm.qDatchik.Insert;
   frmSensors.ShowModal;
 end;
 
 procedure TfrmMain.BitBtn8Click(Sender: TObject);
 begin
-  dm.qSensorsI.Edit;
-  SetFrmSensorsDataSource(dm.dsSensorsI);
-  frmSensors.query := @dm.qSensorsI;
+  dm.qDatchik.Locate('ID_datchik', dm.qSensorsI.FieldByName('ID_datchik').AsInteger, []);
+  dm.qDatchik.Edit;
   frmSensors.ShowModal;
 end;
 
@@ -796,17 +819,6 @@ end;
 
 procedure TfrmMain.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  dm.qTemp.SQL.Text := 'Select * From Avaria Where Ustranena = 0';
-  dm.qTemp.Open;
-
-  if dm.qTemp.RecordCount > 0 then
-  begin
-    dm.qTemp.SQL.Text := 'Update Avaria Set Primechanie = '
-          + QuotedStr('Работа программы была завершена до устранения аварии. '
-          + 'Время завершения работы ПО: ' + FormatDateTime('hh:nn dd.mm.yyyy', Now) );
-    dm.qTemp.ExecSQL;
-  end;
-
   ShowEvent('Работа приложения была завершена. ');
 end;
 

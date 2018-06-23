@@ -1,6 +1,7 @@
 object frmMain: TfrmMain
   Left = 0
   Top = 0
+  ActiveControl = BitBtn25
   BorderStyle = bsToolWindow
   Caption = #1040#1056#1052' '#1062#1055#1055#1053
   ClientHeight = 635
@@ -26,7 +27,7 @@ object frmMain: TfrmMain
     Top = 0
     Width = 1110
     Height = 635
-    ActivePage = tsModel
+    ActivePage = TabSheet1
     Align = alClient
     Style = tsFlatButtons
     TabOrder = 0
@@ -269,6 +270,7 @@ object frmMain: TfrmMain
           DataSource = dm.dsObjects
           DrawMemoText = True
           DynProps = <>
+          GridLineParams.ColorScheme = glcsClassicEh
           IndicatorOptions = [gioShowRowIndicatorEh]
           OptionsEh = [dghFixed3D, dghHighlightFocus, dghClearSelection, dghAutoSortMarking, dghDialogFind, dghColumnResize, dghColumnMove, dghExtendVertLines]
           ReadOnly = True
@@ -276,6 +278,7 @@ object frmMain: TfrmMain
           TabOrder = 1
           Columns = <
             item
+              Alignment = taLeftJustify
               DynProps = <>
               EditButtons = <>
               FieldName = 'ID_object'
@@ -299,7 +302,6 @@ object frmMain: TfrmMain
               Width = 300
             end
             item
-              Alignment = taCenter
               AutoFitColWidth = False
               DynProps = <>
               EditButtons = <>
@@ -372,6 +374,47 @@ object frmMain: TfrmMain
           BevelOuter = bvNone
           ParentBackground = False
           TabOrder = 0
+          object Label4: TLabel
+            Left = 442
+            Top = 9
+            Width = 45
+            Height = 13
+            Caption = #1054#1073#1098#1077#1082#1090
+            FocusControl = DBEdit1
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object Label5: TLabel
+            Left = 728
+            Top = 9
+            Width = 130
+            Height = 13
+            Caption = #1054#1073#1086#1079#1085#1072#1095#1077#1085#1080#1077' '#1086#1073#1098#1077#1082#1090#1072
+            FocusControl = DBEdit2
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object Label6: TLabel
+            Left = 158
+            Top = 9
+            Width = 49
+            Height = 13
+            Caption = #1059#1095#1072#1089#1090#1086#1082
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
           object BitBtn1: TBitBtn
             Left = 8
             Top = 0
@@ -579,6 +622,42 @@ object frmMain: TfrmMain
             TabOrder = 2
             OnClick = BitBtn3Click
           end
+          object DBEdit1: TDBEdit
+            Left = 493
+            Top = 6
+            Width = 200
+            Height = 21
+            DataField = 'Naimenovanie'
+            DataSource = dm.dsObjects
+            Enabled = False
+            TabOrder = 3
+          end
+          object DBEdit2: TDBEdit
+            Left = 864
+            Top = 6
+            Width = 100
+            Height = 21
+            DataField = 'Oboznachenie'
+            DataSource = dm.dsObjects
+            Enabled = False
+            TabOrder = 4
+          end
+          object DBLookupComboboxEh1: TDBLookupComboboxEh
+            Left = 213
+            Top = 6
+            Width = 200
+            Height = 21
+            DynProps = <>
+            DataField = 'ID_uchastok'
+            DataSource = dm.dsObjects
+            Enabled = False
+            EditButtons = <>
+            KeyField = 'ID_uchastok'
+            ListField = 'Uchastok'
+            ListSource = dm.dsArea
+            TabOrder = 5
+            Visible = True
+          end
         end
         object DBGridEh2: TDBGridEh
           Left = 0
@@ -591,6 +670,7 @@ object frmMain: TfrmMain
           DataSource = dm.dsSensors
           DrawMemoText = True
           DynProps = <>
+          GridLineParams.ColorScheme = glcsClassicEh
           IndicatorOptions = [gioShowRowIndicatorEh]
           OptionsEh = [dghFixed3D, dghHighlightFocus, dghClearSelection, dghAutoSortMarking, dghDialogFind, dghColumnResize, dghColumnMove, dghExtendVertLines]
           ReadOnly = True
@@ -599,6 +679,7 @@ object frmMain: TfrmMain
           OnDrawColumnCell = DBGridEh2DrawColumnCell
           Columns = <
             item
+              Alignment = taLeftJustify
               DynProps = <>
               EditButtons = <>
               FieldName = 'ID_datchik'
@@ -613,6 +694,7 @@ object frmMain: TfrmMain
               Width = 150
             end
             item
+              Alignment = taLeftJustify
               DynProps = <>
               EditButtons = <>
               FieldName = 'ID_object'
@@ -643,7 +725,6 @@ object frmMain: TfrmMain
               Width = 250
             end
             item
-              Alignment = taCenter
               AutoFitColWidth = False
               DynProps = <>
               EditButtons = <>
@@ -660,7 +741,6 @@ object frmMain: TfrmMain
               Width = 100
             end
             item
-              Alignment = taCenter
               AutoFitColWidth = False
               DynProps = <>
               EditButtons = <>
@@ -677,7 +757,7 @@ object frmMain: TfrmMain
               Width = 120
             end
             item
-              Alignment = taCenter
+              Alignment = taLeftJustify
               AutoFitColWidth = False
               DisplayFormat = '#,##0.00'
               DynProps = <>
@@ -694,7 +774,7 @@ object frmMain: TfrmMain
               Width = 80
             end
             item
-              Alignment = taCenter
+              Alignment = taLeftJustify
               AutoFitColWidth = False
               DisplayFormat = '#,##0.00'
               DynProps = <>
@@ -711,6 +791,7 @@ object frmMain: TfrmMain
               Width = 80
             end
             item
+              Alignment = taLeftJustify
               DynProps = <>
               EditButtons = <>
               FieldName = 'ID_sostoianie'
@@ -725,7 +806,6 @@ object frmMain: TfrmMain
               Width = 150
             end
             item
-              Alignment = taCenter
               AutoFitColWidth = False
               DynProps = <>
               EditButtons = <>
@@ -746,7 +826,6 @@ object frmMain: TfrmMain
               LookupParams.LookupDataSet = dm.qEI
               LookupParams.LookupDisplayFieldName = 'EI'
               LookupParams.LookupKeyFieldNames = 'ID_EI'
-              Alignment = taCenter
               AutoFitColWidth = False
               DynProps = <>
               EditButtons = <>
@@ -763,7 +842,6 @@ object frmMain: TfrmMain
               Width = 80
             end
             item
-              Alignment = taCenter
               AutoFitColWidth = False
               DynProps = <>
               EditButtons = <>
@@ -780,7 +858,7 @@ object frmMain: TfrmMain
               Width = 140
             end
             item
-              Alignment = taCenter
+              Alignment = taLeftJustify
               AutoFitColWidth = False
               DynProps = <>
               EditButtons = <>
@@ -1036,6 +1114,7 @@ object frmMain: TfrmMain
           DataSource = dm.dsSensorsI
           DrawMemoText = True
           DynProps = <>
+          GridLineParams.ColorScheme = glcsClassicEh
           IndicatorOptions = [gioShowRowIndicatorEh]
           OptionsEh = [dghFixed3D, dghHighlightFocus, dghClearSelection, dghAutoSortMarking, dghDialogFind, dghColumnResize, dghColumnMove, dghExtendVertLines]
           ReadOnly = True
@@ -1044,6 +1123,7 @@ object frmMain: TfrmMain
           OnDrawColumnCell = DBGridEh3DrawColumnCell
           Columns = <
             item
+              Alignment = taLeftJustify
               DynProps = <>
               EditButtons = <>
               FieldName = 'ID_datchik'
@@ -1074,7 +1154,6 @@ object frmMain: TfrmMain
               Width = 200
             end
             item
-              Alignment = taCenter
               AutoFitColWidth = False
               DynProps = <>
               EditButtons = <>
@@ -1091,7 +1170,6 @@ object frmMain: TfrmMain
               Width = 100
             end
             item
-              Alignment = taCenter
               AutoFitColWidth = False
               DynProps = <>
               EditButtons = <>
@@ -1108,6 +1186,7 @@ object frmMain: TfrmMain
               Width = 100
             end
             item
+              Alignment = taLeftJustify
               DynProps = <>
               EditButtons = <>
               FieldName = 'ID_object'
@@ -1138,7 +1217,7 @@ object frmMain: TfrmMain
               Width = 200
             end
             item
-              Alignment = taCenter
+              Alignment = taLeftJustify
               AutoFitColWidth = False
               DisplayFormat = '#,##0.00'
               DynProps = <>
@@ -1156,7 +1235,7 @@ object frmMain: TfrmMain
               Width = 70
             end
             item
-              Alignment = taCenter
+              Alignment = taLeftJustify
               AutoFitColWidth = False
               DisplayFormat = '#,##0.00'
               DynProps = <>
@@ -1174,6 +1253,7 @@ object frmMain: TfrmMain
               Width = 70
             end
             item
+              Alignment = taLeftJustify
               DynProps = <>
               EditButtons = <>
               FieldName = 'ID_sostoianie'
@@ -1188,7 +1268,6 @@ object frmMain: TfrmMain
               Width = 100
             end
             item
-              Alignment = taCenter
               AutoFitColWidth = False
               DynProps = <>
               EditButtons = <>
@@ -1209,7 +1288,6 @@ object frmMain: TfrmMain
               LookupParams.LookupDataSet = dm.qEI
               LookupParams.LookupDisplayFieldName = 'EI'
               LookupParams.LookupKeyFieldNames = 'ID_EI'
-              Alignment = taCenter
               AutoFitColWidth = False
               DynProps = <>
               EditButtons = <>
@@ -1226,7 +1304,6 @@ object frmMain: TfrmMain
               Width = 70
             end
             item
-              Alignment = taCenter
               AutoFitColWidth = False
               DynProps = <>
               EditButtons = <>
@@ -1243,7 +1320,7 @@ object frmMain: TfrmMain
               Width = 140
             end
             item
-              Alignment = taCenter
+              Alignment = taLeftJustify
               AutoFitColWidth = False
               DynProps = <>
               EditButtons = <>
@@ -1298,6 +1375,34 @@ object frmMain: TfrmMain
           DesignSize = (
             1094
             31)
+          object Label7: TLabel
+            Left = 96
+            Top = 9
+            Width = 137
+            Height = 13
+            Caption = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077' '#1076#1072#1090#1095#1080#1082#1072
+            FocusControl = DBEdit3
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object Label8: TLabel
+            Left = 520
+            Top = 8
+            Width = 129
+            Height = 13
+            Caption = #1054#1073#1086#1079#1085#1072#1095#1077#1085#1080#1077' '#1076#1072#1090#1095#1080#1082#1072
+            FocusControl = DBEdit4
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
           object BitBtn11: TBitBtn
             Left = 7
             Top = 1
@@ -1362,7 +1467,7 @@ object frmMain: TfrmMain
             OnClick = BitBtn11Click
           end
           object BitBtn30: TBitBtn
-            Left = 956
+            Left = 948
             Top = 2
             Width = 75
             Height = 25
@@ -1377,6 +1482,26 @@ object frmMain: TfrmMain
             TabOrder = 1
             OnClick = BitBtn30Click
           end
+          object DBEdit3: TDBEdit
+            Left = 239
+            Top = 6
+            Width = 250
+            Height = 21
+            DataField = 'Naimenovanie'
+            DataSource = dm.dsSensorsI
+            Enabled = False
+            TabOrder = 2
+          end
+          object DBEdit4: TDBEdit
+            Left = 655
+            Top = 6
+            Width = 100
+            Height = 21
+            DataField = 'Oboznachenie'
+            DataSource = dm.dsSensorsI
+            Enabled = False
+            TabOrder = 3
+          end
         end
         object DBGridEh4: TDBGridEh
           Left = 0
@@ -1389,6 +1514,7 @@ object frmMain: TfrmMain
           DataSource = dm.dsReadings
           DrawMemoText = True
           DynProps = <>
+          GridLineParams.ColorScheme = glcsClassicEh
           IndicatorOptions = [gioShowRowIndicatorEh]
           OptionsEh = [dghFixed3D, dghHighlightFocus, dghClearSelection, dghAutoSortMarking, dghDialogFind, dghColumnResize, dghColumnMove, dghExtendVertLines]
           ReadOnly = True
@@ -1397,6 +1523,7 @@ object frmMain: TfrmMain
           OnDrawColumnCell = DBGridEh4DrawColumnCell
           Columns = <
             item
+              Alignment = taLeftJustify
               AutoFitColWidth = False
               DynProps = <>
               EditButtons = <>
@@ -1412,6 +1539,7 @@ object frmMain: TfrmMain
               Width = 100
             end
             item
+              Alignment = taLeftJustify
               AutoFitColWidth = False
               DynProps = <>
               EditButtons = <>
@@ -1427,7 +1555,6 @@ object frmMain: TfrmMain
               Width = 100
             end
             item
-              Alignment = taCenter
               DynProps = <>
               EditButtons = <>
               FieldName = 'Datavremia'
@@ -1443,7 +1570,7 @@ object frmMain: TfrmMain
               Width = 150
             end
             item
-              Alignment = taCenter
+              Alignment = taLeftJustify
               DisplayFormat = '#,##0.00'
               DynProps = <>
               EditButtons = <>
@@ -1460,7 +1587,7 @@ object frmMain: TfrmMain
               Width = 150
             end
             item
-              Alignment = taCenter
+              Alignment = taLeftJustify
               DynProps = <>
               EditButtons = <>
               FieldName = 'Norma'
@@ -1583,7 +1710,7 @@ object frmMain: TfrmMain
             OnClick = BitBtn10Click
           end
           object BitBtn27: TBitBtn
-            Left = 964
+            Left = 956
             Top = 2
             Width = 75
             Height = 25
@@ -1625,6 +1752,7 @@ object frmMain: TfrmMain
           DataSource = dm.dsFault
           DrawMemoText = True
           DynProps = <>
+          GridLineParams.ColorScheme = glcsClassicEh
           IndicatorOptions = [gioShowRowIndicatorEh]
           OptionsEh = [dghFixed3D, dghHighlightFocus, dghClearSelection, dghAutoSortMarking, dghDialogFind, dghColumnResize, dghColumnMove, dghExtendVertLines]
           ReadOnly = True
@@ -1633,6 +1761,7 @@ object frmMain: TfrmMain
           OnDrawColumnCell = DBGridEh5DrawColumnCell
           Columns = <
             item
+              Alignment = taLeftJustify
               AutoFitColWidth = False
               DynProps = <>
               EditButtons = <>
@@ -1649,7 +1778,6 @@ object frmMain: TfrmMain
               Width = 100
             end
             item
-              Alignment = taCenter
               AutoFitColWidth = False
               DynProps = <>
               EditButtons = <>
@@ -1680,31 +1808,11 @@ object frmMain: TfrmMain
               Width = 180
             end
             item
+              LookupParams.LookupCache = False
               AutoFitColWidth = False
               DynProps = <>
               EditButtons = <>
-              FieldName = 'ID_datchik'
-              Footers = <>
-              Title.Alignment = taCenter
-              Title.Font.Charset = DEFAULT_CHARSET
-              Title.Font.Color = clWindowText
-              Title.Font.Height = -11
-              Title.Font.Name = 'Tahoma'
-              Title.Font.Style = [fsBold]
-              Title.TitleButton = True
-              Visible = False
-              Width = 100
-            end
-            item
-              LookupParams.KeyFieldNames = 'ID_smena'
-              LookupParams.LookupDataSet = dm.qSmena
-              LookupParams.LookupDisplayFieldName = 'Datavremia'
-              LookupParams.LookupKeyFieldNames = 'ID_smena'
-              Alignment = taCenter
-              AutoFitColWidth = False
-              DynProps = <>
-              EditButtons = <>
-              FieldName = 'ID_smena'
+              FieldName = 'DataSmena'
               Footers = <>
               Title.Alignment = taCenter
               Title.Caption = #1057#1084#1077#1085#1072
@@ -1714,10 +1822,9 @@ object frmMain: TfrmMain
               Title.Font.Name = 'Tahoma'
               Title.Font.Style = [fsBold]
               Title.TitleButton = True
-              Width = 160
+              Width = 139
             end
             item
-              AutoFitColWidth = False
               DynProps = <>
               EditButtons = <>
               FieldName = 'Uchastok'
@@ -1730,10 +1837,8 @@ object frmMain: TfrmMain
               Title.Font.Name = 'Tahoma'
               Title.Font.Style = [fsBold]
               Title.TitleButton = True
-              Width = 200
             end
             item
-              AutoFitColWidth = False
               DynProps = <>
               EditButtons = <>
               FieldName = 'Object'
@@ -1746,7 +1851,6 @@ object frmMain: TfrmMain
               Title.Font.Name = 'Tahoma'
               Title.Font.Style = [fsBold]
               Title.TitleButton = True
-              Width = 200
             end
             item
               AutoFitColWidth = False
@@ -1765,7 +1869,6 @@ object frmMain: TfrmMain
               Width = 200
             end
             item
-              Alignment = taCenter
               AutoFitColWidth = False
               DynProps = <>
               EditButtons = <>
@@ -1782,7 +1885,7 @@ object frmMain: TfrmMain
               Width = 100
             end
             item
-              Alignment = taCenter
+              Alignment = taLeftJustify
               AutoFitColWidth = False
               DynProps = <>
               EditButtons = <>
@@ -1800,7 +1903,6 @@ object frmMain: TfrmMain
               Width = 70
             end
             item
-              Alignment = taCenter
               AutoFitColWidth = False
               DynProps = <>
               EditButtons = <>
@@ -1818,7 +1920,7 @@ object frmMain: TfrmMain
               Width = 140
             end
             item
-              Alignment = taCenter
+              Alignment = taLeftJustify
               AutoFitColWidth = False
               DynProps = <>
               EditButtons = <>
@@ -1836,7 +1938,6 @@ object frmMain: TfrmMain
               Width = 70
             end
             item
-              Alignment = taCenter
               AutoFitColWidth = False
               DynProps = <>
               EditButtons = <>
@@ -1853,6 +1954,7 @@ object frmMain: TfrmMain
               Width = 130
             end
             item
+              Alignment = taLeftJustify
               AutoFitColWidth = False
               DynProps = <>
               EditButtons = <>
@@ -1909,8 +2011,35 @@ object frmMain: TfrmMain
           DesignSize = (
             1094
             31)
+          object Label9: TLabel
+            Left = 22
+            Top = 9
+            Width = 114
+            Height = 13
+            Caption = #1044#1072#1090#1072' '#1086#1073#1085#1072#1088#1091#1078#1077#1085#1080#1103
+            FocusControl = DBEdit5
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object Label10: TLabel
+            Left = 296
+            Top = 9
+            Width = 54
+            Height = 13
+            Caption = #1054#1087#1080#1089#1072#1085#1080#1077
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
           object BitBtn28: TBitBtn
-            Left = 964
+            Left = 956
             Top = 2
             Width = 75
             Height = 25
@@ -1925,6 +2054,30 @@ object frmMain: TfrmMain
             TabOrder = 0
             OnClick = BitBtn28Click
           end
+          object DBEdit5: TDBEdit
+            Left = 142
+            Top = 6
+            Width = 123
+            Height = 21
+            DataField = 'DV_obnaruzhena'
+            DataSource = dm.dsFault
+            Enabled = False
+            TabOrder = 1
+          end
+          object DBEditEh1: TDBEditEh
+            Left = 356
+            Top = 6
+            Width = 545
+            Height = 21
+            Anchors = [akLeft, akTop, akRight]
+            DataField = 'Opisanie'
+            DataSource = dm.dsFault
+            DynProps = <>
+            EditButtons = <>
+            Enabled = False
+            TabOrder = 2
+            Visible = True
+          end
         end
         object DBGridEh6: TDBGridEh
           Left = 0
@@ -1937,6 +2090,7 @@ object frmMain: TfrmMain
           DataSource = dm.dsFaultReadings
           DrawMemoText = True
           DynProps = <>
+          GridLineParams.ColorScheme = glcsClassicEh
           IndicatorOptions = [gioShowRowIndicatorEh]
           OptionsEh = [dghFixed3D, dghHighlightFocus, dghClearSelection, dghAutoSortMarking, dghDialogFind, dghColumnResize, dghColumnMove, dghExtendVertLines]
           ReadOnly = True
@@ -1944,6 +2098,7 @@ object frmMain: TfrmMain
           TabOrder = 1
           Columns = <
             item
+              Alignment = taLeftJustify
               AutoFitColWidth = False
               DynProps = <>
               EditButtons = <>
@@ -1959,6 +2114,7 @@ object frmMain: TfrmMain
               Width = 130
             end
             item
+              Alignment = taLeftJustify
               AutoFitColWidth = False
               DynProps = <>
               EditButtons = <>
@@ -1974,7 +2130,6 @@ object frmMain: TfrmMain
               Width = 130
             end
             item
-              Alignment = taCenter
               DynProps = <>
               EditButtons = <>
               FieldName = 'Datavremia'
@@ -1989,7 +2144,7 @@ object frmMain: TfrmMain
               Width = 130
             end
             item
-              Alignment = taCenter
+              Alignment = taLeftJustify
               DisplayFormat = '#,##0.00'
               DynProps = <>
               EditButtons = <>
@@ -2005,6 +2160,7 @@ object frmMain: TfrmMain
               Width = 130
             end
             item
+              Alignment = taLeftJustify
               AutoFitColWidth = False
               DynProps = <>
               EditButtons = <>
@@ -2020,6 +2176,7 @@ object frmMain: TfrmMain
               Width = 130
             end
             item
+              Alignment = taLeftJustify
               AutoFitColWidth = False
               DynProps = <>
               EditButtons = <>
@@ -2035,7 +2192,7 @@ object frmMain: TfrmMain
               Width = 130
             end
             item
-              Alignment = taCenter
+              Alignment = taLeftJustify
               DisplayFormat = '#,##0.00'
               DynProps = <>
               EditButtons = <>
@@ -2051,7 +2208,7 @@ object frmMain: TfrmMain
               Width = 130
             end
             item
-              Alignment = taCenter
+              Alignment = taLeftJustify
               DisplayFormat = '#,##0.00'
               DynProps = <>
               EditButtons = <>
@@ -20818,6 +20975,7 @@ object frmMain: TfrmMain
           DataSource = dm.dsSmena
           DrawMemoText = True
           DynProps = <>
+          GridLineParams.ColorScheme = glcsClassicEh
           IndicatorOptions = [gioShowRowIndicatorEh]
           OptionsEh = [dghFixed3D, dghHighlightFocus, dghClearSelection, dghAutoSortMarking, dghDialogFind, dghColumnResize, dghColumnMove, dghExtendVertLines]
           ReadOnly = True
@@ -20825,6 +20983,7 @@ object frmMain: TfrmMain
           TabOrder = 1
           Columns = <
             item
+              Alignment = taLeftJustify
               DynProps = <>
               EditButtons = <>
               FieldName = 'ID_smena'
@@ -20840,7 +20999,6 @@ object frmMain: TfrmMain
               Width = 250
             end
             item
-              Alignment = taCenter
               AutoFitColWidth = False
               ButtonStyle = cbsNone
               DisplayFormat = 'dd.mm.yyyy hh:nn'
@@ -21049,10 +21207,12 @@ object frmMain: TfrmMain
           Color = cl3DLight
           DataSource = dm.dsSostav
           DynProps = <>
+          GridLineParams.ColorScheme = glcsClassicEh
           IndicatorOptions = [gioShowRowIndicatorEh]
           TabOrder = 1
           Columns = <
             item
+              Alignment = taLeftJustify
               DynProps = <>
               EditButtons = <>
               FieldName = 'ID_smena'
@@ -21311,6 +21471,7 @@ object frmMain: TfrmMain
           DataSource = dm.dsSotrudnik
           DrawMemoText = True
           DynProps = <>
+          GridLineParams.ColorScheme = glcsClassicEh
           IndicatorOptions = [gioShowRowIndicatorEh]
           OptionsEh = [dghFixed3D, dghHighlightFocus, dghClearSelection, dghAutoSortMarking, dghDialogFind, dghColumnResize, dghColumnMove, dghExtendVertLines]
           ReadOnly = True
@@ -21318,6 +21479,7 @@ object frmMain: TfrmMain
           TabOrder = 1
           Columns = <
             item
+              Alignment = taLeftJustify
               DynProps = <>
               EditButtons = <>
               FieldName = 'ID_sotrudnik'
@@ -21612,6 +21774,7 @@ object frmMain: TfrmMain
         Color = cl3DLight
         DataSource = dm.dsUser
         DynProps = <>
+        GridLineParams.ColorScheme = glcsClassicEh
         IndicatorOptions = [gioShowRowIndicatorEh]
         OptionsEh = [dghFixed3D, dghHighlightFocus, dghClearSelection, dghAutoSortMarking, dghDialogFind, dghColumnResize, dghColumnMove, dghExtendVertLines]
         ReadOnly = True
@@ -21619,6 +21782,7 @@ object frmMain: TfrmMain
         TabOrder = 1
         Columns = <
           item
+            Alignment = taLeftJustify
             DynProps = <>
             EditButtons = <>
             FieldName = 'ID_polzovatel'
@@ -21702,7 +21866,7 @@ object frmMain: TfrmMain
           1098
           37)
         object BitBtn29: TBitBtn
-          Left = 964
+          Left = 956
           Top = 8
           Width = 75
           Height = 25
@@ -21728,6 +21892,7 @@ object frmMain: TfrmMain
         Color = cl3DLight
         DataSource = dm.dsSobytia
         DynProps = <>
+        GridLineParams.ColorScheme = glcsClassicEh
         IndicatorOptions = [gioShowRowIndicatorEh]
         OptionsEh = [dghFixed3D, dghHighlightFocus, dghClearSelection, dghAutoSortMarking, dghDialogFind, dghColumnResize, dghColumnMove, dghExtendVertLines]
         ReadOnly = True
@@ -21735,6 +21900,7 @@ object frmMain: TfrmMain
         TabOrder = 1
         Columns = <
           item
+            Alignment = taLeftJustify
             DynProps = <>
             EditButtons = <>
             FieldName = 'ID_sobytia'
@@ -21749,7 +21915,6 @@ object frmMain: TfrmMain
             Visible = False
           end
           item
-            Alignment = taCenter
             AutoFitColWidth = False
             DynProps = <>
             EditButtons = <>

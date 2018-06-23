@@ -36,11 +36,13 @@ implementation
 
 {$R *.dfm}
 
-uses uDM, DB;
+uses uDM, DB, uMain;
 
 procedure TfrmSotrudnik.BitBtn1Click(Sender: TObject);
 begin
   if dm.qSotrudnik.State in [dsEdit, dsInsert] then dm.qSotrudnik.Post;
+  frmMain.ShowEvent('Редактирование данных сотрудника '
+                        + DBEdit1.Text);
   close;
 end;
 

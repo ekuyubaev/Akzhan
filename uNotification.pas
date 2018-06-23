@@ -38,6 +38,7 @@ begin
                   + 'Датчик: ' + dm.qNotSeenFaults.FieldByName('Naimenovanie').AsString + #13#10
                   + 'Описание: ' + dm.qNotSeenFaults.FieldByName('Opisanie').AsString;
 
+          frmMain.PageControl1.ActivePage := frmMain.tsSchema;
           frmMain.ShowEvent(tempStr);
           frmNotification.PageControl1.ActivePageIndex := 0;
           frmNotification.RadioGroup1.ItemIndex := -1;

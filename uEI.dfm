@@ -27,7 +27,7 @@ object frmEI: TfrmEI
       35)
     object BitBtn2: TBitBtn
       Left = 183
-      Top = 4
+      Top = -1
       Width = 30
       Height = 30
       Anchors = [akTop, akRight]

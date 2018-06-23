@@ -29,7 +29,7 @@ implementation
 
 {$R *.dfm}
 
-uses uDM;
+uses uDM, uMain;
 
 procedure TfrmEI.BitBtn1Click(Sender: TObject);
 begin
@@ -40,6 +40,7 @@ end;
 procedure TfrmEI.BitBtn2Click(Sender: TObject);
 begin
   if dm.qEI.State in [dsEdit, dsInsert] then dm.qEI.Post;
+  frmMain.ShowEvent('–едактирование данных об едиицах измерени€');
   close;
 end;
 

@@ -53,15 +53,17 @@ uses uDM, uMain;
 
 procedure TfrmSensors.BitBtn1Click(Sender: TObject);
 begin
-  if query.State in [dsEdit, dsInsert] then query.Post;
+  if dm.qDatchik.State in [dsEdit, dsInsert] then dm.qDatchik.Post;
   dm.refreshSensors;
+  frmMain.ShowEvent('Редактирование данных датчика ' + DBEditEh2.Value
+                    + ' с заводским номером ' + DBEditEh3.Value );
   frmMain.startInterrogation;
   close;
 end;
 
 procedure TfrmSensors.BitBtn2Click(Sender: TObject);
 begin
-  if query.State in [dsEdit, dsInsert] then query.Cancel;
+  if dm.qDatchik.State in [dsEdit, dsInsert] then dm.qDatchik.Cancel;
   close;
 end;
 

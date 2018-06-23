@@ -34,13 +34,15 @@ implementation
 
 {$R *.dfm}
 
-uses uDM, DB;
+uses uDM, DB, uMain;
 
 procedure TfrmSmena.BitBtn1Click(Sender: TObject);
 begin
   if dm.qSmena.State in [dsEdit, dsInsert]
       then dm.qSmena.Post;
   dm.refreshSmena;
+  frmMain.ShowEvent('Редактирование данныых смены от '
+                        + FormatDateTime('dd.mm.yyyy', DBDateTimeEditEh1.Value));
   self.Close;
 end;
 

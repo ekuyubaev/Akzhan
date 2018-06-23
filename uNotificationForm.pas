@@ -106,9 +106,11 @@ end;
 procedure TfrmNotification.BitBtn1Click(Sender: TObject);
 begin
   PageControl1.ActivePageIndex := 1;
+  frmMain.ShowEvent('Диспетчер приступил к определению списка возможных неисправностей');
 end;
 
 procedure TfrmNotification.BitBtn3Click(Sender: TObject);
+var ID_avaria : string;
 begin
   if RadioGroup1.ItemIndex < 0 then
   begin
@@ -116,11 +118,33 @@ begin
     Exit;
   end;
   PageControl1.ActivePageIndex := 2;
+  frmMain.ShowEvent('Диспетчер выбрал в качестве воззможной неисправности: ' + RadioGroup1.Items[RadioGroup1.ItemIndex]);
+
+  dm.qEmergency.SQL.Text := 'Select * From Avaria Where Ustranena = 0';
+  dm.qEmergency.Open;
+
+  ID_avaria := dm.qEmergency.FieldByName('ID_avaria').AsString;
+
+  dm.qTemp.SQL.Text := 'Update Avaria Set Neispravnost = '
+          + QuotedStr(RadioGroup1.Items[RadioGroup1.ItemIndex]);
+  dm.qTemp.ExecSQL;
 end;
 
 procedure TfrmNotification.BitBtn4Click(Sender: TObject);
+var ID_avaria : string;
 begin
     PageControl1.ActivePageIndex := 3;
+    frmMain.ShowEvent('Диспетчер прсомотрел возможные причины неисправностей');
+
+    dm.qEmergency.SQL.Text := 'Select * From Avaria Where Ustranena = 0';
+    dm.qEmergency.Open;
+
+    ID_avaria := dm.qEmergency.FieldByName('ID_avaria').AsString;
+
+    dm.qTemp.SQL.Text := 'Update Avaria Set Reshenie = '
+          + QuotedStr(Label7.Caption +'  '+Label6.Caption)
+          +' Where ID_avaria = ' + ID_avaria;
+    dm.qTemp.ExecSQL;
 end;
 
 procedure TfrmNotification.BitBtn5Click(Sender: TObject);
@@ -147,7 +171,7 @@ begin
           + ' Where ID_avaria = ' + dm.qEmergency.FieldByName('ID_avaria').AsString;
     dm.qElimination.ExecSQL;
 
-    frmMain.ShowEvent(FormatDateTime('dd.mm.yyyy hh:nn:ss', now) + ' - Аварийная ситуация была устранена.');
+    frmMain.ShowEvent('Аварийная ситуация была устранена.');
 
     faultSensorID := -1;
   end;
@@ -223,6 +247,8 @@ begin
               + 'Текущее показание больше максимума на: ' + FloatToStrF(pogr, fffixed, 10, 2);
     faultSensorID := -1;
   end;
+
+  frmMain.ShowEvent('Запущено окно аварийной ситуации.');
 end;
 
 procedure TfrmNotification.TabSheet2Show(Sender: TObject);

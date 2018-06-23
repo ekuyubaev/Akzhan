@@ -231,7 +231,7 @@ object frmUser: TfrmUser
     end
     object DBEdit3: TDBEdit
       Left = 16
-      Top = 88
+      Top = 89
       Width = 250
       Height = 21
       DataField = 'Parol'
@@ -252,6 +252,15 @@ object frmUser: TfrmUser
       ListSource = dm.dsSotrudnik
       TabOrder = 2
       Visible = True
+    end
+    object BitBtn3: TBitBtn
+      Left = 156
+      Top = 109
+      Width = 110
+      Height = 23
+      Caption = #1093#1101#1096#1080#1088#1086#1074#1072#1090#1100' '#1087#1072#1088#1086#1083#1100
+      TabOrder = 3
+      OnClick = BitBtn3Click
     end
   end
 end

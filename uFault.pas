@@ -51,11 +51,13 @@ implementation
 
 {$R *.dfm}
 
-uses uDM;
+uses uDM, uMain;
 
 procedure TfrmFault.BitBtn1Click(Sender: TObject);
 begin
   dm.qFault.Post;
+  frmMain.ShowEvent('Редактирование данных об аварийной ситуации от '
+                    + dm.qFault.FieldByName('DV_obnaruzhena').AsString);
   close;
 end;
 

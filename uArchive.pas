@@ -34,7 +34,7 @@ implementation
 
 {$R *.dfm}
 
-uses uDM;
+uses uDM, uMain;
 
 procedure TfrmArchive.BitBtn2Click(Sender: TObject);
 begin
@@ -51,6 +51,7 @@ begin
   ProgressBar1.Position := 0;
   startDate := FormatDateTime('yyyy-mm-dd', DateTimePicker1.Date);
   endDate := FormatDateTime('yyyy-mm-dd', DateTimePicker2.Date);
+  frmMain.ShowEvent('Архивирование показаний с ' + startDate + ' по ' + endDate);
 
   AssignFile(myFile, 'arch.txt');
   Rewrite(myFile);

@@ -38,11 +38,14 @@ implementation
 
 {$R *.dfm}
 
-uses uDM;
+uses uDM, uMain;
 
 procedure TfrmReading.BitBtn1Click(Sender: TObject);
 begin
   dm.qReadings.Post;
+  frmMain.ShowEvent('Редактирование данных о показаний от '
+                    + dm.qReadings.FieldByName('Datavremia').AsString
+                    + ',  датчика с ИД = ' + dm.qReadings.FieldByName('ID_datchik').AsString);
   close;
 end;
 

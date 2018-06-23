@@ -29,7 +29,7 @@ object frmSensors: TfrmSensors
       296
       31)
     object BitBtn1: TBitBtn
-      Left = 216
+      Left = 208
       Top = 1
       Width = 30
       Height = 30
@@ -101,7 +101,7 @@ object frmSensors: TfrmSensors
       OnClick = BitBtn1Click
     end
     object BitBtn2: TBitBtn
-      Left = 252
+      Left = 244
       Top = 1
       Width = 30
       Height = 30
@@ -318,7 +318,7 @@ object frmSensors: TfrmSensors
       Width = 273
       Height = 21
       DataField = 'Naimenovanie'
-      DataSource = dm.dsSensors
+      DataSource = dm.dsDatchik
       DynProps = <>
       EditButtons = <>
       TabOrder = 0
@@ -331,7 +331,7 @@ object frmSensors: TfrmSensors
       Height = 21
       Alignment = taCenter
       DataField = 'Oboznachenie'
-      DataSource = dm.dsSensors
+      DataSource = dm.dsDatchik
       DynProps = <>
       EditButtons = <>
       TabOrder = 1
@@ -344,7 +344,7 @@ object frmSensors: TfrmSensors
       Height = 21
       Alignment = taCenter
       DataField = 'Nomer'
-      DataSource = dm.dsSensors
+      DataSource = dm.dsDatchik
       DynProps = <>
       EditButtons = <>
       TabOrder = 2
@@ -357,7 +357,7 @@ object frmSensors: TfrmSensors
       Height = 21
       Alignment = taCenter
       DataField = 'MAX'
-      DataSource = dm.dsSensors
+      DataSource = dm.dsDatchik
       DynProps = <>
       EditButtons = <>
       TabOrder = 3
@@ -370,7 +370,7 @@ object frmSensors: TfrmSensors
       Height = 21
       Alignment = taCenter
       DataField = 'MIN'
-      DataSource = dm.dsSensors
+      DataSource = dm.dsDatchik
       DynProps = <>
       EditButtons = <>
       TabOrder = 4
@@ -382,9 +382,12 @@ object frmSensors: TfrmSensors
       Width = 273
       Height = 21
       DynProps = <>
-      DataField = 'Sostoianie'
-      DataSource = dm.dsSensors
+      DataField = 'ID_sostoianie'
+      DataSource = dm.dsDatchik
       EditButtons = <>
+      KeyField = 'ID_sostoianie'
+      ListField = 'Naimenovanie'
+      ListSource = dm.dsStates
       TabOrder = 5
       Visible = True
     end
@@ -409,7 +412,7 @@ object frmSensors: TfrmSensors
       Alignment = taCenter
       DynProps = <>
       DataField = 'ID_EI'
-      DataSource = dm.dsSensors
+      DataSource = dm.dsDatchik
       EditButtons = <>
       KeyField = 'ID_EI'
       ListField = 'EI'
@@ -424,7 +427,7 @@ object frmSensors: TfrmSensors
       Height = 21
       Alignment = taCenter
       DataField = 'DataVvoda'
-      DataSource = dm.dsSensors
+      DataSource = dm.dsDatchik
       DynProps = <>
       EditButtons = <>
       Kind = dtkDateEh
@@ -438,7 +441,7 @@ object frmSensors: TfrmSensors
       Height = 21
       Alignment = taCenter
       DataField = 'SrokSluzhby'
-      DataSource = dm.dsSensors
+      DataSource = dm.dsDatchik
       DynProps = <>
       EditButtons = <>
       TabOrder = 9

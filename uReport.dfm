@@ -21,7 +21,7 @@ object frmReport: TfrmReport
     Top = 35
     Width = 286
     Height = 168
-    ActivePage = tsReadingsReport
+    ActivePage = tsFaultsReport
     Align = alClient
     TabOrder = 0
     object tsReadingsReport: TTabSheet
@@ -130,10 +130,6 @@ object frmReport: TfrmReport
       Caption = 'tsFaultsReport'
       ImageIndex = 1
       TabVisible = False
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Panel2: TPanel
         Left = 0
         Top = 0

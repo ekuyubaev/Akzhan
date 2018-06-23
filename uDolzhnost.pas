@@ -29,12 +29,13 @@ implementation
 
 {$R *.dfm}
 
-uses uDM;
+uses uDM, uMain;
 
 procedure TfrmDolzhnost.BitBtn1Click(Sender: TObject);
 begin
   if dm.qDolzhnost.State in [dsEdit, dsInsert] then
       dm.qDolzhnost.Post;
+  frmMain.ShowEvent('Редактирование данных об должностях');
   self.Close;
 end;
 

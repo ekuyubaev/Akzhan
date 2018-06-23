@@ -93,7 +93,7 @@ object frmStates: TfrmStates
       672
       31)
     object BitBtn1: TBitBtn
-      Left = 633
+      Left = 629
       Top = 1
       Width = 30
       Height = 30
@@ -165,7 +165,7 @@ object frmStates: TfrmStates
       OnClick = BitBtn1Click
     end
     object BitBtn2: TBitBtn
-      Left = 597
+      Left = 593
       Top = 1
       Width = 30
       Height = 30

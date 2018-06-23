@@ -22,9 +22,6 @@ object frmArchive: TfrmArchive
     Height = 35
     Align = alTop
     TabOrder = 0
-    ExplicitLeft = 160
-    ExplicitTop = 40
-    ExplicitWidth = 185
     DesignSize = (
       271
       35)
@@ -99,7 +96,6 @@ object frmArchive: TfrmArchive
         5E5ED3D3D3FF}
       TabOrder = 0
       OnClick = BitBtn2Click
-      ExplicitLeft = 318
     end
   end
   object Panel2: TPanel
@@ -109,10 +105,6 @@ object frmArchive: TfrmArchive
     Height = 153
     Align = alClient
     TabOrder = 1
-    ExplicitLeft = 144
-    ExplicitTop = 120
-    ExplicitWidth = 185
-    ExplicitHeight = 41
     object Label1: TLabel
       Left = 24
       Top = 48

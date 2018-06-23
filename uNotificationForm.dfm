@@ -199,13 +199,11 @@ object frmNotification: TfrmNotification
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
-          ExplicitLeft = 1
-          ExplicitTop = 77
           ExplicitWidth = 292
         end
         object Label6: TLabel
           Left = 1
-          Top = 117
+          Top = 140
           Width = 765
           Height = 23
           Margins.Left = 10
@@ -221,7 +219,7 @@ object frmNotification: TfrmNotification
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
-          ExplicitTop = 143
+          ExplicitTop = 117
           ExplicitWidth = 689
         end
         object Label7: TLabel
@@ -229,7 +227,7 @@ object frmNotification: TfrmNotification
           Left = 4
           Top = 84
           Width = 759
-          Height = 23
+          Height = 46
           Margins.Top = 10
           Margins.Bottom = 10
           Align = alTop
@@ -242,8 +240,8 @@ object frmNotification: TfrmNotification
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
-          ExplicitTop = 110
-          ExplicitWidth = 1042
+          WordWrap = True
+          ExplicitWidth = 737
         end
         object BitBtn4: TBitBtn
           Left = 440

@@ -29,12 +29,13 @@ implementation
 
 {$R *.dfm}
 
-uses uDM;
+uses uDM, uMain;
 
 procedure TfrmArea.BitBtn1Click(Sender: TObject);
 begin
   if dm.qArea.State in [dsEdit, dsInsert] then dm.qArea.Post;
   dm.refreshObjects;
+  frmMain.ShowEvent('Редактирование данных об объектах');
   close;
 end;
 

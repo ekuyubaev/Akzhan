@@ -24,7 +24,6 @@ object frmDolzhnost: TfrmDolzhnost
     BevelKind = bkTile
     BevelOuter = bvNone
     TabOrder = 0
-    ExplicitWidth = 463
     object BitBtn1: TBitBtn
       Left = 308
       Top = 3

@@ -90,12 +90,11 @@ object frmReading: TfrmReading
     BevelKind = bkFlat
     BevelOuter = bvNone
     TabOrder = 0
-    ExplicitWidth = 463
     DesignSize = (
       332
       31)
     object BitBtn1: TBitBtn
-      Left = 261
+      Left = 257
       Top = 1
       Width = 30
       Height = 30
@@ -165,10 +164,9 @@ object frmReading: TfrmReading
         FFFFFFFFFFFF}
       TabOrder = 0
       OnClick = BitBtn1Click
-      ExplicitLeft = 388
     end
     object BitBtn2: TBitBtn
-      Left = 297
+      Left = 293
       Top = 1
       Width = 30
       Height = 30
@@ -238,7 +236,6 @@ object frmReading: TfrmReading
         5E5ED3D3D3FF}
       TabOrder = 1
       OnClick = BitBtn2Click
-      ExplicitLeft = 424
     end
   end
   object DBDateTimeEditEh1: TDBDateTimeEditEh

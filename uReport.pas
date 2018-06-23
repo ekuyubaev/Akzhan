@@ -168,7 +168,8 @@ begin
   dm.qReps.Open;
   MsWord.Selection.Find.ClearFormatting;
   MsWord.Selection.Find.Replacement.ClearFormatting;
-  MsWord.Selection.Find.Replacement.Text:= dm.qReps.FieldByName('Pokazanie').AsString;
+  MsWord.Selection.Find.Replacement.Text:= FloatToStrF(dm.qReps.FieldByName('Pokazanie').AsFloat,
+                                                        fffixed, 10, 2);
   MsWord.Selection.Find.Text := '[reading]';
   MsWord.Selection.Find.Forward := True;
   MsWord.Selection.Find.Wrap := 1;
@@ -184,6 +185,20 @@ begin
   MsWord.Selection.Find.Replacement.ClearFormatting;
   MsWord.Selection.Find.Replacement.Text:= dm.qFault.FieldByName('Reshenie').AsString;
   MsWord.Selection.Find.Text := '[action]';
+  MsWord.Selection.Find.Forward := True;
+  MsWord.Selection.Find.Wrap := 1;
+  MsWord.Selection.Find.Format := False;
+  MsWord.Selection.Find.MatchCase := False;
+  MsWord.Selection.Find.MatchWholeWord := False;
+  MsWord.Selection.Find.MatchWildcards := False;
+  MsWord.Selection.Find.MatchSoundsLike := False;
+  MsWord.Selection.Find.MatchAllWordForms := False;
+  MsWord.Selection.Find.Execute(Replace := 2);
+
+  MsWord.Selection.Find.ClearFormatting;
+  MsWord.Selection.Find.Replacement.ClearFormatting;
+  MsWord.Selection.Find.Replacement.Text:= dm.qFault.FieldByName('Primechanie').AsString;
+  MsWord.Selection.Find.Text := '[group]';
   MsWord.Selection.Find.Forward := True;
   MsWord.Selection.Find.Wrap := 1;
   MsWord.Selection.Find.Format := False;
@@ -229,10 +244,11 @@ var
   ID_smena : integer;
 
 begin
-  dm.qReps.SQL.Text := 'Select max(ID_smena) as id, datavremia, fio '
+  dm.qReps.SQL.Text := 'Select ID_smena as ID, datavremia, fio '
                       +'From db_cppn.Smena sm left join Polzovatel P '
                       +'ON sm.ID_polzovatel = P.ID_polzovatel left join Sotrudnik st '
-                      +'on P.id_sotrudnik = st.ID_sotrudnik';
+                      +'on P.id_sotrudnik = st.ID_sotrudnik '
+                      +'Where ID_smena = ' + dm.qSmena.FieldByName('ID_smena').AsString;
   dm.qReps.Open;
 
   MsWord := CreateOleObject('Word.Application');
@@ -312,7 +328,7 @@ end;
 
 procedure TfrmReport.BitBtn2Click(Sender: TObject);
 var
-  MSWord, bookmarks: Variant;
+  Excel: Variant;
   pathToTemplate : String;
   startDate, endDate : TDateTime;
   i : integer;
@@ -330,10 +346,12 @@ begin
 
   if dm.qReports.Active then dm.qReports.Close;
   dm.qReports.SQL.Text := 'SELECT O.Naimenovanie as Object, D.Naimenovanie as Datchik, '
-                    +'D.Oboznachenie, A.DV_obnaruzhena, A.Opisanie, '
-                    +'A.DV_zamechena, A.DV_ustranena '
+                    +'D.Oboznachenie, O.ID_object as ID_object, A.DV_obnaruzhena, A.Opisanie, '
+                    +' A.Neispravnost, A.Reshenie, A.Primechanie, '
+                    +'A.DV_zamechena, A.DV_ustranena, U.Uchastok as Uchastok '
                     + 'FROM Object O left join Datchik D '
-                    + 'ON O.ID_object = D.ID_object '
+                    + 'ON O.ID_object = D.ID_object left join Uchastok U '
+                    + 'ON O.ID_uchastok = U.ID_uchastok '
                     + 'left join Avaria A '
                     + 'ON D.ID_datchik = A.ID_datchik '
                     + 'Where A.DV_obnaruzhena between '
@@ -346,49 +364,59 @@ begin
 
   if dm.qReports.RecordCount > 0 then
   begin
-      MsWord := CreateOleObject('Word.Application');
-
-      pathToTemplate := ExtractFilePath(Application.ExeName) + 'reports\Журнал аварийных ситуаций.dot';
-      MsWord.Documents.Add(pathToTemplate);
+      Excel := CreateOleObject('Excel.Application');
+      pathToTemplate := ExtractFilePath(Application.ExeName) + 'reports\Журнал аварийных ситуаций.xlt';
+      excel.Workbooks.Open[pathToTemplate];
 
       step := self.ProgressBar2.Max / dm.qReports.RecordCount;
       totalStep := 0;
+
+      excel.Workbooks[1].Worksheets[1].Range['B4']
+            := 'C  ' + sDate + '  по  ' + eDate;
 
       for i := 1 to dm.qReports.RecordCount do
         begin
             dm.qReports.RecNo := i;
 
-            MsWord.ActiveDocument.Tables.Item(1).Rows.Add(EmptyParam);
+            excel.Workbooks[1].Worksheets[1].Range['A'+IntToStr(i+7)]
+            := dm.qReports.FieldByName('Uchastok').AsString;
 
-            MsWord.ActiveDocument.Tables.Item(1).Cell(i+1,1).Range.Text := IntToStr(i);
-            MsWord.ActiveDocument.Tables.Item(1).Cell(i+1,2).Range.Text := dm.qReports.FieldByName('Object').AsString;
-            MsWord.ActiveDocument.Tables.Item(1).Cell(i+1,3).Range.Text := dm.qReports.FieldByName('Datchik').AsString
-                                                                            + ' (' + dm.qReports.FieldByName('Oboznachenie').AsString + ')';
-            MsWord.ActiveDocument.Tables.Item(1).Cell(i+1,4).Range.Text := dm.qReports.FieldByName('DV_obnaruzhena').AsString;
-            MsWord.ActiveDocument.Tables.Item(1).Cell(i+1,5).Range.Text := dm.qReports.FieldByName('Opisanie').AsString;
-            if not dm.qReports.FieldByName('DV_zamechena').IsNull then
-                MsWord.ActiveDocument.Tables.Item(1).Cell(i+1,6).Range.Text
-                      := FloatToStrF(dm.qReports.FieldByName('DV_zamechena').AsFloat, fffixed, 10, 4);
-            if not dm.qReports.FieldByName('DV_ustranena').IsNull then
-                MsWord.ActiveDocument.Tables.Item(1).Cell(i+1,7).Range.Text
-                      := FloatToStrF(dm.qReports.FieldByName('DV_ustranena').AsFloat, fffixed, 10, 4);
+            excel.Workbooks[1].Worksheets[1].Range['B'+IntToStr(i+7)]
+            := dm.qReports.FieldByName('Object').AsString;
+
+            excel.Workbooks[1].Worksheets[1].Range['C'+IntToStr(i+7)]
+            := dm.qReports.FieldByName('Datchik').AsString;
+
+            excel.Workbooks[1].Worksheets[1].Range['D'+IntToStr(i+7)]
+            := dm.qReports.FieldByName('Oboznachenie').AsString;
+
+            excel.Workbooks[1].Worksheets[1].Range['E'+IntToStr(i+7)]
+            := FormatDateTime('dd.mm.yyyy hh:nn:ss', dm.qReports.FieldByName('DV_obnaruzhena').AsDateTime);
+
+            excel.Workbooks[1].Worksheets[1].Range['F'+IntToStr(i+7)]
+            := dm.qReports.FieldByName('Opisanie').AsString;
+
+            excel.Workbooks[1].Worksheets[1].Range['G'+IntToStr(i+7)]
+            := dm.qReports.FieldByName('Neispravnost').AsString;
+
+            excel.Workbooks[1].Worksheets[1].Range['H'+IntToStr(i+7)]
+            := dm.qReports.FieldByName('Reshenie').AsString;
+
+            excel.Workbooks[1].Worksheets[1].Range['I'+IntToStr(i+7)]
+            := dm.qReports.FieldByName('Primechanie').AsString;
+
             totalStep := totalStep + step;
-            self.ProgressBar1.Position := Round(totalStep);
+            self.ProgressBar2.Position := Round(totalStep);
         end;
 
-        MsWord.ActiveDocument.Tables.Item(1).Rows.Item(1).Select;
-        MsWord.Selection.Font.Bold := 1;
-
-
-        bookmarks := MsWord.ActiveDocument.Bookmarks;
-        SetBmText(bookmarks, 'startDate', sDate);
-        SetBmText(bookmarks, 'endDate', eDate);
-
-        MsWord.ActiveDocument.Range(0, 0).Select;
+        Excel.Workbooks[1].Worksheets[1].activate;
+        Excel.Visible := True;
 
         self.Close;
 
-        MsWord.Visible := True;
+        frmMain.ShowEvent('Формирование журнала аварийных ситуаций с '
+                        + FormatDateTime('dd.mm.yyyy', DateTimePicker5.DateTime)
+                        + ' по ' + FormatDateTime('dd.mm.yyyy', DateTimePicker7.DateTime));
   end
     else
   ShowMessage('За выбранный период АС не зафиксировано!');
@@ -405,15 +433,6 @@ var
   totalStep : real;
   temp : real;
 begin
-  {try
-        MsWord := GetActiveOleObject('Word.Application');
-  except
-      try
-          MsWord := CreateOleObject('Word.Application');
-      except
-          Exception.Create('Не удалось создать отчет. Неизвестная ошибка!');
-      end;
-  end; }
   self.DateTimePicker1.Time := self.DateTimePicker3.Time;
   self.DateTimePicker2.Time := self.DateTimePicker4.Time;
   startDate := self.DateTimePicker1.DateTime;
@@ -421,6 +440,8 @@ begin
 
   sDate := FormatDateTime('yyyy-mm-dd hh:nn:ss', startDate);
   eDate := FormatDateTime('yyyy-mm-dd hh:nn:ss', endDate);
+
+
 
   if dm.qReports.Active then dm.qReports.Close;
   dm.qReports.SQL.Text := 'SELECT O.Naimenovanie as Object, D.Naimenovanie as Datchik, '
@@ -445,6 +466,8 @@ begin
       pathToTemplate := ExtractFilePath(Application.ExeName) + 'reports\Журнал показаний.xlt';
       excel.Workbooks.Open[pathToTemplate];
 
+      excel.Workbooks[1].Worksheets[1].Range['B5']
+            := 'C  ' + sDate + '  по  ' + eDate;
 
       step := self.ProgressBar1.Max / dm.qReports.RecordCount;
       totalStep := 0;
@@ -478,6 +501,10 @@ begin
       Excel.Visible := True;
 
       self.Close;
+
+      frmMain.ShowEvent('Формирование журнала показаний с '
+                        + FormatDateTime('dd.mm.yyyy', DateTimePicker1.DateTime)
+                        + ' по ' + FormatDateTime('dd.mm.yyyy', DateTimePicker2.DateTime));
   end
       else
   ShowMessage('За выбранный период показания не зафиксированы!');
