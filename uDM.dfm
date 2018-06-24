@@ -72,7 +72,7 @@ object dm: Tdm
       item
         Name = 'ID_object'
         DataType = ftInteger
-        Value = 15
+        Value = 1
       end>
     SQL.Strings = (
       'Select * From Datchik'
@@ -759,7 +759,7 @@ object dm: Tdm
       item
         Name = 'ID_smena'
         DataType = ftInteger
-        Value = 5
+        Value = 2
       end>
     SQL.Strings = (
       'Select *'

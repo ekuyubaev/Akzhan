@@ -33,6 +33,8 @@ type
     Label8: TLabel;
     Label9: TLabel;
     Label10: TLabel;
+    Label11: TLabel;
+    DBLookupComboboxEh3: TDBLookupComboboxEh;
     procedure BitBtn1Click(Sender: TObject);
     procedure BitBtn2Click(Sender: TObject);
   private

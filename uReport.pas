@@ -209,8 +209,10 @@ begin
   MsWord.Selection.Find.MatchAllWordForms := False;
   MsWord.Selection.Find.Execute(Replace := 2);
 
-  dm.qReps.SQL.Text := 'Select * From db_cppn.Sotrudnik '
-                      +'Where ID_sotrudnik = ' + IntToStr(frmMain.user);
+  dm.qReps.SQL.Text := 'Select * From Smena Sm left join Polzovatel Pl '
+                      + ' ON Sm.ID_polzovatel = Pl.ID_polzovatel left join Sotrudnik St '
+                      +' ON Pl.ID_sotrudnik = St.ID_sotrudnik '
+                      +'Where ID_smena = ' + dm.qFault.FieldByName('ID_smena').AsString;
   dm.qReps.Open;
 
   MsWord.Selection.Find.ClearFormatting;
@@ -297,6 +299,8 @@ begin
   for i := 1 to dm.qReps.RecordCount do
   begin
       dm.qReps.RecNo := i;
+
+      MsWord.ActiveDocument.Tables.Item(1).Rows.Add(EmptyParam);
 
       MsWord.ActiveDocument.Tables.Item(1).Cell(i+1,1).Range.Text := dm.qReps.FieldByName('fio').AsString;
       MsWord.ActiveDocument.Tables.Item(1).Cell(i+1,2).Range.Text := dm.qReps.FieldByName('Dolzhnost').AsString;

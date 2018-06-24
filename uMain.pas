@@ -211,6 +211,7 @@ type
     DBEdit5: TDBEdit;
     Label10: TLabel;
     DBEditEh1: TDBEditEh;
+    BitBtn16: TBitBtn;
     procedure BitBtn4Click(Sender: TObject);
     procedure BitBtn6Click(Sender: TObject);
     procedure BitBtn5Click(Sender: TObject);
@@ -266,6 +267,7 @@ type
     procedure BitBtn26Click(Sender: TObject);
     procedure BitBtn17Click(Sender: TObject);
     procedure BitBtn19Click(Sender: TObject);
+    procedure BitBtn16Click(Sender: TObject);
   private
     { Private declarations }
     sensorCount :integer;
@@ -453,6 +455,24 @@ begin
   frmSmena.ShowModal;
 end;
 
+procedure TfrmMain.BitBtn16Click(Sender: TObject);
+begin
+  stopInterrogation;
+  dm.qTemp.close;
+  dm.qTemp.SQL.Text := 'Update Model Set Mx = 0.02, Dx = 0.01 '
+                      + 'Where ID_model = 3 ';
+  dm.qTemp.ExecSQL;
+
+  dm.qTemp.close;
+  dm.qTemp.SQL.Text := 'Select ID_datchik From Model '
+                      + 'Where ID_model = 3 ';
+  dm.qTemp.Open;
+
+  faultSensorID := dm.qTemp.FieldByName('ID_datchik').AsInteger;
+
+  startInterrogation;
+end;
+
 procedure TfrmMain.BitBtn17Click(Sender: TObject);
 begin
   dm.qSostav.Insert;
@@ -466,8 +486,9 @@ end;
 
 procedure TfrmMain.BitBtn1Click(Sender: TObject);
 begin
-  dm.qDatchik.Locate('ID_datchik', dm.qSensors.FieldByName('ID_datchik').AsInteger, []);
   dm.qDatchik.Insert;
+  dm.qDatchik.FieldByName('ID_object').Value := dm.qObjects.FieldByName('ID_object').AsInteger;
+  frmSensors.DBLookupComboboxEh3.Enabled := false;
   frmSensors.ShowModal;
 end;
 
@@ -533,9 +554,13 @@ end;
 
 procedure TfrmMain.BitBtn2Click(Sender: TObject);
 begin
-  dm.qDatchik.Locate('ID_datchik', dm.qSensors.FieldByName('ID_datchik').AsInteger, []);
-  dm.qDatchik.Edit;
-  frmSensors.ShowModal;
+  if dm.qSensors.RecordCount > 0 then
+  begin
+      dm.qDatchik.Locate('ID_datchik', dm.qSensors.FieldByName('ID_datchik').AsInteger, []);
+      dm.qDatchik.Edit;
+      frmSensors.DBLookupComboboxEh3.Enabled := false;
+      frmSensors.ShowModal;
+  end;
 end;
 
 procedure TfrmMain.BitBtn30Click(Sender: TObject);
@@ -576,8 +601,8 @@ end;
 
 procedure TfrmMain.BitBtn7Click(Sender: TObject);
 begin
-  dm.qDatchik.Locate('ID_datchik', dm.qSensorsI.FieldByName('ID_datchik').AsInteger, []);
   dm.qDatchik.Insert;
+  frmSensors.DBLookupComboboxEh3.Enabled := true;
   frmSensors.ShowModal;
 end;
 
@@ -585,6 +610,7 @@ procedure TfrmMain.BitBtn8Click(Sender: TObject);
 begin
   dm.qDatchik.Locate('ID_datchik', dm.qSensorsI.FieldByName('ID_datchik').AsInteger, []);
   dm.qDatchik.Edit;
+  frmSensors.DBLookupComboboxEh3.Enabled := true;
   frmSensors.ShowModal;
 end;
 
@@ -736,10 +762,8 @@ begin
 end;
 
 procedure TfrmMain.Timer5Timer(Sender: TObject);
-var
-  I: Integer;
 begin
-  stopInterrogation;
+  {stopInterrogation;
   dm.qTemp.close;
   dm.qTemp.SQL.Text := 'Update Model Set Mx = 0.02, Dx = 0.01 '
                       + 'Where ID_model = 3 ';
@@ -752,7 +776,7 @@ begin
 
   faultSensorID := dm.qTemp.FieldByName('ID_datchik').AsInteger;
 
-  startInterrogation;
+  startInterrogation;  }
 
   Timer5.Enabled := false;
 end;

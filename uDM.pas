@@ -281,7 +281,7 @@ begin
   ind := qSensors.RecNo;
   qSensors.Close;
   qSensors.Open;
-  qSensors.RecNo := ind;
+  //qSensors.RecNo := ind;
 
   ind := qSensorsI.RecNo;
   qSensorsI.Close;

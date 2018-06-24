@@ -1,7 +1,7 @@
 object frmMain: TfrmMain
   Left = 0
   Top = 0
-  ActiveControl = BitBtn25
+  ActiveControl = Memo1
   BorderStyle = bsToolWindow
   Caption = #1040#1056#1052' '#1062#1055#1055#1053
   ClientHeight = 635
@@ -27,7 +27,7 @@ object frmMain: TfrmMain
     Top = 0
     Width = 1110
     Height = 635
-    ActivePage = TabSheet1
+    ActivePage = tsSchema
     Align = alClient
     Style = tsFlatButtons
     TabOrder = 0
@@ -1467,7 +1467,7 @@ object frmMain: TfrmMain
             OnClick = BitBtn11Click
           end
           object BitBtn30: TBitBtn
-            Left = 948
+            Left = 944
             Top = 2
             Width = 75
             Height = 25
@@ -1710,7 +1710,7 @@ object frmMain: TfrmMain
             OnClick = BitBtn10Click
           end
           object BitBtn27: TBitBtn
-            Left = 956
+            Left = 952
             Top = 2
             Width = 75
             Height = 25
@@ -2039,7 +2039,7 @@ object frmMain: TfrmMain
             ParentFont = False
           end
           object BitBtn28: TBitBtn
-            Left = 956
+            Left = 952
             Top = 2
             Width = 75
             Height = 25
@@ -2067,7 +2067,7 @@ object frmMain: TfrmMain
           object DBEditEh1: TDBEditEh
             Left = 356
             Top = 6
-            Width = 545
+            Width = 541
             Height = 21
             Anchors = [akLeft, akTop, akRight]
             DataField = 'Opisanie'
@@ -2248,6 +2248,9 @@ object frmMain: TfrmMain
       DoubleBuffered = True
       ImageIndex = 3
       ParentDoubleBuffered = False
+      DesignSize = (
+        1102
+        604)
       object Image1: TImage
         Left = 0
         Top = 0
@@ -20753,6 +20756,16 @@ object frmMain: TfrmMain
           TabOrder = 0
         end
       end
+      object BitBtn16: TBitBtn
+        Left = 35
+        Top = 232
+        Width = 25
+        Height = 25
+        Anchors = [akLeft, akBottom]
+        Caption = #1040#1057
+        TabOrder = 1
+        OnClick = BitBtn16Click
+      end
     end
     object tsLogin: TTabSheet
       Caption = 'tsLogin'
@@ -21844,6 +21857,7 @@ object frmMain: TfrmMain
             Title.Font.Name = 'Tahoma'
             Title.Font.Style = [fsBold]
             Title.TitleButton = True
+            Visible = False
             Width = 300
           end>
         object RowDetailData: TRowDetailPanelControlEh
@@ -21866,7 +21880,7 @@ object frmMain: TfrmMain
           1098
           37)
         object BitBtn29: TBitBtn
-          Left = 956
+          Left = 952
           Top = 8
           Width = 75
           Height = 25

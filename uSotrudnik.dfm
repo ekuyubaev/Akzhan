@@ -222,9 +222,9 @@ object frmSotrudnik: TfrmSotrudnik
     object Label4: TLabel
       Left = 16
       Top = 193
-      Width = 51
+      Width = 70
       Height = 13
-      Caption = #1058#1077#1083#1077#1092#1086#1085
+      Caption = #1055#1088#1080#1084#1077#1095#1072#1085#1080#1077
       FocusControl = DBEdit2
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -254,7 +254,7 @@ object frmSotrudnik: TfrmSotrudnik
       Width = 250
       Height = 21
       DataField = 'FIO'
-      DataSource = dm.dsUser
+      DataSource = dm.dsSotrudnik
       TabOrder = 1
     end
     object DBEdit2: TDBEdit
